@@ -1,28 +1,7 @@
 import processing.core.PApplet;
 import processing.event.KeyEvent;
 
-class Camera {
-    static final float SHIFT_HORIZ = 20;
-    static final float SHIFT_VERT = 20;
-    float x;
-    float y;
-    Camera() {
-        x = 0;
-        y = 0;
-    }
-    void moveLeft() {
-        x += SHIFT_HORIZ;
-    }
-    void moveRight() {
-        x -= SHIFT_HORIZ;
-    }
-    void moveUp() {
-        y += SHIFT_HORIZ;
-    }
-    void moveDown() {
-        y -= SHIFT_HORIZ;
-    }
-}
+import components.Camera;
 
 public class GodSim extends PApplet {
 
@@ -38,7 +17,7 @@ public class GodSim extends PApplet {
     static final float MAP_PX_WIDTH = CELL_W * CELLS_WIDE;
     static final float MAP_PX_HEIGHT = CELL_H * CELLS_TALL;
 
-    Camera camera = new Camera();
+    Camera camera = new Camera(MAP_PX_WIDTH, MAP_PX_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     Tile[][] board;
 
@@ -86,29 +65,21 @@ public class GodSim extends PApplet {
         int DOWN = 40;
         int DOWN_WASD = 83;
         if (keyCode == LEFT || keyCode == LEFT_WASD) {
-            if (camera.x < 0) {
                 camera.moveLeft();
-            }
         } else if (keyCode == UP || keyCode == UP_WASD) {
-            println(camera.y);
-            if (camera.y < 0) {
-                camera.moveUp();
-            }
+            println(camera.getY());
+            camera.moveUp();
         } else if (keyCode == DOWN || keyCode == DOWN_WASD) {
-            println(camera.y);
-            if (camera.y > - (MAP_PX_HEIGHT - height)) {
+            println(camera.getY());
                 camera.moveDown();
-            }
         } else if (keyCode == RIGHT || keyCode == RIGHT_WASD) {
-            if (camera.x > - (MAP_PX_WIDTH - width)) {
                 camera.moveRight();
-            }
         }
     }
 
     public void draw() {
         background(255);
-        translate(camera.x, camera.y);
+        translate(camera.getX(), camera.getY());
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 Tile tile = board[i][j];

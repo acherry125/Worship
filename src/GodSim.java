@@ -2,6 +2,7 @@ import processing.core.PApplet;
 import processing.event.KeyEvent;
 
 import components.Camera;
+import components.Tile;
 
 public class GodSim extends PApplet {
 
@@ -21,17 +22,6 @@ public class GodSim extends PApplet {
 
     Tile[][] board;
 
-    class Tile {
-        float temp;
-        float water;
-        Tile() {
-        }
-        Tile(float temp, float water) {
-            this.temp = temp;
-            this.water = water;
-        }
-    }
-
     public void setup() {
         initializeBoard();
     }
@@ -46,9 +36,9 @@ public class GodSim extends PApplet {
         board = new Tile[(int)(CELLS_WIDE)][(int)(CELLS_TALL)];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                Tile currTile = new Tile();
-                currTile.temp =   (float) noise((float) (i * 2.5), (float) (j * 2.5)) * 100 + 50;
-                currTile.water =  (float) noise((float) (i * 1.5), (float) (j * 1.5)) * 100 + 50;
+                Tile currTile = new Tile(CELL_W, CELL_H);
+                currTile.setTemp((float) noise((float) (i * 2.5), (float) (j * 2.5)) * 100 + 50);
+                currTile.setWater((float) noise((float) (i * 1.5), (float) (j * 1.5)) * 100 + 50);
                 board[i][j] = currTile;
             }
         }
@@ -85,7 +75,7 @@ public class GodSim extends PApplet {
                 Tile tile = board[i][j];
                 float x = i * CELL_W;
                 float y = j * CELL_H; //<>//
-                fill(0, tile.water, 0);
+                fill(0, tile.getWater(), 0);
                 rect(x, y, CELL_W, CELL_H);
                 fill(0);
                 text(y, x, y + (CELL_H / 2));

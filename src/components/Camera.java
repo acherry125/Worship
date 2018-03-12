@@ -1,14 +1,14 @@
 package components;
 
 public class Camera {
-    static final float SHIFT_HORIZ = 20;
-    static final float SHIFT_VERT = 20;
-    float x;
-    float y;
-    float mapWidth;
-    float mapHeight;
-    float screenWidth;
-    float screenHeight;
+    private static final float SHIFT_HORIZ = 20;
+    private static final float SHIFT_VERT = 20;
+    private float x;
+    private float y;
+    private float mapWidth;
+    private float mapHeight;
+    private float screenWidth;
+    private float screenHeight;
     public Camera(float mapWidth, float mapHeight, float screenWidth, float screenHeight) {
         x = 0;
         y = 0;

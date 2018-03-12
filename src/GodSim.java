@@ -36,7 +36,7 @@ public class GodSim extends PApplet {
         board = new Tile[(int)(CELLS_WIDE)][(int)(CELLS_TALL)];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                Tile currTile = new Tile(CELL_W, CELL_H);
+                Tile currTile = new Tile(CELL_W, CELL_H, this);
                 currTile.setTemp((float) noise((float) (i * 2.5), (float) (j * 2.5)) * 100 + 50);
                 currTile.setWater((float) noise((float) (i * 1.5), (float) (j * 1.5)) * 100 + 50);
                 board[i][j] = currTile;
@@ -73,12 +73,7 @@ public class GodSim extends PApplet {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 Tile tile = board[i][j];
-                float x = i * CELL_W;
-                float y = j * CELL_H; //<>//
-                fill(0, tile.getWater(), 0);
-                rect(x, y, CELL_W, CELL_H);
-                fill(0);
-                text(y, x, y + (CELL_H / 2));
+                tile.draw(i, j);
             }
         }
     }

@@ -21,6 +21,7 @@ public class GodSim extends PApplet {
 
     ATile[][] board;
     ArrayList<ATile> spawnPts = new ArrayList<ATile>();
+    Villager villager;
 
     public void setup() {
         initializeBoard();
@@ -51,6 +52,10 @@ public class GodSim extends PApplet {
                 board[i][j] = initializeTile(i, j);
             }
         }
+
+        villager = new Villager(this, 200, 200, VillagerRoles.EXPLORER);
+        villager.setTarget(mouseX, mouseY);
+        villager.setBtree(new TestTask(villager));
     }
 
     public void keyPressed(KeyEvent event) {
@@ -82,6 +87,9 @@ public class GodSim extends PApplet {
                 tile.draw();
             }
         }
+        villager.setTarget(mouseX, mouseY);
+        villager.btree.execute();
+        villager.draw();
     }
 
     public static void main(String[] args) {

@@ -1,9 +1,11 @@
+import components.SpawnTile;
 import processing.core.PApplet;
 import processing.event.KeyEvent;
 import java.util.ArrayList;
 
 import components.Camera;
 import components.Tile;
+import components.Town;
 
 public class GodSim extends PApplet {
 
@@ -38,10 +40,11 @@ public class GodSim extends PApplet {
         board = new Tile[(int)(CELLS_WIDE)][(int)(CELLS_TALL)];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                Tile currTile = new Tile(i, j, CELL_W, CELL_H, this);
+                Tile currTile;
                 if (i == board.length / 2 && j == board[i].length / 2) {
-                    currTile.setAsSpawner();
-                    spawnPts.add(currTile);
+                    currTile = new SpawnTile(i, j, CELL_W, CELL_H, this);
+                } else {
+                    currTile = new Tile(i, j, CELL_W, CELL_H, this);
                 }
                 board[i][j] = currTile;
             }

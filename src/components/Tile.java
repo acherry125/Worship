@@ -3,16 +3,16 @@ import processing.core.PApplet;
 import static processing.core.PApplet.println;
 
 public class Tile {
-    private int x;
-    private int y;
-    private boolean spawner = false;
+    protected int x;
+    protected int y;
+    protected float cell_w;
+    protected float cell_h;
+
+    protected PApplet g;
     private boolean hasTree = false;
     private boolean hasStone = false;
     private float temp;
     private float water;
-    private float cell_w;
-    private float cell_h;
-    private PApplet g;
     public Tile(int x, int y, float cell_w, float cell_h, PApplet game) {
         this.x = x;
         this.y = y;
@@ -21,6 +21,44 @@ public class Tile {
         this.g = game;
         initialize();
     }
+
+    /** API **/
+    public float getWater() {
+        return this.water;
+    }
+    public float getTemp() {
+        return this.temp;
+    }
+    public boolean isSpawner() {
+        return false;
+    }
+    public void draw() {
+        if (getWater() > 0.66) {
+            int green = 200;
+            drawSquareBase(0, green, (int)(getWater() * 255));
+        } else {
+            int otherColors = 80;
+            drawSquareBase(otherColors, (int) getTemp(), otherColors);
+            if (hasTree) {
+                drawTree();
+            } else if (hasStone) {
+                drawStone();
+            }
+        }
+        g.textSize(cell_w / 5);
+        g.fill(200, 200, 210);
+        //g.text(String.format("%d, %d", x, y), xPixel + 5, yPixel + (cell_h / 2));
+    }
+
+    /** Protected Methods **/
+    protected void drawSquareBase(int red, int green, int blue) {
+        g.fill(red, green, blue);
+        float xPixel = x * cell_w;
+        float yPixel = y * cell_h;
+        g.rect(xPixel, yPixel, cell_w, cell_h);
+    }
+
+    /** Private Methods **/
     private void initialize() {
         float noise1 = (float) g.noise((float) (x*2.5), (float) (y*2.5));
         float noise2 = (float) g.noise((float) (x * 1.5), (float) (y * 1.5));
@@ -45,22 +83,7 @@ public class Tile {
             hasStone = true;
         }
     }
-    public float getWater() {
-        return this.water;
-    }
-    public float getTemp() {
-        return this.temp;
-    }
-    public void setAsSpawner() {
-        this.spawner = true;
-    }
-    public void drawSquareBase(int red, int green, int blue) {
-        g.fill(red, green, blue);
-        float xPixel = x * cell_w;
-        float yPixel = y * cell_h;
-        g.rect(xPixel, yPixel, cell_w, cell_h);
-    }
-    public void drawHut() {
+    private void drawHut() {
         g.fill(255, 100, 0);
         float padding = 10;
         float pX = (x * cell_w) + padding;
@@ -79,7 +102,7 @@ public class Tile {
         g.triangle(x1, y1 - 3, x2, y2 - 20, x3, y3 - 20);
     }
 
-    public void drawTree() {
+    private void drawTree() {
         float padding = 10;
         float pX = (x * cell_w) + padding;
         float pY = (y * cell_h) + padding;
@@ -99,7 +122,7 @@ public class Tile {
         g.triangle(x1, y1, x2, y2, x3, y3);
     }
 
-    public void drawStone() {
+    private void drawStone() {
         float padding = 10;
         float pX = (x * cell_w) + padding;
         float pY = (y * cell_h) + padding;
@@ -111,33 +134,5 @@ public class Tile {
         g.ellipse(pX, pY, pWidth, pHeight);
         g.ellipse(pX + 40, pY + 34, pWidth / 3, pHeight / 3);
         g.ellipse(pX + 5, pY + 5, pWidth / 4, pHeight / 3);
-    }
-
-    public void draw() {
-
-        if (spawner) {
-            int red = 255;
-            int green = 140;
-            int blue = 0;
-            g.fill(red, green, blue);
-            drawSquareBase(red, green, blue);
-        }
-        else if (getWater() > 0.66 && !spawner) {
-            int green = 200;
-            drawSquareBase(0, green, (int)(getWater() * 255));
-        } else {
-            int otherColors = 80;
-            drawSquareBase(otherColors, (int)getTemp(), otherColors);
-            if (hasTree) {
-                drawTree();
-            } else if (hasStone) {
-                drawStone();
-            }
-        }
-
-
-        g.textSize(cell_w / 5);
-        g.fill(200, 200, 210);
-        //g.text(String.format("%d, %d", x, y), xPixel + 5, yPixel + (cell_h / 2));
     }
 }

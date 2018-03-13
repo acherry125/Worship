@@ -32,13 +32,15 @@ public class GodSim extends PApplet {
     }
 
     ATile initializeTile(int x, int y) {
-        ATile currTile;
         if (x == board.length / 2 && y == board[x].length / 2) {
-            currTile = new SpawnTile(x, y, CELL_W, CELL_H, this);
+            return new SpawnTile(x, y, CELL_W, CELL_H, this);
         } else {
-            currTile = new ReachableTile(x, y, CELL_W, CELL_H, this);
+            float waterNoise = (float) noise(x, y);
+            if (waterNoise > 0.66) {
+                return new ReachableTile(x, y, CELL_W, CELL_H, this);
+            }
+            return new ReachableTile(x, y, CELL_W, CELL_H, this);
         }
-        return currTile;
     }
 
     void initializeBoard() {

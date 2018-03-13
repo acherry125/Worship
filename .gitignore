@@ -8,6 +8,8 @@ cmake-build-release/
 
 # IntelliJ
 out/
+.idea
+*.xml
 
 # JIRA plugin
 atlassian-ide-plugin.xml

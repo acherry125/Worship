@@ -9,8 +9,8 @@ public class GodSim extends PApplet {
     static final float SCREEN_WIDTH = 1000;
     static final float SCREEN_HEIGHT = 700;
 
-    static final float CELLS_WIDE = 20;
-    static final float CELLS_TALL = 20;
+    static final float CELLS_WIDE = 30;
+    static final float CELLS_TALL = 30;
 
     static final float CELL_W = 100;
     static final float CELL_H = 100;

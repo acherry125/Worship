@@ -33,12 +33,11 @@ public class ReachableTile extends ATile {
      * Draw a hut on this tile
      */
     private void drawHut() {
-        g.fill(255, 100, 0);
         float padding = 10;
         float pX = (x * cell_w) + padding;
-        float pY = (y * cell_h) + padding;
+        float pY = (y * cell_h) + 3*padding;
         float pWidth = cell_w - 2*padding;
-        float pHeight = cell_h - 2*padding;
+        float pHeight = cell_h - 6*padding;
 
         float x1 = pX + (pWidth / 2);
         float y1 = pY;
@@ -47,8 +46,10 @@ public class ReachableTile extends ATile {
         float x3 = pX + pWidth;
         float y3 = pY + pHeight;
 
+        g.fill(255, 100, 0);
         g.triangle(x1, y1, x2, y2, x3, y3);
-        g.triangle(x1, y1 - 3, x2, y2 - 20, x3, y3 - 20);
+        g.fill(255, 100, 100);
+        g.rect(x2 + 4, y2, pWidth - 8, 25);
     }
 
     /**

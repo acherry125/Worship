@@ -2,7 +2,7 @@ package components;
 
 import processing.core.PApplet;
 
-public class SpawnTile extends Tile {
+public class SpawnTile extends ReachableTile {
     public SpawnTile(int x, int y, float cell_w, float cell_h, PApplet game) {
         super(x, y, cell_w, cell_h, game);
     }
@@ -19,5 +19,10 @@ public class SpawnTile extends Tile {
         int blue = 0;
         g.fill(red, green, blue);
         drawSquareBase(red, green, blue);
+    }
+
+    @Override
+    protected void calculateResource() {
+        return;
     }
 }

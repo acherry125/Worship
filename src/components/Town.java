@@ -1,9 +1,9 @@
 package components;
 
 public class Town {
-    Tile[][] board;
-    Tile[][] buildings;
-    Town(Tile[][] board) {
+    ATile[][] board;
+    ATile[][] buildings;
+    Town(ATile[][] board) {
         this.board = board;
     }
 }

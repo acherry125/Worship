@@ -1,11 +1,7 @@
-import components.SpawnTile;
+import components.*;
 import processing.core.PApplet;
 import processing.event.KeyEvent;
 import java.util.ArrayList;
-
-import components.Camera;
-import components.Tile;
-import components.Town;
 
 public class GodSim extends PApplet {
 
@@ -23,8 +19,8 @@ public class GodSim extends PApplet {
 
     Camera camera = new Camera(MAP_PX_WIDTH, MAP_PX_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-    Tile[][] board;
-    ArrayList<Tile> spawnPts = new ArrayList<Tile>();
+    ATile[][] board;
+    ArrayList<ATile> spawnPts = new ArrayList<ATile>();
 
     public void setup() {
         initializeBoard();
@@ -37,14 +33,14 @@ public class GodSim extends PApplet {
 
     void initializeBoard() {
         // initialize the board
-        board = new Tile[(int)(CELLS_WIDE)][(int)(CELLS_TALL)];
+        board = new ATile[(int)(CELLS_WIDE)][(int)(CELLS_TALL)];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                Tile currTile;
+                ATile currTile;
                 if (i == board.length / 2 && j == board[i].length / 2) {
                     currTile = new SpawnTile(i, j, CELL_W, CELL_H, this);
                 } else {
-                    currTile = new Tile(i, j, CELL_W, CELL_H, this);
+                    currTile = new ReachableTile(i, j, CELL_W, CELL_H, this);
                 }
                 board[i][j] = currTile;
             }
@@ -76,7 +72,7 @@ public class GodSim extends PApplet {
         translate(camera.getX(), camera.getY());
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                Tile tile = board[i][j];
+                ATile tile = board[i][j];
                 tile.draw();
             }
         }

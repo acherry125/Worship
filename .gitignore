@@ -21,3 +21,5 @@ fabric.properties
 \.idea/**/*.xml
 
 *.iml
+
+*.java___jb_tmp___

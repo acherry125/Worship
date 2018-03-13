@@ -10,21 +10,21 @@ public class ReachableTile extends ATile {
     }
 
     public void draw() {
-        if (getWater() > 0.66) {
-            int green = 200;
-            drawSquareBase(0, green, (int)(getWater() * 255));
-        } else {
-            int otherColors = 80;
-            drawSquareBase(otherColors, (int) getTemp(), otherColors);
-            if (hasTree) {
-                drawTree();
-            } else if (hasStone) {
-                drawStone();
-            }
+        int otherColors = 80;
+        drawSquareBase(otherColors, (int) getTemp(), otherColors);
+        if (hasTree) {
+            drawTree();
+        } else if (hasStone) {
+            drawStone();
         }
         g.textSize(cell_w / 5);
         g.fill(200, 200, 210);
         //g.text(String.format("%d, %d", x, y), xPixel + 5, yPixel + (cell_h / 2));
+    }
+
+    @Override
+    public boolean isReachable() {
+        return true;
     }
 
     /* Draw a hut on this tile */

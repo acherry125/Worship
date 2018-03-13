@@ -38,7 +38,7 @@ public class GodSim extends PApplet {
         } else {
             float waterNoise = (float) noise(x, y);
             if (waterNoise > 0.66) {
-                return new ReachableTile(x, y, CELL_W, CELL_H, this);
+                return new WaterTile(x, y, CELL_W, CELL_H, this);
             }
             return new ReachableTile(x, y, CELL_W, CELL_H, this);
         }

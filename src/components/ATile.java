@@ -15,7 +15,6 @@ public abstract class ATile {
     // the GodSim instance that instantiates this tile
     protected PApplet g;
     private float temp;
-    private float water;
     /* Constructor */
     public ATile(int x, int y, float cell_w, float cell_h, PApplet game) {
         this.x = x;
@@ -27,10 +26,6 @@ public abstract class ATile {
     }
 
     /** API **/
-    /* Get the water of this tile */
-    public float getWater() {
-        return this.water;
-    }
     /* Get the temperature of this tile */
     public float getTemp() {
         return this.temp;
@@ -41,6 +36,9 @@ public abstract class ATile {
     }
     /* Draw this tile to the screen */
     abstract public void draw();
+
+    /* Can this tile be entered by a villager */
+    abstract public boolean isReachable();
 
     /** Protected Methods **/
     protected void drawSquareBase(int red, int green, int blue) {
@@ -57,7 +55,6 @@ public abstract class ATile {
     /* Initialize this tile based on its location */
     protected void initialize() {
         calculateTemp();
-        calculateWater();
         calculateResource();
     }
     /* Find the temperature of the tile */
@@ -67,10 +64,5 @@ public abstract class ATile {
         float offset = 230 - minTemp;
         float temp = (noise1 * offset) + minTemp;
         this.temp = temp;
-    }
-    /* Find the water content of this tile, used for deciding if this is a water tile */
-    private void calculateWater() {
-        float water = (float) g.noise((float) (x * 1.5), (float) (y * 1.5));
-        this.water = water;
     }
 }

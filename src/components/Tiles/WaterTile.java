@@ -21,6 +21,10 @@ public class WaterTile extends ATile {
         return true;
     }
 
+    /**
+     * Get the water parameter
+     * @return the value of this tile's water ratio
+     */
     protected float getWater() {
         return this.water;
     }

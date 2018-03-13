@@ -3,16 +3,29 @@ import processing.core.PApplet;
 import static processing.core.PApplet.println;
 
 public abstract class ATile {
-    // tile index horizontally
+    /**
+     * tile index horizontally
+     */
     protected int x;
-    // tile index vertically
+
+    /**
+     * tile index vertically
+     */
     protected int y;
-    // the width of this tile in px
+
+    /**
+     * the width of this tile in px
+     */
     protected float cell_w;
-    // the height of this tile in px
+
+    /**
+     * the height of this tile in px
+     */
     protected float cell_h;
 
-    // the GodSim instance that instantiates this tile
+    /**
+     * the GodSim instance that instantiates this tile
+      */
     protected PApplet g;
     private float temp;
     /* Constructor */
@@ -25,22 +38,43 @@ public abstract class ATile {
         initialize();
     }
 
-    /** API **/
-    /* Get the temperature of this tile */
+    /* API */
+
+    /**
+     * Get the temperature of the tile
+     * @return the temperature of this tile
+     */
     public float getTemp() {
         return this.temp;
     }
-    /* Can this tile spawn units? */
+
+    /**
+     * Determine if this is a spawning tile
+     * @return whether this tile spawns units
+     */
     public boolean isSpawner() {
         return false;
     }
-    /* Draw this tile to the screen */
+
+    /**
+     * Draw this tile to the screen
+     */
     abstract public void draw();
 
-    /* Can this tile be entered by a villager */
+    /**
+     * Determine if this is a reachable tile.
+     * @return whether this tile be entered by a villager
+     */
     abstract public boolean isReachable();
 
-    /** Protected Methods **/
+    /* Protected Methods */
+
+    /**
+     *  Draw the tile's square with the given color
+     *  @param red the color value {@code int} for red from 0 to 255
+     *  @param green the color value {@code int} for green from 0 to 255
+     *  @param blue the color value {@code int} for blue from 0 to 255
+     */
     protected void drawSquareBase(int red, int green, int blue) {
         g.fill(red, green, blue);
         float xPixel = x * cell_w;
@@ -48,16 +82,24 @@ public abstract class ATile {
         g.rect(xPixel, yPixel, cell_w, cell_h);
     }
 
-    /* Determine if this tile has a resource based on its position, and set it */
+    /**
+     * Determine if this tile has a resource based on its position, and set it
+     */
     abstract protected void calculateResource();
 
-    /** Private Methods **/
-    /* Initialize this tile based on its location */
+    /* Private Methods */
+
+    /**
+     * Initialize this tile based on its location
+     */
     protected void initialize() {
         calculateTemp();
         calculateResource();
     }
-    /* Find the temperature of the tile */
+
+    /**
+     * Set the temperature of the tile
+     */
     private void calculateTemp() {
         float noise1 = (float) g.noise((float) (x*2.5), (float) (y*2.5));
         float minTemp = 120;

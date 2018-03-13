@@ -10,6 +10,7 @@ public class ReachableTile extends ATile {
         super(x, y, cell_w, cell_h, game);
     }
 
+    @Override
     public void draw() {
         int otherColors = 80;
         drawSquareBase(otherColors, (int) getTemp(), otherColors);
@@ -28,7 +29,9 @@ public class ReachableTile extends ATile {
         return true;
     }
 
-    /* Draw a hut on this tile */
+    /**
+     * Draw a hut on this tile
+     */
     private void drawHut() {
         g.fill(255, 100, 0);
         float padding = 10;
@@ -48,7 +51,9 @@ public class ReachableTile extends ATile {
         g.triangle(x1, y1 - 3, x2, y2 - 20, x3, y3 - 20);
     }
 
-    /* Draw a tree on this tile */
+    /**
+     * Draw a tree on this tile
+     */
     private void drawTree() {
         float padding = 10;
         float pX = (x * cell_w) + padding;
@@ -69,7 +74,9 @@ public class ReachableTile extends ATile {
         g.triangle(x1, y1, x2, y2, x3, y3);
     }
 
-    /* Draw stone on this tile */
+    /**
+     * Draw stone on this tile
+     */
     private void drawStone() {
         float padding = 10;
         float pX = (x * cell_w) + padding;
@@ -84,7 +91,7 @@ public class ReachableTile extends ATile {
         g.ellipse(pX + 5, pY + 5, pWidth / 4, pHeight / 3);
     }
 
-    /* Determine if this tile has a resource based on its position, and set it */
+    @Override
     protected void calculateResource() {
         float res = (float) g.noise((float) (x * 1.25), (float) (y * 1.25));
         if (res > 0.6) {

@@ -7,6 +7,7 @@ public class Tile {
     private int y;
     private boolean spawner = false;
     private boolean hasTree = false;
+    private boolean hasStone = false;
     private float temp;
     private float water;
     private float cell_w;
@@ -24,11 +25,12 @@ public class Tile {
         float noise1 = (float) g.noise((float) (x*2.5), (float) (y*2.5));
         float noise2 = (float) g.noise((float) (x * 1.5), (float) (y * 1.5));
         float noise3 = (float) g.noise((float) (x * 1.25), (float) (y * 1.25));
+        float noise4 = (float) g.noise((float) (x * 1.1), (float) (y * 1.1));
         float minTemp = 120;
         float offset = 230 - minTemp;
         setTemp((noise1 * offset) + minTemp);
         setWater(noise2);
-        setTree(noise3);
+        setResource(noise3);
     }
     private void setTemp(float temp) {
         this.temp = temp;
@@ -36,9 +38,11 @@ public class Tile {
     private void setWater(float water) {
         this.water = water;
     }
-    private void setTree(float tree) {
-        if (tree > 0.6) {
+    private void setResource(float res) {
+        if (res > 0.6) {
             hasTree = true;
+        } else if (res < 0.25) {
+            hasStone = true;
         }
     }
     public float getWater() {
@@ -95,6 +99,20 @@ public class Tile {
         g.triangle(x1, y1, x2, y2, x3, y3);
     }
 
+    public void drawStone() {
+        float padding = 10;
+        float pX = (x * cell_w) + padding;
+        float pY = (y * cell_h) + padding;
+        float pWidth = cell_w - 2*padding;
+        float pHeight = cell_h - 2*padding;
+
+        g.fill(200,200,200);
+        g.ellipseMode(g.CORNER);
+        g.ellipse(pX, pY, pWidth, pHeight);
+        g.ellipse(pX + 40, pY + 34, pWidth / 3, pHeight / 3);
+        g.ellipse(pX + 5, pY + 5, pWidth / 4, pHeight / 3);
+    }
+
     public void draw() {
 
         if (spawner) {
@@ -112,6 +130,8 @@ public class Tile {
             drawSquareBase(otherColors, (int)getTemp(), otherColors);
             if (hasTree) {
                 drawTree();
+            } else if (hasStone) {
+                drawStone();
             }
         }
 

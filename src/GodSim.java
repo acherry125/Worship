@@ -27,15 +27,23 @@ public class GodSim extends PApplet {
     ArrayList<ATile> spawnPts = new ArrayList<ATile>();
     Villager villager;
 
+    @Override
     public void setup() {
         initializeBoard();
     }
 
+    @Override
     public void settings() {
         size((int) (SCREEN_WIDTH), (int) (SCREEN_HEIGHT));
         //fullScreen();
     }
 
+    /**
+     * Initialize a specific tile at the given board slot
+     * @param x the horizontal index of the tile in the board
+     * @param y the vertical index of the tile in the board
+     * @return the created tile
+     */
     ATile initializeTile(int x, int y) {
         if (x == board.length / 2 && y == board[x].length / 2) {
             return new SpawnTile(x, y, CELL_W, CELL_H, this);
@@ -48,8 +56,10 @@ public class GodSim extends PApplet {
         }
     }
 
+    /**
+     * Initialize the board
+     */
     void initializeBoard() {
-        // initialize the board
         board = new ATile[(int)(CELLS_WIDE)][(int)(CELLS_TALL)];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
@@ -62,6 +72,7 @@ public class GodSim extends PApplet {
         villager.setBtree(new TestTask(villager));
     }
 
+    @Override
     public void keyPressed(KeyEvent event) {
         int keyCode = event.getKeyCode();
         int LEFT = 37;
@@ -82,6 +93,8 @@ public class GodSim extends PApplet {
             camera.moveRight();
         }
     }
+
+    @Override
     public void draw() {
         background(255);
         translate(camera.getX(), camera.getY());
@@ -96,6 +109,10 @@ public class GodSim extends PApplet {
         villager.draw();
     }
 
+    /**
+     * Start the game
+     * @param args no additional args used
+     */
     public static void main(String[] args) {
         PApplet.main("GodSim");
     }

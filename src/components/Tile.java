@@ -3,16 +3,22 @@ import processing.core.PApplet;
 import static processing.core.PApplet.println;
 
 public class Tile {
+    // tile index horizontally
     protected int x;
+    // tile index vertically
     protected int y;
+    // the width of this tile in px
     protected float cell_w;
+    // the height of this tile in px
     protected float cell_h;
 
+    // the GodSim instance that instantiates this tile
     protected PApplet g;
     private boolean hasTree = false;
     private boolean hasStone = false;
     private float temp;
     private float water;
+    /* Constructor */
     public Tile(int x, int y, float cell_w, float cell_h, PApplet game) {
         this.x = x;
         this.y = y;
@@ -23,15 +29,19 @@ public class Tile {
     }
 
     /** API **/
+    /* Get the water of this tile */
     public float getWater() {
         return this.water;
     }
+    /* Get the temperature of this tile */
     public float getTemp() {
         return this.temp;
     }
+    /* Can this tile spawn units? */
     public boolean isSpawner() {
         return false;
     }
+    /* Draw this tile to the screen */
     public void draw() {
         if (getWater() > 0.66) {
             int green = 200;
@@ -59,30 +69,37 @@ public class Tile {
     }
 
     /** Private Methods **/
+    /* Initialize this tile based on its location */
     private void initialize() {
+        calculateTemp();
+        calculateWater();
+        calculateResource();
+    }
+    /* Find the temperature of the tile */
+    private void calculateTemp() {
         float noise1 = (float) g.noise((float) (x*2.5), (float) (y*2.5));
-        float noise2 = (float) g.noise((float) (x * 1.5), (float) (y * 1.5));
-        float noise3 = (float) g.noise((float) (x * 1.25), (float) (y * 1.25));
-        float noise4 = (float) g.noise((float) (x * 1.1), (float) (y * 1.1));
         float minTemp = 120;
         float offset = 230 - minTemp;
-        setTemp((noise1 * offset) + minTemp);
-        setWater(noise2);
-        setResource(noise3);
-    }
-    private void setTemp(float temp) {
+        float temp = (noise1 * offset) + minTemp;
         this.temp = temp;
     }
-    private void setWater(float water) {
+    /* Find the water content of this tile, used for deciding if this is a water tile */
+    private void calculateWater() {
+        float water = (float) g.noise((float) (x * 1.5), (float) (y * 1.5));
         this.water = water;
     }
-    private void setResource(float res) {
+
+    /* Determine if this tile has a resource based on its position, and set it */
+    private void calculateResource() {
+        float res = (float) g.noise((float) (x * 1.25), (float) (y * 1.25));
         if (res > 0.6) {
             hasTree = true;
         } else if (res < 0.25) {
             hasStone = true;
         }
     }
+
+    /* Draw a hut on this tile */
     private void drawHut() {
         g.fill(255, 100, 0);
         float padding = 10;
@@ -102,6 +119,7 @@ public class Tile {
         g.triangle(x1, y1 - 3, x2, y2 - 20, x3, y3 - 20);
     }
 
+    /* Draw a tree on this tile */
     private void drawTree() {
         float padding = 10;
         float pX = (x * cell_w) + padding;
@@ -122,6 +140,7 @@ public class Tile {
         g.triangle(x1, y1, x2, y2, x3, y3);
     }
 
+    /* Draw stone on this tile */
     private void drawStone() {
         float padding = 10;
         float pX = (x * cell_w) + padding;

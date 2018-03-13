@@ -1,4 +1,8 @@
 import components.*;
+import components.Tiles.ATile;
+import components.Tiles.ReachableTile;
+import components.Tiles.SpawnTile;
+import components.Tiles.WaterTile;
 import processing.core.PApplet;
 import processing.event.KeyEvent;
 import java.util.ArrayList;

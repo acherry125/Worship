@@ -1,4 +1,4 @@
-package components;
+package components.Tiles;
 
 import processing.core.PApplet;
 

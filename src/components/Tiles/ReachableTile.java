@@ -1,5 +1,6 @@
-package components;
+package components.Tiles;
 
+import components.Tiles.ATile;
 import processing.core.PApplet;
 
 public class ReachableTile extends ATile {

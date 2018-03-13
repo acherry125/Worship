@@ -31,18 +31,22 @@ public class GodSim extends PApplet {
         //fullScreen();
     }
 
+    ATile initializeTile(int x, int y) {
+        ATile currTile;
+        if (x == board.length / 2 && y == board[x].length / 2) {
+            currTile = new SpawnTile(x, y, CELL_W, CELL_H, this);
+        } else {
+            currTile = new ReachableTile(x, y, CELL_W, CELL_H, this);
+        }
+        return currTile;
+    }
+
     void initializeBoard() {
         // initialize the board
         board = new ATile[(int)(CELLS_WIDE)][(int)(CELLS_TALL)];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                ATile currTile;
-                if (i == board.length / 2 && j == board[i].length / 2) {
-                    currTile = new SpawnTile(i, j, CELL_W, CELL_H, this);
-                } else {
-                    currTile = new ReachableTile(i, j, CELL_W, CELL_H, this);
-                }
-                board[i][j] = currTile;
+                board[i][j] = initializeTile(i, j);
             }
         }
     }

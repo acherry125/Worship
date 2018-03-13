@@ -1,5 +1,6 @@
 import processing.core.PApplet;
 import processing.event.KeyEvent;
+import java.util.ArrayList;
 
 import components.Camera;
 import components.Tile;
@@ -21,6 +22,7 @@ public class GodSim extends PApplet {
     Camera camera = new Camera(MAP_PX_WIDTH, MAP_PX_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     Tile[][] board;
+    ArrayList<Tile> spawnPts = new ArrayList<Tile>();
 
     public void setup() {
         initializeBoard();
@@ -39,6 +41,7 @@ public class GodSim extends PApplet {
                 Tile currTile = new Tile(i, j, CELL_W, CELL_H, this);
                 if (i == board.length / 2 && j == board[i].length / 2) {
                     currTile.setAsSpawner();
+                    spawnPts.add(currTile);
                 }
                 board[i][j] = currTile;
             }

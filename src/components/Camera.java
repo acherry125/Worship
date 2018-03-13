@@ -1,4 +1,6 @@
 package components;
+import static processing.core.PApplet.println;
+
 
 public class Camera {
     private static final float SHIFT_HORIZ = 20;
@@ -10,8 +12,8 @@ public class Camera {
     private float screenWidth;
     private float screenHeight;
     public Camera(float mapWidth, float mapHeight, float screenWidth, float screenHeight) {
-        x = 0;
-        y = 0;
+        x = (-mapWidth / 2) + (screenWidth / 2);
+        y = (-mapHeight / 2) + (screenHeight / 2);
         this.mapWidth = mapWidth;
         this.mapHeight = mapHeight;
         this.screenWidth = screenWidth;

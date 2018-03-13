@@ -6,8 +6,8 @@ import components.Tile;
 
 public class GodSim extends PApplet {
 
-    static final float SCREEN_WIDTH = 800;
-    static final float SCREEN_HEIGHT = 800;
+    static final float SCREEN_WIDTH = 1000;
+    static final float SCREEN_HEIGHT = 700;
 
     static final float CELLS_WIDE = 20;
     static final float CELLS_TALL = 20;
@@ -37,6 +37,9 @@ public class GodSim extends PApplet {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 Tile currTile = new Tile(i, j, CELL_W, CELL_H, this);
+                if (i == board.length / 2 && j == board[i].length / 2) {
+                    currTile.setAsSpawner();
+                }
                 board[i][j] = currTile;
             }
         }
@@ -55,10 +58,8 @@ public class GodSim extends PApplet {
         if (keyCode == LEFT || keyCode == LEFT_WASD) {
             camera.moveLeft();
         } else if (keyCode == UP || keyCode == UP_WASD) {
-            println(camera.getY());
             camera.moveUp();
         } else if (keyCode == DOWN || keyCode == DOWN_WASD) {
-            println(camera.getY());
             camera.moveDown();
         } else if (keyCode == RIGHT || keyCode == RIGHT_WASD) {
             camera.moveRight();

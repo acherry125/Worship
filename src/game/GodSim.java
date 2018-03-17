@@ -1,11 +1,7 @@
 package game;
 
-import game.*;
-import game.Tiles.*;
-
 import processing.core.PApplet;
 import processing.event.KeyEvent;
-import java.util.ArrayList;
 
 public class GodSim extends PApplet {
 
@@ -25,8 +21,6 @@ public class GodSim extends PApplet {
 
     Board board;
     Town town;
-
-    ArrayList<ATile> spawnPts = new ArrayList<ATile>();
 
     @Override
     public void setup() {

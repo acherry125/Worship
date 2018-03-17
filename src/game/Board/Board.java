@@ -1,10 +1,13 @@
 package game.Board;
 
 import game.GodSim;
+import processing.core.PVector;
 
 public class Board {
-    GodSim g;
-    ATile[][] board;
+    private GodSim g;
+    private ATile[][] board;
+    private ATile spawn;
+
     public Board(GodSim g) {
         this.g = g;
         initialize();
@@ -27,7 +30,8 @@ public class Board {
      */
     ATile initializeTile(int x, int y) {
         if (x == board.length / 2 && y == board[x].length / 2) {
-            return new SpawnTile(x, y, g.CELL_W, g.CELL_H, g);
+            spawn = new SpawnTile(x, y, g.CELL_W, g.CELL_H, g);
+            return spawn;
         } else {
             float waterNoise = (float) g.noise(x, y);
             if (waterNoise > 0.66) {
@@ -37,6 +41,23 @@ public class Board {
         }
     }
 
+    public ATile getSpawnTile() {
+        return spawn;
+    }
+
+    public ATile getTile(PVector vector) {
+        return getTile(vector.x, vector.y);
+    }
+
+    public ATile getTile(float x, float y) {
+        if (x > g.MAP_PX_WIDTH || x < 0 || y > g.MAP_PX_HEIGHT || y < 0 ) {
+            throw new IndexOutOfBoundsException("Outside of board bounds.");
+        }
+        int tileIndexX = (int) (x / g.CELL_W);
+        int tileIndexY = (int) (y / g.CELL_H);
+
+        return board[tileIndexX][tileIndexY];
+    }
 
     public void draw() {
         for (int i = 0; i < board.length; i++) {

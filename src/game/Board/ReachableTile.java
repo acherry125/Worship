@@ -27,6 +27,16 @@ public class ReachableTile extends ATile {
         return true;
     }
 
+    @Override
+    protected void calculateResource() {
+        float res = (float) g.noise((float) (x * 1.25), (float) (y * 1.25));
+        if (res > 0.6) {
+            hasTree = true;
+        } else if (res < 0.25) {
+            hasStone = true;
+        }
+    }
+
     /**
      * Draw a hut on this tile
      */
@@ -88,15 +98,5 @@ public class ReachableTile extends ATile {
         g.ellipse(pX, pY, pWidth, pHeight);
         g.ellipse(pX + 40, pY + 34, pWidth / 3, pHeight / 3);
         g.ellipse(pX + 5, pY + 5, pWidth / 4, pHeight / 3);
-    }
-
-    @Override
-    protected void calculateResource() {
-        float res = (float) g.noise((float) (x * 1.25), (float) (y * 1.25));
-        if (res > 0.6) {
-            hasTree = true;
-        } else if (res < 0.25) {
-            hasStone = true;
-        }
     }
 }

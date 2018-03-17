@@ -16,12 +16,6 @@ public class Town {
         initialize();
     }
 
-    private void initialize() {
-        Villager villager = spawn();
-        //villager.setTarget(g.mouseX, g.mouseY);
-        villager.setBtree(new TestTask(villager));
-    }
-
     /**
      * Spawns a villager on the map at the spawn point
      * @return the spawned Villager
@@ -39,5 +33,11 @@ public class Town {
             villager.btree.execute();
             villager.draw();
         }
+    }
+
+    private void initialize() {
+        Villager villager = spawn();
+        //villager.setTarget(g.mouseX, g.mouseY);
+        villager.setBtree(new TestTask(villager));
     }
 }

@@ -28,13 +28,17 @@ public class Villager {
     this.btree.execute();
   }
 
-  public void move(float xPos, float yPos) {
-    this.xPos += xPos;
-    this.yPos += yPos;
+  public void move() {
+    this.xPos += target.x;
+    this.yPos += target.y;
   }
 
   public void setTarget(float xPos, float yPos) {
     this.target = new PVector(xPos, yPos);
+  }
+
+  public void setVector(PVector vector) {
+    target = vector;
   }
 
   public PVector getTarget() {
@@ -46,7 +50,18 @@ public class Villager {
   }
 
   public void draw() {
-    g.fill(0, 0, 0);
-    g.ellipse(xPos, yPos, 20, 20);
+
+    PVector curr = new PVector(xPos, yPos);
+    curr.add(target.copy().mult(2));
+    g.ellipseMode(g.CENTER);
+    g.rectMode(g.CENTER);
+    g.fill(254,176,80);
+    g.ellipse(xPos, yPos, 40, 40);
+    g.fill(255,206,145);
+    g.ellipse(curr.x, curr.y, 26, 26);
+    g.fill(0,0,0);
+    g.ellipse(curr.x, curr.y, 10, 10);
+
+    move();
   }
 }

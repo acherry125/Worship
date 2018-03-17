@@ -11,6 +11,8 @@ public class ReachableTile extends ATile {
     @Override
     public void draw() {
         int otherColors = 80;
+        g.ellipseMode(g.CORNER);
+        g.rectMode(g.CORNER);
         drawSquareBase(otherColors, (int) getTemp(), otherColors);
         if (hasTree) {
             drawTree();

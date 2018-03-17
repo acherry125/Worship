@@ -18,7 +18,7 @@ public class TestTask extends Task {
       PVector directionToMove = target.sub(villager.getPosition());
 
       directionToMove.normalize();
-      villager.move(directionToMove.x, directionToMove.y);
+      villager.setVector(directionToMove);
     }
     return 0;
   }

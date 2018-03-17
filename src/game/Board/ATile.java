@@ -43,14 +43,14 @@ public abstract class ATile {
      * Get the x position of the tile
      * @return the x position of the tile
      */
-    public float getX() { return this.temp; }
+    public float getXPx() { return this.x * g.CELL_W; }
 
     /**
      * Get the y position of the tile
      * @return the y position of the tile
      */
-    public float getY() {
-        return this.y;
+    public float getYPx() {
+        return this.y * g.CELL_H;
     }
 
     /**

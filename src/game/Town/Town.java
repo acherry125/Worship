@@ -24,7 +24,7 @@ public class Town {
 
     public Villager spawn() {
         ATile spawnTile = board.getSpawnTile();
-        Villager villager = new Villager(g, spawnTile.getX(), spawnTile.getY(), VillagerRoles.EXPLORER);
+        Villager villager = new Villager(g, spawnTile.getXPx(), spawnTile.getYPx(), VillagerRoles.EXPLORER);
         villagers.add(villager);
         return villager;
     }

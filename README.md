@@ -12,3 +12,5 @@ WIP Readme.
 -Ensure you have an output directory set in project structure
 -Build project
 -Run game.GodSim class (contains main method).
+
+refactor push test aj

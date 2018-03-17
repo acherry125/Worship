@@ -28,7 +28,7 @@ public class Board {
      * @param y the vertical index of the tile in the board
      * @return the created tile
      */
-    ATile initializeTile(int x, int y) {
+    private ATile initializeTile(int x, int y) {
         if (x == board.length / 2 && y == board[x].length / 2) {
             spawn = new SpawnTile(x, y, g.CELL_W, g.CELL_H, g);
             return spawn;
@@ -41,14 +41,29 @@ public class Board {
         }
     }
 
+    /**
+     * Get the spawn tile.
+     * @return The spawn tile.
+     */
     public ATile getSpawnTile() {
         return spawn;
     }
 
+    /**
+     * Retrieve the tile at the given pixel location
+     * @param vector the PVector describing the px location of the tile
+     * @return the Tile at the location
+     */
     public ATile getTile(PVector vector) {
         return getTile(vector.x, vector.y);
     }
 
+    /**
+     * Retrieve the tile at the given pixel location
+     * @param x the x value of the px location of the tile
+     * @param y the y value of the px location of the tile
+     * @return the Tile at the location
+     */
     public ATile getTile(float x, float y) {
         if (x > g.MAP_PX_WIDTH || x < 0 || y > g.MAP_PX_HEIGHT || y < 0 ) {
             throw new IndexOutOfBoundsException("Outside of board bounds.");

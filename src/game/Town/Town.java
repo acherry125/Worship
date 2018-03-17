@@ -22,6 +22,10 @@ public class Town {
         villager.setBtree(new TestTask(villager));
     }
 
+    /**
+     * Spawns a villager on the map at the spawn point
+     * @return the spawned Villager
+     */
     public Villager spawn() {
         ATile spawnTile = board.getSpawnTile();
         Villager villager = new Villager(g, spawnTile.getXPx(), spawnTile.getYPx(), VillagerRoles.EXPLORER);

@@ -2,6 +2,7 @@ package game.Town;
 
 import java.util.ArrayList;
 
+import game.Board.ATile;
 import game.Board.Board;
 import game.GodSim;
 
@@ -16,14 +17,14 @@ public class Town {
     }
 
     private void initialize() {
-        Villager villager = new Villager(g, 200, 200, VillagerRoles.EXPLORER);
+        Villager villager = spawn();
         //villager.setTarget(g.mouseX, g.mouseY);
         villager.setBtree(new TestTask(villager));
-        villagers.add(villager);
     }
 
     public Villager spawn() {
-        Villager villager = new Villager(g, 200, 200, VillagerRoles.EXPLORER);
+        ATile spawnTile = board.getSpawnTile();
+        Villager villager = new Villager(g, spawnTile.getX(), spawnTile.getY(), VillagerRoles.EXPLORER);
         villagers.add(villager);
         return villager;
     }

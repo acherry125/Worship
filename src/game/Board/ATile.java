@@ -40,6 +40,20 @@ public abstract class ATile {
     /* API */
 
     /**
+     * Get the x position of the tile
+     * @return the x position of the tile
+     */
+    public float getX() { return this.temp; }
+
+    /**
+     * Get the y position of the tile
+     * @return the y position of the tile
+     */
+    public float getY() {
+        return this.y;
+    }
+
+    /**
      * Get the temperature of the tile
      * @return the temperature of this tile
      */

@@ -1,7 +1,4 @@
-package components;
-
-import static processing.core.PApplet.println;
-
+package game;
 
 public class Camera {
     private static final float SHIFT_HORIZ = 20;

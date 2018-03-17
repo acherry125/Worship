@@ -1,11 +1,9 @@
-package components.Tiles;
-
-import components.Tiles.ATile;
-import processing.core.PApplet;
+package game.Tiles;
+import game.GodSim;
 
 public class WaterTile extends ATile {
     protected float water;
-    public WaterTile(int x, int y, float cell_w, float cell_h, PApplet game) {
+    public WaterTile(int x, int y, float cell_w, float cell_h, GodSim game) {
         super(x, y, cell_w, cell_h, game);
         this.water = (float) g.noise((float) (x * 1.5), (float) (y * 1.5));
     }

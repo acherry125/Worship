@@ -1,4 +1,4 @@
-package components;
+package game;
 
 import processing.core.PApplet;
 import processing.core.PVector;
@@ -10,9 +10,9 @@ public class Villager {
   public Task btree;
   private double beliefInGod; // 1 is full belief, 0 is no belief.
   private PVector target;
-  protected PApplet g;
+  protected GodSim g;
 
-  public Villager(PApplet g, float xPos, float yPos, VillagerRoles role) {
+  public Villager(GodSim g, float xPos, float yPos, VillagerRoles role) {
     this.g = g;
     this.xPos = xPos;
     this.yPos = yPos;

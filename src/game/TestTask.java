@@ -1,4 +1,4 @@
-package components;
+package game;
 
 import processing.core.PVector;
 

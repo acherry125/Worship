@@ -1,4 +1,4 @@
-package components;
+package game;
 
 import java.util.HashMap;
 

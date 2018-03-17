@@ -1,16 +1,15 @@
-package components;
+package game;
 
 import java.util.ArrayList;
 
-import components.Tiles.ATile;
-import processing.core.PApplet;
+import game.Tiles.ATile;
+import game.GodSim;
 
 public class Town {
-    PApplet g;
-    ATile[][] board;
-    ATile[][] buildings;
+    GodSim g;
+    Board board;
     ArrayList<Villager> villagers = new ArrayList<Villager>();
-    public Town(ATile[][] board, PApplet g) {
+    public Town(Board board, GodSim g) {
         this.board = board;
         this.g = g;
         initialize();
@@ -21,6 +20,12 @@ public class Town {
         //villager.setTarget(g.mouseX, g.mouseY);
         villager.setBtree(new TestTask(villager));
         villagers.add(villager);
+    }
+
+    public Villager spawn() {
+        Villager villager = new Villager(g, 200, 200, VillagerRoles.EXPLORER);
+        villagers.add(villager);
+        return villager;
     }
 
     public void draw() {

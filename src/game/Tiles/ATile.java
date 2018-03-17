@@ -1,6 +1,5 @@
-package components.Tiles;
-import processing.core.PApplet;
-import static processing.core.PApplet.println;
+package game.Tiles;
+import game.GodSim;
 
 public abstract class ATile {
     /**
@@ -24,12 +23,12 @@ public abstract class ATile {
     protected float cell_h;
 
     /**
-     * the GodSim instance that instantiates this tile
+     * the game.GodSim instance that instantiates this tile
       */
-    protected PApplet g;
+    protected GodSim g;
     private float temp;
     /* Constructor */
-    public ATile(int x, int y, float cell_w, float cell_h, PApplet game) {
+    public ATile(int x, int y, float cell_w, float cell_h, GodSim game) {
         this.x = x;
         this.y = y;
         this.cell_w = cell_w;

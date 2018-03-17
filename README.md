@@ -11,4 +11,4 @@ WIP Readme.
 -Mark src as Sources Root
 -Ensure you have an output directory set in project structure
 -Build project
--Run GodSim class (contains main method).
+-Run game.GodSim class (contains main method).

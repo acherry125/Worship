@@ -1,4 +1,4 @@
-package components;
+package game;
 
 public abstract class Task {
   VillageNeeds villageNeeds;

@@ -1,12 +1,10 @@
-package components.Tiles;
-
-import components.Tiles.ATile;
-import processing.core.PApplet;
+package game.Tiles;
+import game.GodSim;
 
 public class ReachableTile extends ATile {
     protected boolean hasTree;
     protected boolean hasStone;
-    public ReachableTile(int x, int y, float cell_w, float cell_h, PApplet game) {
+    public ReachableTile(int x, int y, float cell_w, float cell_h, GodSim game) {
         super(x, y, cell_w, cell_h, game);
     }
 

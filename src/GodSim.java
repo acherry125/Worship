@@ -3,6 +3,8 @@ import components.Tiles.ATile;
 import components.Tiles.ReachableTile;
 import components.Tiles.SpawnTile;
 import components.Tiles.WaterTile;
+import components.Town;
+
 import processing.core.PApplet;
 import processing.event.KeyEvent;
 import java.util.ArrayList;
@@ -24,8 +26,9 @@ public class GodSim extends PApplet {
     Camera camera = new Camera(MAP_PX_WIDTH, MAP_PX_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     ATile[][] board;
+    Town town = new Town(board, this);
+
     ArrayList<ATile> spawnPts = new ArrayList<ATile>();
-    Villager villager;
 
     @Override
     public void setup() {
@@ -66,10 +69,6 @@ public class GodSim extends PApplet {
                 board[i][j] = initializeTile(i, j);
             }
         }
-
-        villager = new Villager(this, 200, 200, VillagerRoles.EXPLORER);
-        villager.setTarget(mouseX, mouseY);
-        villager.setBtree(new TestTask(villager));
     }
 
     @Override
@@ -104,9 +103,7 @@ public class GodSim extends PApplet {
                 tile.draw();
             }
         }
-        villager.setTarget(mouseX, mouseY);
-        villager.btree.execute();
-        villager.draw();
+        town.draw();
     }
 
     /**

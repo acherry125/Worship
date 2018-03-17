@@ -1,8 +1,8 @@
-package game;
+package game.Town;
 
 import java.util.ArrayList;
 
-import game.Tiles.ATile;
+import game.Board.Board;
 import game.GodSim;
 
 public class Town {

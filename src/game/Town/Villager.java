@@ -1,6 +1,6 @@
-package game;
+package game.Town;
 
-import processing.core.PApplet;
+import game.GodSim;
 import processing.core.PVector;
 
 public class Villager {

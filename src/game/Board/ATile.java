@@ -1,4 +1,4 @@
-package game.Tiles;
+package game.Board;
 import game.GodSim;
 
 public abstract class ATile {

@@ -1,4 +1,4 @@
-package game.Tiles;
+package game.Board;
 import game.GodSim;
 
 public class ReachableTile extends ATile {

@@ -1,11 +1,6 @@
-package game;
+package game.Board;
 
-import game.Tiles.ATile;
 import game.GodSim;
-import game.Tiles.ReachableTile;
-import game.Tiles.SpawnTile;
-import game.Tiles.WaterTile;
-import processing.core.PApplet;
 
 public class Board {
     GodSim g;

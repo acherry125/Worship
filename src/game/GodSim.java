@@ -1,5 +1,7 @@
 package game;
 
+import game.Board.Board;
+import game.Town.Town;
 import processing.core.PApplet;
 import processing.event.KeyEvent;
 

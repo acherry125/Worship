@@ -3,6 +3,7 @@ package game;
 import game.Board.Board;
 import game.Town.Town;
 import processing.core.PApplet;
+import processing.core.PVector;
 import processing.event.KeyEvent;
 
 public class GodSim extends PApplet {
@@ -39,15 +40,23 @@ public class GodSim extends PApplet {
     /**
      * Initialize the board
      */
-    void initializeBoard() {
+    private void initializeBoard() {
         board = new Board(this);
     }
 
     /**
      * Initialize the town
      */
-    void initializeTown() {
+    private void initializeTown() {
         town = new Town(board, this);
+    }
+
+    /**
+     * Get the mouse's position on the board
+     * @return PVector with the mouse's position on the board
+     */
+    public PVector getMouse() {
+        return new PVector(mouseX - camera.getX(), mouseY - camera.getY());
     }
 
     @Override

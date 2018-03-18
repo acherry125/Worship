@@ -6,6 +6,8 @@ import game.Board.ATile;
 import game.Board.Board;
 import game.GodSim;
 
+import static processing.core.PApplet.println;
+
 public class Town {
     GodSim g;
     Board board;
@@ -29,7 +31,7 @@ public class Town {
 
     public void draw() {
         for (Villager villager: villagers) {
-            villager.setTarget(g.mouseX, g.mouseY);
+            villager.setTarget(g.getMouse().x, g.getMouse().y);
             villager.btree.execute();
             villager.draw();
         }

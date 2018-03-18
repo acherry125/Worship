@@ -1,5 +1,6 @@
 package game.Town;
 
+import game.Board.ATile;
 import game.GodSim;
 import game.Town.behaviors.Task;
 import processing.core.PVector;
@@ -12,15 +13,14 @@ public class Villager {
   private double beliefInGod; // 1 is full belief, 0 is no belief.
   private PVector target;
   protected GodSim g;
-  private VillageNeeds villageNeeds;
+  private PVector linear;
 
-  public Villager(GodSim g, float xPos, float yPos, VILLAGER_ROLES role, VillageNeeds villageNeeds) {
+  public Villager(GodSim g, float xPos, float yPos, VILLAGER_ROLES role) {
     this.g = g;
     this.xPos = xPos;
     this.yPos = yPos;
     this.role = role;
     this.beliefInGod = 0.5;
-    this.villageNeeds = villageNeeds;
   }
 
   public void setVillageRole(VILLAGER_ROLES role) {
@@ -28,24 +28,36 @@ public class Villager {
   }
 
   public void setBtree(Task btree) {
+
     this.btree = btree;
   }
 
   public void act() {
+
     this.btree.execute();
   }
 
   public void move() {
-    this.xPos += target.x;
-    this.yPos += target.y;
+    this.xPos += linear.x;
+    this.yPos += linear.y;
   }
 
-  public void setTarget(float xPos, float yPos) {
-    this.target = new PVector(xPos, yPos);
+  public void setTarget(PVector target) {
+    this.target = target;
+    calculateLinear();
   }
 
-  public void setVector(PVector vector) {
-    target = vector;
+  public void calculateLinear() {
+    if ((target.x != getPosition().x)
+            && (target.y != getPosition().y)) {
+
+      PVector directionToMove = this.target.sub(this.getPosition());
+      directionToMove.normalize();
+      linear = new PVector(directionToMove.x, directionToMove.y);
+    } else {
+      linear = new PVector(0, 0);
+    }
+
   }
 
   public PVector getTarget() {
@@ -69,6 +81,5 @@ public class Villager {
     g.fill(0,0,0);
     g.ellipse(curr.x, curr.y, 10, 10);
 
-    move();
   }
 }

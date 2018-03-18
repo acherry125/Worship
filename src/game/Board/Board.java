@@ -1,6 +1,7 @@
 package game.Board;
 
 import game.GodSim;
+import game.Town.RESOURCES;
 import processing.core.PVector;
 
 public class Board {
@@ -81,5 +82,27 @@ public class Board {
             }
             return new ReachableTile(x, y, g.CELL_W, g.CELL_H, g);
         }
+    }
+
+    /**
+     * Returns the closest desired resource from the location of the current villager.
+     * @param locationOfVillager
+     * @return
+     */
+    public ATile getClosestResourceTile(RESOURCES resource, PVector locationOfVillager) {
+        // TODO: Replace with actual code/cases.
+        switch (resource) {
+            case WOOD:
+                break;
+            case WATER:
+                break;
+            case STONE:
+                break;
+            default:
+                break;
+        }
+
+        ATile closestResource = spawn;
+        return closestResource;
     }
 }

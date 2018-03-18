@@ -12,10 +12,13 @@ public class Town {
     GodSim g;
     Board board;
     ArrayList<Villager> villagers = new ArrayList<Villager>();
+    VillageNeeds villageNeeds;
+
     public Town(GodSim g) {
         this.g = g;
         this.board = g.getBoard();
         initialize();
+        villageNeeds = new VillageNeeds();
     }
 
     /**
@@ -24,7 +27,8 @@ public class Town {
      */
     public Villager spawn() {
         ATile spawnTile = board.getSpawnTile();
-        Villager villager = new Villager(g, spawnTile.getXPx(), spawnTile.getYPx(), VillagerRoles.EXPLORER);
+        Villager villager = new Villager(g, spawnTile.getXPx(), spawnTile.getYPx(),
+                VillagerRoles.EXPLORER, villageNeeds);
         villagers.add(villager);
         return villager;
     }
@@ -37,6 +41,9 @@ public class Town {
         }
     }
 
+    /**
+     * Creates a new villager in the village.
+     */
     private void initialize() {
         Villager villager = spawn();
         //villager.setTarget(g.mouseX, g.mouseY);

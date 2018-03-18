@@ -130,8 +130,8 @@ public abstract class ATile {
      */
     public boolean isAtTile(PVector locationOfVillager) {
         // TODO: confirm math.
-        if ((Math.abs(locationOfVillager.x - this.x) < cell_w)
-                && (Math.abs(locationOfVillager.y - this.y) < cell_h)) {
+        if ((Math.abs(locationOfVillager.x - getXPx()) < cell_w)
+                && (Math.abs(locationOfVillager.y - getYPx()) < cell_h)) {
             return true;
         }
         return false;

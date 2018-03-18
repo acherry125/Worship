@@ -1,9 +1,8 @@
 package game.Board;
 import game.GodSim;
+import game.Town.RESOURCES;
 
 public class ReachableTile extends ATile {
-    protected boolean hasTree;
-    protected boolean hasStone;
     public ReachableTile(int x, int y, float cell_w, float cell_h, GodSim game) {
         super(x, y, cell_w, cell_h, game);
     }
@@ -14,9 +13,9 @@ public class ReachableTile extends ATile {
         g.ellipseMode(g.CORNER);
         g.rectMode(g.CORNER);
         drawSquareBase(otherColors, (int) getTemp(), otherColors);
-        if (hasTree) {
+        if (resource == RESOURCES.WOOD) {
             drawTree();
-        } else if (hasStone) {
+        } else if (resource == RESOURCES.STONE) {
             drawStone();
         }
         g.textSize(cell_w / 5);
@@ -33,9 +32,9 @@ public class ReachableTile extends ATile {
     protected void calculateResource() {
         float res = (float) g.noise((float) (x * 1.25), (float) (y * 1.25));
         if (res > 0.6) {
-            hasTree = true;
+            resource = RESOURCES.WOOD;
         } else if (res < 0.25) {
-            hasStone = true;
+            resource = RESOURCES.STONE;
         }
     }
 

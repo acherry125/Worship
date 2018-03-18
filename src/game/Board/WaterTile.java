@@ -1,5 +1,6 @@
 package game.Board;
 import game.GodSim;
+import game.Town.RESOURCES;
 
 public class WaterTile extends ATile {
     protected float water;
@@ -29,6 +30,6 @@ public class WaterTile extends ATile {
 
     @Override
     protected void calculateResource() {
-
+        resource = RESOURCES.WATER;
     }
 }

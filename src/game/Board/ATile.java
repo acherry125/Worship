@@ -1,5 +1,7 @@
 package game.Board;
 import game.GodSim;
+import game.Town.RESOURCES;
+import jdk.management.resource.ResourceRequest;
 import processing.core.PVector;
 
 public abstract class ATile {
@@ -27,7 +29,10 @@ public abstract class ATile {
      * the game.GodSim instance that instantiates this tile
       */
     protected GodSim g;
+    protected RESOURCES resource;
+
     private float temp;
+
     /* Constructor */
     public ATile(int x, int y, float cell_w, float cell_h, GodSim game) {
         this.x = x;
@@ -81,6 +86,14 @@ public abstract class ATile {
      */
     abstract public boolean isReachable();
 
+    /**
+     * Get the tile's resource.
+     * @return the tile's RESOURCE
+     */
+    public RESOURCES getResource() {
+        return resource;
+    }
+
     /* Protected Methods */
 
     /**
@@ -99,7 +112,9 @@ public abstract class ATile {
     /**
      * Determine if this tile has a resource based on its position, and set it
      */
-    abstract protected void calculateResource();
+    protected void calculateResource() {
+        resource = RESOURCES.NONE;
+    };
 
     /* Private Methods */
 

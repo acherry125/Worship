@@ -2,8 +2,8 @@ package game.Board;
 import game.GodSim;
 
 public class SpawnTile extends ReachableTile {
-    public SpawnTile(int x, int y, float cell_w, float cell_h, GodSim game) {
-        super(x, y, cell_w, cell_h, game);
+    public SpawnTile(int indX, int indY, float cell_w, float cell_h, GodSim game) {
+        super(indX, indY, cell_w, cell_h, game);
     }
 
     @Override

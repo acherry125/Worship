@@ -3,8 +3,8 @@ import game.GodSim;
 import game.Town.RESOURCES;
 
 public class ReachableTile extends ATile {
-    public ReachableTile(int x, int y, float cell_w, float cell_h, GodSim game) {
-        super(x, y, cell_w, cell_h, game);
+    public ReachableTile(int indX, int indY, float cell_w, float cell_h, GodSim game) {
+        super(indX, indY, cell_w, cell_h, game);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class ReachableTile extends ATile {
 
     @Override
     protected void calculateResource() {
-        float res = (float) g.noise((float) (x * 1.25), (float) (y * 1.25));
+        float res = (float) g.noise((float) (indX * 1.25), (float) (indY * 1.25));
         if (res > 0.6) {
             resource = RESOURCES.WOOD;
         } else if (res < 0.25) {
@@ -43,8 +43,8 @@ public class ReachableTile extends ATile {
      */
     private void drawHut() {
         float padding = 10;
-        float pX = (x * cell_w) + padding;
-        float pY = (y * cell_h) + 3*padding;
+        float pX = (indX * cell_w) + padding;
+        float pY = (indY * cell_h) + 3*padding;
         float pWidth = cell_w - 2*padding;
         float pHeight = cell_h - 6*padding;
 
@@ -66,8 +66,8 @@ public class ReachableTile extends ATile {
      */
     private void drawTree() {
         float padding = 10;
-        float pX = (x * cell_w) + padding;
-        float pY = (y * cell_h) + padding;
+        float pX = (indX * cell_w) + padding;
+        float pY = (indY * cell_h) + padding;
         float pWidth = cell_w - 2*padding;
         float pHeight = cell_h - 2*padding;
 
@@ -89,8 +89,8 @@ public class ReachableTile extends ATile {
      */
     private void drawStone() {
         float padding = 10;
-        float pX = (x * cell_w) + padding;
-        float pY = (y * cell_h) + padding;
+        float pX = (indX * cell_w) + padding;
+        float pY = (indY * cell_h) + padding;
         float pWidth = cell_w - 2*padding;
         float pHeight = cell_h - 2*padding;
 

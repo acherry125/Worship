@@ -12,9 +12,9 @@ public class Town {
     GodSim g;
     Board board;
     ArrayList<Villager> villagers = new ArrayList<Villager>();
-    public Town(Board board, GodSim g) {
-        this.board = board;
+    public Town(GodSim g) {
         this.g = g;
+        this.board = g.getBoard();
         initialize();
     }
 

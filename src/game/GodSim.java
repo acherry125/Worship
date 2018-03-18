@@ -48,7 +48,7 @@ public class GodSim extends PApplet {
      * Initialize the town
      */
     private void initializeTown() {
-        town = new Town(board, this);
+        town = new Town(this);
     }
 
     /**
@@ -57,6 +57,10 @@ public class GodSim extends PApplet {
      */
     public PVector getMouse() {
         return new PVector(mouseX - camera.getX(), mouseY - camera.getY());
+    }
+
+    public Board getBoard() {
+        return board;
     }
 
     @Override

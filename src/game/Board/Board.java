@@ -105,4 +105,13 @@ public class Board {
         ATile closestResource = spawn;
         return closestResource;
     }
+
+    /**
+     * Returns the spawn. Currently returns the actual spawn reference rather
+     * than a copy.  Will consider changing in the future.
+     * @return the spawn.
+     */
+    public ATile getSpawn() {
+        return spawn;
+    }
 }

@@ -1,25 +1,30 @@
 package game.Town;
 
 import game.GodSim;
+import game.Town.behaviors.Task;
 import processing.core.PVector;
 
 public class Villager {
   private float xPos;
   private float yPos;
-  private VillagerRoles role;
+  private VILLAGER_ROLES role;
   public Task btree;
   private double beliefInGod; // 1 is full belief, 0 is no belief.
   private PVector target;
   protected GodSim g;
   private VillageNeeds villageNeeds;
 
-  public Villager(GodSim g, float xPos, float yPos, VillagerRoles role, VillageNeeds villageNeeds) {
+  public Villager(GodSim g, float xPos, float yPos, VILLAGER_ROLES role, VillageNeeds villageNeeds) {
     this.g = g;
     this.xPos = xPos;
     this.yPos = yPos;
     this.role = role;
     this.beliefInGod = 0.5;
     this.villageNeeds = villageNeeds;
+  }
+
+  public void setVillageRole(VILLAGER_ROLES role) {
+    this.role = role;
   }
 
   public void setBtree(Task btree) {

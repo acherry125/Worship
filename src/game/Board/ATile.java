@@ -1,5 +1,6 @@
 package game.Board;
 import game.GodSim;
+import processing.core.PVector;
 
 public abstract class ATile {
     /**
@@ -119,5 +120,20 @@ public abstract class ATile {
         float offset = 230 - minTemp;
         float temp = (noise1 * offset) + minTemp;
         this.temp = temp;
+    }
+
+    /**
+     * Checks if the location of the villager given is at this tile (near it, determined by
+     * the cell width/height.
+     * @param locationOfVillager the location of the villager.
+     * @return whether or not the villager is at (near) this tile.
+     */
+    public boolean isAtTile(PVector locationOfVillager) {
+        // TODO: confirm math.
+        if ((Math.abs(locationOfVillager.x - this.x) < cell_w)
+                && (Math.abs(locationOfVillager.y - this.y) < cell_h)) {
+            return true;
+        }
+        return false;
     }
 }

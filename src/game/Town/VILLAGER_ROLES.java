@@ -1,5 +1,5 @@
 package game.Town;
 
-public enum VillagerRoles {
+public enum VILLAGER_ROLES {
   GATHERER, BUILDER, EXPLORER
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import game.Board.ATile;
 import game.Board.Board;
 import game.GodSim;
+import game.Town.behaviors.TestTask;
 
 import static processing.core.PApplet.println;
 
@@ -28,7 +29,7 @@ public class Town {
     public Villager spawn() {
         ATile spawnTile = board.getSpawnTile();
         Villager villager = new Villager(g, spawnTile.getXPx(), spawnTile.getYPx(),
-                VillagerRoles.EXPLORER, villageNeeds);
+                VILLAGER_ROLES.EXPLORER, villageNeeds);
         villagers.add(villager);
         return villager;
     }

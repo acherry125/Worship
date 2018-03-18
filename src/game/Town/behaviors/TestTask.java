@@ -1,5 +1,6 @@
-package game.Town;
+package game.Town.behaviors;
 
+import game.Town.Villager;
 import processing.core.PVector;
 
 public class TestTask extends Task {

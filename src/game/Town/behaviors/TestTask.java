@@ -7,12 +7,12 @@ import processing.core.PVector;
 
 public class TestTask extends Task {
 
-  public TestTask(Villager villager, VillageNeeds villageNeeds, Board board) {
-    super(villager, villageNeeds, board);
-  }
+    public TestTask(Villager villager, VillageNeeds villageNeeds, Board board) {
+        super(villager, villageNeeds, board);
+    }
 
-  @Override
-  public int execute() {
-    return 0;
-  }
+    @Override
+    public int execute() {
+        return 0;
+    }
 }

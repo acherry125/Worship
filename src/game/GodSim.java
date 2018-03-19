@@ -53,6 +53,7 @@ public class GodSim extends PApplet {
 
     /**
      * Get the mouse's position on the board
+     *
      * @return PVector with the mouse's position on the board
      */
     public PVector getMouse() {
@@ -95,6 +96,7 @@ public class GodSim extends PApplet {
 
     /**
      * Start the game
+     *
      * @param args no additional args used
      */
     public static void main(String[] args) {

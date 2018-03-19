@@ -16,6 +16,7 @@ public class Board {
 
     /**
      * Get the spawn tile.
+     *
      * @return The spawn tile.
      */
     public ATile getSpawnTile() {
@@ -24,6 +25,7 @@ public class Board {
 
     /**
      * Retrieve the tile at the given pixel location
+     *
      * @param vector the PVector describing the px location of the tile
      * @return the Tile at the location
      */
@@ -33,12 +35,13 @@ public class Board {
 
     /**
      * Retrieve the tile at the given pixel location
+     *
      * @param x the x value of the px location of the tile
      * @param y the y value of the px location of the tile
      * @return the Tile at the location
      */
     public ATile getTile(float x, float y) {
-        if (x > g.MAP_PX_WIDTH || x < 0 || y > g.MAP_PX_HEIGHT || y < 0 ) {
+        if (x > g.MAP_PX_WIDTH || x < 0 || y > g.MAP_PX_HEIGHT || y < 0) {
             throw new IndexOutOfBoundsException("Outside of board bounds.");
         }
         int tileIndexX = (int) (x / g.CELL_W);
@@ -57,7 +60,7 @@ public class Board {
     }
 
     private void initialize() {
-        board = new ATile[(int)(g.CELLS_WIDE)][(int)(g.CELLS_TALL)];
+        board = new ATile[(int) (g.CELLS_WIDE)][(int) (g.CELLS_TALL)];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 board[i][j] = initializeTile(i, j);
@@ -67,6 +70,7 @@ public class Board {
 
     /**
      * Initialize a specific tile at the given board slot
+     *
      * @param x the horizontal index of the tile in the board
      * @param y the vertical index of the tile in the board
      * @return the created tile
@@ -86,6 +90,7 @@ public class Board {
 
     /**
      * Returns the closest desired resource from the location of the current villager.
+     *
      * @param locationOfVillager
      * @return
      */
@@ -109,6 +114,7 @@ public class Board {
     /**
      * Returns the spawn. Currently returns the actual spawn reference rather
      * than a copy.  Will consider changing in the future.
+     *
      * @return the spawn.
      */
     public ATile getSpawn() {

@@ -9,14 +9,14 @@ import game.Town.Villager;
  */
 public class GoToSpawn extends GoToTile {
 
-  public GoToSpawn(Villager villager, VillageNeeds villageNeeds, Board board) {
-    super(villager, villageNeeds, board);
-    super.goToTile(board.getSpawnTile());
-  }
+    public GoToSpawn(Villager villager, VillageNeeds villageNeeds, Board board) {
+        super(villager, villageNeeds, board);
+        super.goToTile(board.getSpawnTile());
+    }
 
-  @Override
-  public int execute() {
-    this.villager.move();
-    return 1;
-  }
+    @Override
+    public int execute() {
+        this.villager.move();
+        return 1;
+    }
 }

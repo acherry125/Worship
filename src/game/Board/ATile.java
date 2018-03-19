@@ -1,4 +1,5 @@
 package game.Board;
+
 import game.GodSim;
 import game.Town.RESOURCES;
 import jdk.management.resource.ResourceRequest;
@@ -27,7 +28,7 @@ public abstract class ATile {
 
     /**
      * the game.GodSim instance that instantiates this tile
-      */
+     */
     protected GodSim g;
     protected RESOURCES resource;
 
@@ -47,12 +48,16 @@ public abstract class ATile {
 
     /**
      * Get the x position of the tile
+     *
      * @return the x position of the tile
      */
-    public float getXPx() { return indX * g.CELL_W; }
+    public float getXPx() {
+        return indX * g.CELL_W;
+    }
 
     /**
      * Get the y position of the tile
+     *
      * @return the y position of the tile
      */
     public float getYPx() {
@@ -61,6 +66,7 @@ public abstract class ATile {
 
     /**
      * Get the temperature of the tile
+     *
      * @return the temperature of this tile
      */
     public float getTemp() {
@@ -69,6 +75,7 @@ public abstract class ATile {
 
     /**
      * Determine if this is a spawning tile
+     *
      * @return whether this tile spawns units
      */
     public boolean isSpawner() {
@@ -82,12 +89,14 @@ public abstract class ATile {
 
     /**
      * Determine if this is a reachable tile.
+     *
      * @return whether this tile be entered by a villager
      */
     abstract public boolean isReachable();
 
     /**
      * Get the tile's resource.
+     *
      * @return the tile's RESOURCE
      */
     public RESOURCES getResource() {
@@ -96,6 +105,7 @@ public abstract class ATile {
 
     /**
      * Calculates the distance from the vector to the boundary of this tile.
+     *
      * @param loc the location to calculate the distance from.
      * @return the distance between the villager and the tile
      */
@@ -108,6 +118,7 @@ public abstract class ATile {
 
     /**
      * Calculate the distance from the point to the boundary of this tile.
+     *
      * @param locX
      * @param locY
      * @return the distance between the location and the tile
@@ -123,6 +134,7 @@ public abstract class ATile {
     /**
      * Checks if the location of the villager given is at this tile (near it, determined by
      * the cell width/height.
+     *
      * @param locationOfVillager the location of the villager.
      * @return whether or not the villager is at (near) this tile.
      */
@@ -133,10 +145,11 @@ public abstract class ATile {
     /* Protected Methods */
 
     /**
-     *  Draw the tile's square with the given color
-     *  @param red the color value {@code int} for red from 0 to 255
-     *  @param green the color value {@code int} for green from 0 to 255
-     *  @param blue the color value {@code int} for blue from 0 to 255
+     * Draw the tile's square with the given color
+     *
+     * @param red   the color value {@code int} for red from 0 to 255
+     * @param green the color value {@code int} for green from 0 to 255
+     * @param blue  the color value {@code int} for blue from 0 to 255
      */
     protected void drawSquareBase(int red, int green, int blue) {
         g.rectMode(g.CORNER);
@@ -151,7 +164,9 @@ public abstract class ATile {
      */
     protected void calculateResource() {
         resource = RESOURCES.NONE;
-    };
+    }
+
+    ;
 
     /* Private Methods */
 
@@ -168,7 +183,7 @@ public abstract class ATile {
      * Set the temperature of the tile
      */
     private void calculateTemp() {
-        float noise1 = (float) g.noise((float) (indX*2.5), (float) (indY*2.5));
+        float noise1 = (float) g.noise((float) (indX * 2.5), (float) (indY * 2.5));
         float minTemp = 120;
         float offset = 230 - minTemp;
         float temp = (noise1 * offset) + minTemp;
@@ -177,8 +192,9 @@ public abstract class ATile {
 
     /**
      * Get the distance to the given rectangle
-     * @param x x coordinate of the point
-     * @param y y coordinate of the point
+     *
+     * @param x  x coordinate of the point
+     * @param y  y coordinate of the point
      * @param x1
      * @param y1
      * @param x2

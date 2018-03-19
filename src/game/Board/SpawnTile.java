@@ -1,4 +1,5 @@
 package game.Board;
+
 import game.GodSim;
 
 public class SpawnTile extends ReachableTile {

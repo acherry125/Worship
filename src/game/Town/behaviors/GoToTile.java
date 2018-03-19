@@ -11,11 +11,11 @@ import processing.core.PVector;
  */
 public abstract class GoToTile extends Task {
 
-  public GoToTile(Villager villager, VillageNeeds villageNeeds, Board board) {
-    super(villager, villageNeeds, board);
-  }
+    public GoToTile(Villager villager, VillageNeeds villageNeeds, Board board) {
+        super(villager, villageNeeds, board);
+    }
 
-  public void goToTile(ATile tile) {
-    villager.setTarget(new PVector(tile.getXPx(), tile.getXPx()));
-  }
+    public void goToTile(ATile tile) {
+        villager.setTarget(new PVector(tile.getXPx(), tile.getXPx()));
+    }
 }

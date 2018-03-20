@@ -99,9 +99,7 @@ public abstract class ATile {
      *
      * @return the tile's RESOURCE
      */
-    public RESOURCES getResource() {
-        return resource;
-    }
+    abstract public RESOURCES getResource();
 
     /**
      * Calculates the distance from the vector to the boundary of this tile.

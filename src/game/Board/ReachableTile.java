@@ -3,6 +3,7 @@ import game.GodSim;
 import game.Town.RESOURCES;
 
 public class ReachableTile extends ATile {
+    float resourceCount = 20;
     public ReachableTile(int indX, int indY, float cell_w, float cell_h, GodSim game) {
         super(indX, indY, cell_w, cell_h, game);
     }
@@ -13,19 +14,30 @@ public class ReachableTile extends ATile {
         g.ellipseMode(g.CORNER);
         g.rectMode(g.CORNER);
         drawSquareBase(otherColors, (int) getTemp(), otherColors);
-        if (resource == RESOURCES.WOOD) {
+        if (resourceCount == 0) {
+
+        } else if (resource == RESOURCES.WOOD) {
             drawTree();
         } else if (resource == RESOURCES.STONE) {
             drawStone();
         }
         g.textSize(cell_w / 5);
         g.fill(200, 200, 210);
-        //g.text(String.format("%d, %d", x, y), xPixel + 5, yPixel + (cell_h / 2));
     }
 
     @Override
     public boolean isReachable() {
         return true;
+    }
+
+    @Override
+    public RESOURCES getResource() {
+        if (resourceCount > 0) {
+            resourceCount--;
+            return resource;
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -35,6 +47,8 @@ public class ReachableTile extends ATile {
             resource = RESOURCES.WOOD;
         } else if (res < 0.25) {
             resource = RESOURCES.STONE;
+        } else {
+            resourceCount = 0;
         }
     }
 

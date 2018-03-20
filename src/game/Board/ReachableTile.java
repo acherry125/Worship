@@ -20,6 +20,8 @@ public class ReachableTile extends ATile {
             drawTree();
         } else if (resource == RESOURCES.STONE) {
             drawStone();
+        } else if (resource == RESOURCES.FOOD) {
+            drawBerryBush();
         }
         g.textSize(cell_w / 5);
         g.fill(200, 200, 210);
@@ -43,9 +45,11 @@ public class ReachableTile extends ATile {
     @Override
     protected void calculateResource() {
         float res = (float) g.noise((float) (indX * 1.25), (float) (indY * 1.25));
-        if (res > 0.6) {
+        if (res < 0.3) {
             resource = RESOURCES.WOOD;
-        } else if (res < 0.25) {
+        } else if (res < 0.32) {
+            resource = RESOURCES.FOOD;
+        } else if (res < 0.35) {
             resource = RESOURCES.STONE;
         } else {
             resourceCount = 0;
@@ -113,5 +117,24 @@ public class ReachableTile extends ATile {
         g.ellipse(pX, pY, pWidth, pHeight);
         g.ellipse(pX + 40, pY + 34, pWidth / 3, pHeight / 3);
         g.ellipse(pX + 5, pY + 5, pWidth / 4, pHeight / 3);
+    }
+
+    /**
+     * Draw stone on this tile
+     */
+    private void drawBerryBush() {
+        float padding = 10;
+        float pX = (indX * cell_w) + padding;
+        float pY = (indY * cell_h) + padding;
+        float pWidth = cell_w - 2*padding;
+        float pHeight = cell_h - 2*padding;
+
+        g.fill(0,210,0);
+        g.ellipse(pX, pY, pWidth, pHeight);
+        g.fill(200,0,0);
+        g.ellipseMode(g.CORNER);
+        g.ellipse(pX + 30, pY + 24, pWidth / 5, pHeight / 5);
+        g.ellipse(pX + 40, pY + 54, pWidth / 6, pHeight / 6);
+        g.ellipse(pX + 20, pY + 5, pWidth / 5, pHeight / 5);
     }
 }

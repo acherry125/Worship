@@ -1,5 +1,5 @@
 package game.Town;
 
 public enum RESOURCES {
-    WOOD, WATER, STONE, NONE
+    WOOD, WATER, STONE, FOOD, NONE
 }

@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import game.Board.ATile;
 import game.Board.Board;
 import game.GodSim;
+import game.Town.behaviors.Explorer;
 import game.Town.behaviors.FollowMouse;
 import game.Town.behaviors.GoToSpawn;
-import game.Town.behaviors.TestTask;
 
 import static processing.core.PApplet.println;
 
@@ -31,7 +31,7 @@ public class Town {
      */
     public Villager spawn() {
         ATile spawnTile = board.getSpawnTile();
-        Villager villager = new Villager(g, spawnTile.getXPx(), spawnTile.getYPx(),
+        Villager villager = new Villager(g, spawnTile.getXPx() - 200, spawnTile.getYPx() - 200,
                 VILLAGER_ROLES.EXPLORER);
         villagers.add(villager);
         return villager;
@@ -42,19 +42,12 @@ public class Town {
 
     public void draw() {
         count += 1;
+        // TODO: can make village needs itself increment, but at what rate? putting here for now.
+        villageNeeds.createNeed(RESOURCES.FOOD, count / 4);
+
         // TODO: make new behavior, change code to move this to that default starting behavior.
         for (Villager villager : villagers) {
-            if (count < 100) {
-                villager.setBtree(new FollowMouse(villager, villageNeeds, board,
-                        (int) g.getMouse().x,
-                        (int) g.getMouse().y));
-            } else {
-                villager.setBtree(new GoToSpawn(villager, villageNeeds, board));
-            }
-            if (count > 200) {
-                count = 0;
-            }
-
+            villager.setBtree(new Explorer(villager, villageNeeds, board));
             villager.act();
             villager.draw();
         }

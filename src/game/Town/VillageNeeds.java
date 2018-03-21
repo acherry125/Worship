@@ -14,6 +14,7 @@ public class VillageNeeds {
         villageNeeds.put(RESOURCES.WOOD, 0);
         villageNeeds.put(RESOURCES.WATER, 0);
         villageNeeds.put(RESOURCES.STONE, 0);
+        villageNeeds.put(RESOURCES.FOOD, 0);
     }
 
     public Integer get(String key) {

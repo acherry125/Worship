@@ -1,5 +1,8 @@
 package game.Town;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import game.Board.ATile;
 import game.GodSim;
 import game.Town.behaviors.Task;
@@ -14,6 +17,11 @@ public class Villager {
     private PVector target;
     protected GodSim g;
     private PVector linear;
+    private List<RESOURCES> resourcesInHand;
+    private int maxResourcesToCarry;
+    private RESOURCES resourceToTarget;
+    private boolean onAMission;
+    private ATile targetTile;
 
     public Villager(GodSim g, float xPos, float yPos, VILLAGER_ROLES role) {
         this.g = g;
@@ -21,6 +29,9 @@ public class Villager {
         this.yPos = yPos;
         this.role = role;
         this.beliefInGod = 0.5;
+        this.resourcesInHand = new LinkedList<>();
+        this.maxResourcesToCarry = 5;
+        this.onAMission = false;
     }
 
     public void setVillageRole(VILLAGER_ROLES role) {
@@ -88,4 +99,50 @@ public class Villager {
         g.ellipse(curr.x, curr.y, 10, 10);
 
     }
+
+    /**
+     * Returns the amount of resources the villager is carrying.
+     * @return
+     */
+    public int countOfResourcesInHand() {
+        return resourcesInHand.size();
+    }
+
+    /**
+     * Returns the max number of resources this villager can carry.
+     * @return
+     */
+    public int getMaxResourcesToCarry() {
+        return this.maxResourcesToCarry;
+    }
+
+    public void addResource(RESOURCES resource) {
+        this.resourcesInHand.add(resource);
+    }
+
+    public void setResourceToTarget(RESOURCES resource) {
+        this.resourceToTarget = resource;
+    }
+
+    public RESOURCES getResourceToTarget() {
+        return this.resourceToTarget;
+    }
+
+    public void setOnAMission(boolean bool) {
+        this.onAMission = bool;
+    }
+
+    public boolean isOnAMission() {
+        return this.onAMission;
+    }
+
+    public void setTargetTile(ATile targetTile) {
+        this.targetTile = targetTile;
+    }
+
+    public ATile getTargetTile() {
+        return this.targetTile;
+    }
+
+
 }

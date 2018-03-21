@@ -139,4 +139,11 @@ public class Board {
     public ATile getSpawn() {
         return spawn;
     }
+
+    /**
+     * Temporary method to get constants.
+     */
+    public GodSim getG() {
+        return g;
+    }
 }

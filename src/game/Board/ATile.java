@@ -95,11 +95,20 @@ public abstract class ATile {
     abstract public boolean isReachable();
 
     /**
-     * Get the tile's resource.
+     * Get the tile's resource, and deplete if finite from the tile
      *
      * @return the tile's RESOURCE
      */
     abstract public RESOURCES getResource();
+
+    /**
+     * View the tile's resource
+     * @return the tile's RESOURCE
+     */
+    public RESOURCES peekResource() {
+        return getResource();
+    };
+
 
     /**
      * Calculates the distance from the vector to the boundary of this tile.

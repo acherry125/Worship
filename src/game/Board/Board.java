@@ -4,6 +4,9 @@ import game.GodSim;
 import game.Town.RESOURCES;
 import processing.core.PVector;
 
+import java.lang.reflect.Array;
+import java.util.ArrayDeque;
+
 public class Board {
     private GodSim g;
     private ATile[][] board;
@@ -95,20 +98,36 @@ public class Board {
      * @return
      */
     public ATile getClosestResourceTile(RESOURCES resource, PVector locationOfVillager) {
-        // TODO: Replace with actual code/cases.
-        switch (resource) {
-            case WOOD:
-                break;
-            case WATER:
-                break;
-            case STONE:
-                break;
-            default:
-                break;
-        }
+        // Setup an explored and found queue
+        ArrayDeque<ATile> explored = new ArrayDeque<ATile>();
+        ArrayDeque<ATile> found = new ArrayDeque<ATile>();
+        found.offerFirst(getTile(locationOfVillager));
+        ATile curr = null;
 
-        ATile closestResource = spawn;
-        return closestResource;
+        // Breadth first search essentially on the 2d array from the villagers position
+        while (found.size() > 0) {
+            curr = found.pollLast();
+            if (curr.peekResource() == resource) {
+                break;
+            } else {
+                explored.offerFirst(curr);
+                int indX = curr.indX;
+                int indY = curr.indY;
+                if (indX > 0 && !explored.contains(board[indX - 1][indY])) {
+                    found.offerFirst(board[indX - 1][indY]);
+                }
+                if (indX < g.CELLS_WIDE && !explored.contains(board[indX + 1][indY])) {
+                    found.offerFirst(board[indX + 1][indY]);
+                }
+                if (indY > 0 && !explored.contains(board[indX][indY - 1])) {
+                    found.offerFirst(board[indX][indY - 1]);
+                }
+                if (indY < g.CELLS_TALL && !explored.contains(board[indX][indY + 1])) {
+                    found.offerFirst(board[indX][indY - 1]);
+                }
+            }
+        }
+        return curr;
     }
 
     /**

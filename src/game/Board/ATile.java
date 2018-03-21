@@ -49,19 +49,19 @@ public abstract class ATile {
     /**
      * Get the x position of the tile
      *
-     * @return the x position of the tile
+     * @return the x position of the tile's center
      */
     public float getXPx() {
-        return indX * g.CELL_W;
+        return indX * g.CELL_W + (g.CELL_W / 2);
     }
 
     /**
      * Get the y position of the tile
      *
-     * @return the y position of the tile
+     * @return the y position of the tile's center
      */
     public float getYPx() {
-        return indY * g.CELL_H;
+        return indY * g.CELL_H + (g.CELL_H / 2);
     }
 
     /**
@@ -132,10 +132,14 @@ public abstract class ATile {
      */
     public float distanceFrom(float locX, float locY) {
         // if the location is within the tile
-        if (locX >= getXPx() && locX <= getXPx() + g.CELL_W && locY >= getYPx() && locY <= getYPx() + g.CELL_H) {
+        if (locX >= getXPx() - (g.CELL_W / 2)
+                && locX <= getXPx() + (g.CELL_W / 2)
+                && locY >= getYPx() - (g.CELL_H / 2)
+                && locY <= getYPx() + (g.CELL_H / 2)) {
             return 0;
         }
-        return distrect(locX, locY, getXPx(), getYPx(), getXPx() + g.CELL_W, getYPx() + g.CELL_H);
+        return distrect(locX, locY, getXPx() - (g.CELL_W / 2), getYPx() - (g.CELL_H / 2),
+                getXPx() + (g.CELL_W / 2), getYPx() + (g.CELL_H / 2));
     }
 
     /**

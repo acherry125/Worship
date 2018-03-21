@@ -48,8 +48,9 @@ public class Villager {
     }
 
     public void calculateLinear() {
-        if ((target.x != getPosition().x)
-                && (target.y != getPosition().y)) {
+        // TODO smooth approach to avoid stutter
+        if (g.abs(target.x - getPosition().x) > 2
+                && g.abs(target.y - getPosition().y) > 2) {
 
             PVector directionToMove = this.target.sub(this.getPosition());
             directionToMove.normalize();

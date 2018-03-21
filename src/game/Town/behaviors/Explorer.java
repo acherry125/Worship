@@ -32,6 +32,7 @@ public class Explorer  extends Task {
         for (RESOURCES r : villager.getResourcesInHand()) {
           villageNeeds.reduceNeed(r);
         }
+        villager.getResourcesInHand().clear();
         System.out.println(villageNeeds);
         System.out.println(board.getSpawnTile().getXPx() + "," + board.getSpawnTile().getYPx() + " | " + villager.getPosition());
         System.out.println("get a new target");

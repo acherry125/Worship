@@ -21,9 +21,7 @@ public class GetHighestVillageNeed extends Task {
             villager.getPosition());
 
     // If you can get to it, Set that villager's target to get the resource.
-    if (resourceToGet.isReachable()) {
-      villager.setTarget(new PVector(resourceToGet.getXPx(), resourceToGet.getYPx()));
-    }
+    villager.setTarget(new PVector(resourceToGet.getXPx(), resourceToGet.getYPx()));
 
     // Set the villager's target resource to this, to remember to collect it later.
     villager.setResourceToTarget(villageNeeds.getHighestNeed());

@@ -7,14 +7,12 @@ public class UI {
     }
 
     public void draw() {
-        g.println(g.camera.getX(), g.camera.getY());
         g.translate(-g.camera.getX(), -g.camera.getY());
         g.rectMode(g.CORNER);
         g.noStroke();
         g.fill(230, 230, 230, 200);
         g.rect(0, 0, 500, 100);
         g.fill(30);
-        //g.textSize(32);
         g.textAlign(g.LEFT, g.TOP);
         g.text("Village", 12, 18);
         String s = g.town.getVillageNeeds().toString();

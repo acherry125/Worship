@@ -11,10 +11,10 @@ public class VillageNeeds {
      */
     public VillageNeeds() {
         villageNeeds = new HashMap();
-        villageNeeds.put(RESOURCES.WOOD, 0);
-        villageNeeds.put(RESOURCES.WATER, 0);
-        villageNeeds.put(RESOURCES.STONE, 0);
-        villageNeeds.put(RESOURCES.FOOD, 100);
+        villageNeeds.put(RESOURCES.WOOD, 10);
+        villageNeeds.put(RESOURCES.WATER, 10);
+        villageNeeds.put(RESOURCES.STONE, 10);
+        villageNeeds.put(RESOURCES.FOOD, 20);
     }
 
     public Integer get(RESOURCES key) {

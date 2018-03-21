@@ -48,17 +48,22 @@ public class Villager {
     }
 
     public void calculateLinear() {
-        // TODO smooth approach to avoid stutter
+       PVector initialLinear;
         if (g.abs(target.x - getPosition().x) > 2
                 && g.abs(target.y - getPosition().y) > 2) {
-
-            PVector directionToMove = this.target.sub(this.getPosition());
-            directionToMove.normalize();
-            linear = new PVector(directionToMove.x, directionToMove.y);
+            initialLinear = this.target.sub(this.getPosition()).normalize();
         } else {
-            linear = new PVector(0, 0);
+            initialLinear = new PVector(0, 0);
         }
-
+        PVector copyLinear = initialLinear.copy().mult(5);
+        PVector futureV = PVector.add(this.getPosition(), copyLinear);
+        ATile futureT = g.getBoard().getTile(futureV);
+        if (!futureT.isReachable()) {
+            PVector tileCenterPush = new PVector(futureT.getXPx() - this.getPosition().x, futureT.getYPx() - this.getPosition().y).normalize().mult(12/10);
+            g.println(tileCenterPush.x, tileCenterPush.y, tileCenterPush.mag());
+            initialLinear.sub(tileCenterPush);
+        }
+        linear = initialLinear;
     }
 
     public PVector getTarget() {

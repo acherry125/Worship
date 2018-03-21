@@ -19,7 +19,7 @@ public class WaterTile extends ATile {
 
     @Override
     public boolean isReachable() {
-        return true;
+        return false;
     }
 
     @Override

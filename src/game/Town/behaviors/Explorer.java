@@ -20,12 +20,12 @@ public class Explorer  extends Task {
     // If not on a mission
     if (!villager.isOnAMission()) {
 
-      System.out.println("get to mission");
+//      System.out.println("get to mission");
       // Go to the spawn... to get a target.
       villager.setBtree(new GoToSpawn(villager, villageNeeds, board));
 
       if (!board.getSpawnTile().isAtTile(villager.getPosition())) {
-        System.out.println("out of spawn proximity");
+//        System.out.println("out of spawn proximity");
         villager.act();
       } else {
         System.out.println(villageNeeds);
@@ -45,7 +45,7 @@ public class Explorer  extends Task {
     } else {
 
       if (!villager.getTargetTile().isAtTile(villager.getPosition())) {
-        System.out.println("on a mission to my target resource" + villager.getTarget());
+//        System.out.println("on a mission to my target resource" + villager.getTarget());
         villager.setBtree(new ContinueOnTarget(villager, villageNeeds, board));
         villager.act();
       } else {

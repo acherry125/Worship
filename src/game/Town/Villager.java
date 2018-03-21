@@ -55,12 +55,12 @@ public class Villager {
         } else {
             initialLinear = new PVector(0, 0);
         }
-        PVector copyLinear = initialLinear.copy().mult(5);
+        PVector copyLinear = initialLinear.copy().mult(g.CELL_W / 5);
         PVector futureV = PVector.add(this.getPosition(), copyLinear);
         ATile futureT = g.getBoard().getTile(futureV);
+        // if the tile that we would end up on is a water tile, avoid it
         if (!futureT.isReachable()) {
             PVector tileCenterPush = new PVector(futureT.getXPx() - this.getPosition().x, futureT.getYPx() - this.getPosition().y).normalize().mult(12/10);
-            g.println(tileCenterPush.x, tileCenterPush.y, tileCenterPush.mag());
             initialLinear.sub(tileCenterPush);
         }
         linear = initialLinear;

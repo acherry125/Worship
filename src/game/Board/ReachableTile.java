@@ -13,6 +13,7 @@ public class ReachableTile extends ATile {
         int otherColors = 80;
         g.ellipseMode(g.CORNER);
         g.rectMode(g.CORNER);
+        g.noStroke();
         drawSquareBase(otherColors, (int) getTemp(), otherColors);
         if (resourceCount == 0) {
 
@@ -79,6 +80,7 @@ public class ReachableTile extends ATile {
         float y3 = pY + pHeight;
 
         g.fill(255, 100, 0);
+        g.stroke(0, 0, 0);
         g.triangle(x1, y1, x2, y2, x3, y3);
         g.fill(255, 100, 100);
         g.rect(x2 + 4, y2, pWidth - 8, 25);
@@ -102,6 +104,7 @@ public class ReachableTile extends ATile {
         float y3 = pY + pHeight;
 
         g.fill(160, 82, 45);
+        g.noStroke();
         g.rect(x1 - 4, y1 + 10, 8, pHeight);
         g.fill(0, 130, 0);
         g.triangle(x1, y1, x2, y2, x3, y3);
@@ -118,8 +121,10 @@ public class ReachableTile extends ATile {
         float pHeight = cell_h - 2*padding;
 
         g.fill(200,200,200);
+        g.noStroke();
         g.ellipseMode(g.CORNER);
         g.ellipse(pX, pY, pWidth, pHeight);
+        g.stroke(150, 150, 150);
         g.ellipse(pX + 40, pY + 34, pWidth / 3, pHeight / 3);
         g.ellipse(pX + 5, pY + 5, pWidth / 4, pHeight / 3);
     }
@@ -135,6 +140,7 @@ public class ReachableTile extends ATile {
         float pHeight = cell_h - 2*padding;
 
         g.fill(0,210,0);
+        g.noStroke();
         g.ellipse(pX, pY, pWidth, pHeight);
         g.fill(200,0,0);
         g.ellipseMode(g.CORNER);

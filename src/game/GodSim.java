@@ -89,6 +89,7 @@ public class GodSim extends PApplet {
     @Override
     public void draw() {
         background(255);
+        g.noStroke();
         translate(camera.getX(), camera.getY());
         board.draw();
         town.draw();

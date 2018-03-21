@@ -91,12 +91,24 @@ public class Villager {
         curr.add(target.copy().mult(2));
         g.ellipseMode(g.CENTER);
         g.rectMode(g.CENTER);
+        g.stroke(100,100,100);
         g.fill(254, 176, 80);
+        // body
         g.ellipse(xPos, yPos, 40, 40);
         g.fill(255, 206, 145);
+        // head
         g.ellipse(curr.x, curr.y, 26, 26);
         g.fill(0, 0, 0);
+        // hat/hair or whatever
         g.ellipse(curr.x, curr.y, 10, 15);
+        // resource collection text bg
+        g.fill(255);
+        g.stroke(200, 200, 200);
+        g.rect(curr.x, curr.y - 40, 70, 20);
+        // resource collection text
+        g.fill(0);
+        g.textAlign(g.CENTER);
+        g.text(resourcesInHand.size(), curr.x, curr.y - 32);
 
     }
 

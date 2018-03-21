@@ -3,6 +3,7 @@ package game;
 import game.Board.Board;
 import game.Town.Town;
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.core.PVector;
 import processing.event.KeyEvent;
 
@@ -20,15 +21,17 @@ public class GodSim extends PApplet {
     public final float MAP_PX_WIDTH = CELL_W * CELLS_WIDE;
     public final float MAP_PX_HEIGHT = CELL_H * CELLS_TALL;
 
-    Camera camera = new Camera(MAP_PX_WIDTH, MAP_PX_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
+    public Camera camera = new Camera(MAP_PX_WIDTH, MAP_PX_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-    Board board;
-    Town town;
+    public Board board;
+    public Town town;
+    public UI ui;
 
     @Override
     public void setup() {
         initializeBoard();
         initializeTown();
+        ui = new UI(this);
     }
 
     @Override
@@ -93,6 +96,7 @@ public class GodSim extends PApplet {
         translate(camera.getX(), camera.getY());
         board.draw();
         town.draw();
+        ui.draw();
     }
 
     /**

@@ -44,6 +44,10 @@ public class Town {
         return villager;
     }
 
+    public VillageNeeds getVillageNeeds() {
+        return villageNeeds;
+    }
+
     public void draw() {
 
         // TODO: make new behavior, change code to move this to that default starting behavior.

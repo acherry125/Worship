@@ -61,7 +61,7 @@ public class Villager {
     public void calculateLinear() {
        PVector initialLinear;
         if (g.abs(target.x - getPosition().x) > 2
-                && g.abs(target.y - getPosition().y) > 2) {
+                || g.abs(target.y - getPosition().y) > 2) {
             initialLinear = this.target.sub(this.getPosition()).normalize();
         } else {
             initialLinear = new PVector(0, 0);
@@ -70,10 +70,10 @@ public class Villager {
         PVector futureV = PVector.add(this.getPosition(), copyLinear);
         ATile futureT = g.getBoard().getTile(futureV);
         // if the tile that we would end up on is a water tile, avoid it
-        if (!futureT.isReachable()) {
+        /* if (!futureT.isReachable()) {
             PVector tileCenterPush = new PVector(futureT.getXPx() - this.getPosition().x, futureT.getYPx() - this.getPosition().y).normalize().mult(12/10);
             initialLinear.sub(tileCenterPush);
-        }
+        }*/
         linear = initialLinear;
     }
 
@@ -96,7 +96,7 @@ public class Villager {
         g.fill(255, 206, 145);
         g.ellipse(curr.x, curr.y, 26, 26);
         g.fill(0, 0, 0);
-        g.ellipse(curr.x, curr.y, 10, 10);
+        g.ellipse(curr.x, curr.y, 10, 15);
 
     }
 

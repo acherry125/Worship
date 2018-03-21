@@ -34,16 +34,17 @@ public class Town {
         Villager villager = new Villager(g, spawnTile.getXPx() - 200, spawnTile.getYPx() - 200,
                 VILLAGER_ROLES.EXPLORER);
         villagers.add(villager);
+
+        Villager villager2 = new Villager(g, spawnTile.getXPx() -230, spawnTile.getYPx() - 230,
+                VILLAGER_ROLES.EXPLORER);
+        villagers.add(villager2);
+
+        // TODO: can make village needs itself increment, but at what rate? putting here for now.
+
         return villager;
     }
 
-    //DELETE count code, just for testing.
-    int count = 0;
-
     public void draw() {
-        count += 1;
-        // TODO: can make village needs itself increment, but at what rate? putting here for now.
-        villageNeeds.createNeed(RESOURCES.FOOD, count / 4);
 
         // TODO: make new behavior, change code to move this to that default starting behavior.
         for (Villager villager : villagers) {

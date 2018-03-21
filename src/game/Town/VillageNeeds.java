@@ -14,10 +14,10 @@ public class VillageNeeds {
         villageNeeds.put(RESOURCES.WOOD, 0);
         villageNeeds.put(RESOURCES.WATER, 0);
         villageNeeds.put(RESOURCES.STONE, 0);
-        villageNeeds.put(RESOURCES.FOOD, 0);
+        villageNeeds.put(RESOURCES.FOOD, 100);
     }
 
-    public Integer get(String key) {
+    public Integer get(RESOURCES key) {
         return villageNeeds.get(key);
     }
 
@@ -42,6 +42,10 @@ public class VillageNeeds {
 
     }
 
+    public void reduceNeed(RESOURCES need) {
+        villageNeeds.put(need, villageNeeds.get(need) - 1);
+    }
+
     /**
      * Gets the key/highest need of the village.
      *
@@ -60,5 +64,15 @@ public class VillageNeeds {
         }
 
         return highestNeed;
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer result = new StringBuffer();
+        for (RESOURCES r : this.villageNeeds.keySet()) {
+            result.append(r + ": " + this.villageNeeds.get(r) + "\n");
+        }
+
+        return result.toString();
     }
 }

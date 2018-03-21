@@ -104,8 +104,8 @@ public class Villager {
      * Returns the amount of resources the villager is carrying.
      * @return
      */
-    public int countOfResourcesInHand() {
-        return resourcesInHand.size();
+    public List<RESOURCES> getResourcesInHand() {
+        return resourcesInHand;
     }
 
     /**

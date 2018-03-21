@@ -17,7 +17,7 @@ public class CollectTargetResource extends Task {
   public int execute() {
 
     // While the villager can still attain more resources....
-    while (villager.countOfResourcesInHand() < villager.getMaxResourcesToCarry()) {
+    if (villager.getResourcesInHand().size() < villager.getMaxResourcesToCarry()) {
       // Get the tile that the villager is supposed to be at.
 
       // Deduct the resource from the tile.
@@ -25,6 +25,8 @@ public class CollectTargetResource extends Task {
 
       // Add the resource to the villager to carry.
       villager.addResource(villager.getResourceToTarget());
+    } else {
+      villager.setOnAMission(false);
     }
     return 1;
   }

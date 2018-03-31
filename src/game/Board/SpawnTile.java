@@ -3,6 +3,7 @@ package game.Board;
 import game.GodSim;
 
 public class SpawnTile extends ReachableTile {
+    int resourceCount = 0;
     public SpawnTile(int indX, int indY, float cell_w, float cell_h, GodSim game) {
         super(indX, indY, cell_w, cell_h, game);
     }

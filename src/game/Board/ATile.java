@@ -95,6 +95,8 @@ public abstract class ATile {
      */
     abstract public void draw();
 
+    abstract public int getResourceCount();
+
     public boolean hasStructure() {
         return false;
     }

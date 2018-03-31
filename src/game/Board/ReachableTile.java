@@ -34,6 +34,11 @@ public class ReachableTile extends ATile {
     }
 
     @Override
+    public int getResourceCount() {
+        return resourceCount;
+    }
+
+    @Override
     public boolean isReachable() {
         return true;
     }

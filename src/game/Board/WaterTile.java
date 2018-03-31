@@ -18,6 +18,11 @@ public class WaterTile extends ATile {
     }
 
     @Override
+    public int getResourceCount() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
     public boolean isReachable() {
         return false;
     }

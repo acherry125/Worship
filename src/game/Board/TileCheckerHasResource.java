@@ -9,6 +9,6 @@ public class TileCheckerHasResource implements ITileChecker {
     }
     @Override
     public boolean passes(ATile tile) {
-        return tile.peekResource() == resource;
+        return tile.getResourceCount() > 0 && tile.peekResource() == resource;
     }
 }

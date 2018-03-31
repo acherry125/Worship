@@ -46,6 +46,14 @@ public abstract class ATile {
 
     /* API */
 
+    public int getIndX() {
+        return indX;
+    }
+
+    public int getIndY() {
+        return indY;
+    }
+
     /**
      * Get the x position of the tile
      *
@@ -87,6 +95,10 @@ public abstract class ATile {
      */
     abstract public void draw();
 
+    public boolean hasStructure() {
+        return false;
+    }
+
     /**
      * Determine if this is a reachable tile.
      *
@@ -109,6 +121,9 @@ public abstract class ATile {
         return getResource();
     };
 
+    public Board getBoard() {
+        return g.getBoard();
+    }
 
     /**
      * Calculates the distance from the vector to the boundary of this tile.

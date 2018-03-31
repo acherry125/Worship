@@ -6,6 +6,7 @@ import processing.core.PVector;
 
 import java.lang.reflect.Array;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 
 public class Board {
     private GodSim g;
@@ -53,6 +54,25 @@ public class Board {
         return board[tileIndexX][tileIndexY];
     }
 
+    public ATile[] getAdjacentTiles(ATile tile) {
+        ArrayList<ATile> result = new ArrayList<ATile>();
+        int x = tile.getIndX();
+        int y = tile.getIndY();
+        if (x > 0) {
+            result.add(board[x - 1][y]);
+        }
+        if (x < board.length - 1) {
+            result.add(board[x][y]);
+        }
+        if (y > 0) {
+            result.add(board[x][y - 1]);
+        }
+        if (y < board[0].length - 1) {
+                result.add(board[x][y + 1]);
+        }
+        return result.toArray(new ATile[result.size()]);
+    }
+
     public void draw() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
@@ -91,13 +111,7 @@ public class Board {
         }
     }
 
-    /**
-     * Returns the closest desired resource from the location of the current villager.
-     *
-     * @param locationOfVillager
-     * @return
-     */
-    public ATile getClosestResourceTile(RESOURCES resource, PVector locationOfVillager) {
+    public ATile getClosestTilePasses(ITileChecker checker, PVector locationOfVillager) {
         // Setup an explored and found queue
         ArrayDeque<ATile> explored = new ArrayDeque<ATile>();
         ArrayDeque<ATile> found = new ArrayDeque<ATile>();
@@ -107,7 +121,7 @@ public class Board {
         // Breadth first search essentially on the 2d array from the villagers position
         while (found.size() > 0) {
             curr = found.pollLast();
-            if (curr.peekResource() == resource) {
+            if (checker.passes(curr)) {
                 break;
             } else {
                 explored.offerFirst(curr);
@@ -128,6 +142,16 @@ public class Board {
             }
         }
         return curr;
+    }
+
+    /**
+     * Returns the closest desired resource from the location of the current villager.
+     *
+     * @param locationOfVillager
+     * @return
+     */
+    public ATile getClosestResourceTile(RESOURCES resource, PVector locationOfVillager) {
+        return getClosestTilePasses(new TileCheckerHasResource(resource), locationOfVillager);
     }
 
     /**

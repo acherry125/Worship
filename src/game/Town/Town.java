@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import game.Board.ATile;
 import game.Board.Board;
 import game.GodSim;
-import game.Town.behaviors.Explorer;
-import game.Town.behaviors.FollowMouse;
-import game.Town.behaviors.GoToSpawn;
+import game.Town.villagers.behaviors.explorer.Explorer;
+import game.Town.villagers.VILLAGER_ROLES;
+import game.Town.villagers.Villager;
 
 import static processing.core.PApplet.println;
 
@@ -15,13 +15,13 @@ public class Town {
     GodSim g;
     Board board;
     ArrayList<Villager> villagers = new ArrayList<Villager>();
-    VillageNeeds villageNeeds;
+    TownNeeds townNeeds;
 
     public Town(GodSim g) {
         this.g = g;
         this.board = g.getBoard();
         initialize();
-        villageNeeds = new VillageNeeds();
+        townNeeds = new TownNeeds();
     }
 
     /**
@@ -44,15 +44,15 @@ public class Town {
         return villager;
     }
 
-    public VillageNeeds getVillageNeeds() {
-        return villageNeeds;
+    public TownNeeds getTownNeeds() {
+        return townNeeds;
     }
 
     public void draw() {
 
         // TODO: make new behavior, change code to move this to that default starting behavior.
         for (Villager villager : villagers) {
-            villager.setBtree(new Explorer(villager, villageNeeds, board));
+            villager.setBtree(new Explorer(villager, townNeeds, board));
             villager.act();
             villager.draw();
         }

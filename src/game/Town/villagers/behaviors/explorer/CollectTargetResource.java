@@ -1,16 +1,16 @@
-package game.Town.behaviors;
+package game.Town.villagers.behaviors.explorer;
 
-import game.Board.ATile;
 import game.Board.Board;
-import game.Town.VillageNeeds;
-import game.Town.Villager;
+import game.Town.TownNeeds;
+import game.Town.villagers.Villager;
+import game.Town.villagers.behaviors.Task;
 
 /**
  * Collects the resource until the villager can't carry anymore.
  */
 public class CollectTargetResource extends Task {
-  public CollectTargetResource(Villager villager, VillageNeeds villageNeeds, Board board) {
-    super(villager, villageNeeds, board);
+  public CollectTargetResource(Villager villager, TownNeeds townNeeds, Board board) {
+    super(villager, townNeeds, board);
   }
 
   @Override
@@ -18,7 +18,6 @@ public class CollectTargetResource extends Task {
 
     // While the villager can still attain more resources....
     if (villager.getResourcesInHand().size() < villager.getMaxResourcesToCarry()) {
-      // Get the tile that the villager is supposed to be at.
 
       // Deduct the resource from the tile.
       villager.getTargetTile().getResource();
@@ -26,6 +25,7 @@ public class CollectTargetResource extends Task {
       // Add the resource to the villager to carry.
       villager.addResource(villager.getResourceToTarget());
     } else {
+      // default behavior when villager has no mission is to return to spawn with resources
       villager.setOnAMission(false);
     }
     return 1;

@@ -1,7 +1,6 @@
 package game.Board;
 
 import game.GodSim;
-import game.Town.RESOURCES;
 
 public class SpawnTile extends ATile {
     int resourceCount = 0;

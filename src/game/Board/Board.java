@@ -1,10 +1,10 @@
 package game.Board;
 
+import game.Board.structures.HutTile;
 import game.GodSim;
 import game.Town.RESOURCES;
 import processing.core.PVector;
 
-import java.lang.reflect.Array;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 
@@ -59,10 +59,10 @@ public class Board {
      * @param tile
      * @return the new tile
      */
-    public StructureTile buildOnTile(ATile tile, BUILDINGS building_type) {
+    public AStructureTile buildHutOnTile(ATile tile) {
         int indX = tile.getIndX();
         int indY = tile.getIndY();
-        StructureTile structure = new StructureTile(indX, indY, g.CELL_W, g.CELL_H, g, building_type);
+        HutTile structure = new HutTile(indX, indY, g.CELL_W, g.CELL_H, g);
         board[indX][indY] = structure;
         return structure;
     }

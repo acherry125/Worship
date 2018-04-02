@@ -1,16 +1,16 @@
-package game.Town.behaviors;
+package game.Town.villagers.behaviors;
 
 import game.Board.Board;
-import game.Town.VillageNeeds;
-import game.Town.Villager;
+import game.Town.TownNeeds;
+import game.Town.villagers.Villager;
 
 /**
  * Does the behavior for the villager given to go to the spawn.
  */
 public class GoToSpawn extends GoToTile {
 
-    public GoToSpawn(Villager villager, VillageNeeds villageNeeds, Board board) {
-        super(villager, villageNeeds, board);
+    public GoToSpawn(Villager villager, TownNeeds townNeeds, Board board) {
+        super(villager, townNeeds, board);
         super.goToTile(board.getSpawnTile());
     }
 

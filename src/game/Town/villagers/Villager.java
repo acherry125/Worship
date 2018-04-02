@@ -1,11 +1,12 @@
-package game.Town;
+package game.Town.villagers;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import game.Board.ATile;
 import game.GodSim;
-import game.Town.behaviors.Task;
+import game.Town.RESOURCES;
+import game.Town.villagers.behaviors.Task;
 import processing.core.PVector;
 
 public class Villager {
@@ -45,11 +46,16 @@ public class Villager {
         this.btree = btree;
     }
 
+    /**
+     * Execute the villagers behavior tree
+     */
     public void act() {
-
         this.btree.execute();
     }
 
+    /**
+     * Simple vector based move toward target
+     */
     public void move() {
         this.xPos += linear.x;
         this.yPos += linear.y;

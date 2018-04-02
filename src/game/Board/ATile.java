@@ -2,7 +2,6 @@ package game.Board;
 
 import game.GodSim;
 import game.Town.RESOURCES;
-import jdk.management.resource.ResourceRequest;
 import processing.core.PVector;
 
 public abstract class ATile {
@@ -35,7 +34,7 @@ public abstract class ATile {
     private float temp;
 
     /* Constructor */
-    public ATile(int indX, int indY, float cell_w, float cell_h, GodSim game) {
+    protected ATile(int indX, int indY, float cell_w, float cell_h, GodSim game) {
         this.indX = indX;
         this.indY = indY;
         this.cell_w = cell_w;

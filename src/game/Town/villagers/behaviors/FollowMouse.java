@@ -1,8 +1,8 @@
-package game.Town.behaviors;
+package game.Town.villagers.behaviors;
 
 import game.Board.Board;
-import game.Town.VillageNeeds;
-import game.Town.Villager;
+import game.Town.TownNeeds;
+import game.Town.villagers.Villager;
 import processing.core.PVector;
 
 /**
@@ -12,10 +12,10 @@ public class FollowMouse extends Task {
     int mouseX;
     int mouseY;
 
-    public FollowMouse(Villager villager, VillageNeeds villageNeeds, Board board,
+    public FollowMouse(Villager villager, TownNeeds townNeeds, Board board,
                        int mouseX, int mouseY) {
 
-        super(villager, villageNeeds, board);
+        super(villager, townNeeds, board);
         this.mouseX = mouseX;
         this.mouseY = mouseY;
     }

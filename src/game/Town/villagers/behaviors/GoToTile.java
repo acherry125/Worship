@@ -1,9 +1,9 @@
-package game.Town.behaviors;
+package game.Town.villagers.behaviors;
 
 import game.Board.ATile;
 import game.Board.Board;
-import game.Town.VillageNeeds;
-import game.Town.Villager;
+import game.Town.TownNeeds;
+import game.Town.villagers.Villager;
 import processing.core.PVector;
 
 /**
@@ -11,8 +11,8 @@ import processing.core.PVector;
  */
 public abstract class GoToTile extends Task {
 
-    public GoToTile(Villager villager, VillageNeeds villageNeeds, Board board) {
-        super(villager, villageNeeds, board);
+    public GoToTile(Villager villager, TownNeeds townNeeds, Board board) {
+        super(villager, townNeeds, board);
     }
 
     public void goToTile(ATile tile) {

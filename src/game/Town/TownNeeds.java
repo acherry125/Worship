@@ -2,19 +2,19 @@ package game.Town;
 
 import java.util.HashMap;
 
-public class VillageNeeds {
+public class TownNeeds {
     private HashMap<RESOURCES, Integer> villageNeeds;
 
     /**
      * Positive numbers means there is a need for that resource.
      * Negative needs means there is excess.
      */
-    public VillageNeeds() {
+    public TownNeeds() {
         villageNeeds = new HashMap();
-        villageNeeds.put(RESOURCES.WOOD, 10);
-        villageNeeds.put(RESOURCES.WATER, 10);
-        villageNeeds.put(RESOURCES.STONE, 10);
-        villageNeeds.put(RESOURCES.FOOD, 20);
+        createNeed(RESOURCES.WOOD, 10);
+        createNeed(RESOURCES.WATER, 10);
+        createNeed(RESOURCES.STONE, 10);
+        createNeed(RESOURCES.FOOD, 20);
     }
 
     public Integer get(RESOURCES key) {

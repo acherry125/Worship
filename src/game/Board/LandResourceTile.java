@@ -1,11 +1,27 @@
 package game.Board;
+
 import game.GodSim;
 import game.Town.RESOURCES;
 
-public class ReachableTile extends ATile {
+public class LandResourceTile extends ATile {
     int resourceCount = 20;
-    public ReachableTile(int indX, int indY, float cell_w, float cell_h, GodSim game) {
+    public LandResourceTile(int indX, int indY, float cell_w, float cell_h, GodSim game) {
         super(indX, indY, cell_w, cell_h, game);
+        if (resourceCount == 0) {
+
+        } else if (resource == RESOURCES.WOOD) {
+            drawTree();
+            g.fill(255);
+            g.text(resourceCount, getXPx(), getYPx());
+        } else if (resource == RESOURCES.STONE) {
+            drawStone();
+            g.fill(0);
+            g.text(resourceCount, getXPx(), getYPx());
+        } else if (resource == RESOURCES.FOOD) {
+            drawBerryBush();
+            g.fill(255);
+            g.text(resourceCount, getXPx(), getYPx());
+        }
     }
 
     @Override
@@ -54,6 +70,11 @@ public class ReachableTile extends ATile {
     }
 
     @Override
+    public boolean canBeBuiltOn() {
+        return true;
+    }
+
+    @Override
     public RESOURCES peekResource() {
         return resource;
     }
@@ -70,30 +91,6 @@ public class ReachableTile extends ATile {
         } else {
             resourceCount = 0;
         }
-    }
-
-    /**
-     * Draw a hut on this tile
-     */
-    private void drawHut() {
-        float padding = 10;
-        float pX = (indX * cell_w) + padding;
-        float pY = (indY * cell_h) + 3*padding;
-        float pWidth = cell_w - 2*padding;
-        float pHeight = cell_h - 6*padding;
-
-        float x1 = pX + (pWidth / 2);
-        float y1 = pY;
-        float x2 = pX;
-        float y2 = pY + pHeight;
-        float x3 = pX + pWidth;
-        float y3 = pY + pHeight;
-
-        g.fill(255, 100, 0);
-        g.stroke(0, 0, 0);
-        g.triangle(x1, y1, x2, y2, x3, y3);
-        g.fill(255, 100, 100);
-        g.rect(x2 + 4, y2, pWidth - 8, 25);
     }
 
     /**

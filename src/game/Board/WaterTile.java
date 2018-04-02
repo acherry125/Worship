@@ -27,11 +27,6 @@ public class WaterTile extends ATile {
         return false;
     }
 
-    @Override
-    public RESOURCES getResource() {
-        return resource;
-    }
-
     /**
      * Get the water parameter
      *

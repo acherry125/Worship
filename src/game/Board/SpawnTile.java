@@ -1,8 +1,9 @@
 package game.Board;
 
 import game.GodSim;
+import game.Town.RESOURCES;
 
-public class SpawnTile extends ReachableTile {
+public class SpawnTile extends ATile {
     int resourceCount = 0;
     public SpawnTile(int indX, int indY, float cell_w, float cell_h, GodSim game) {
         super(indX, indY, cell_w, cell_h, game);
@@ -23,7 +24,12 @@ public class SpawnTile extends ReachableTile {
     }
 
     @Override
-    protected void calculateResource() {
-        return;
+    public int getResourceCount() {
+        return 0;
+    }
+
+    @Override
+    public boolean isReachable() {
+        return true;
     }
 }

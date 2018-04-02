@@ -23,6 +23,8 @@ public class Villager {
     private boolean onAMission;
     private ATile targetTile;
 
+    final float speed = 2;
+
     public Villager(GodSim g, float xPos, float yPos, VILLAGER_ROLES role) {
         this.g = g;
         this.xPos = xPos;
@@ -74,6 +76,7 @@ public class Villager {
             PVector tileCenterPush = new PVector(futureT.getXPx() - this.getPosition().x, futureT.getYPx() - this.getPosition().y).normalize().mult(12/10);
             initialLinear.sub(tileCenterPush);
         }*/
+        initialLinear.mult(speed);
         linear = initialLinear;
     }
 

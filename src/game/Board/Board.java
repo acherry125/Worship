@@ -54,6 +54,23 @@ public class Board {
         return board[tileIndexX][tileIndexY];
     }
 
+    /**
+     * Replaces the given tile with a tile that contains a structure
+     * @param tile
+     * @return the new tile
+     */
+    public StructureTile buildOnTile(ATile tile, BUILDINGS building_type) {
+        int indX = tile.getIndX();
+        int indY = tile.getIndY();
+        StructureTile structure = new StructureTile(indX, indY, g.CELL_W, g.CELL_H, g, building_type);
+        board[indX][indY] = structure;
+        return structure;
+    }
+
+    /**
+     * @param tile
+     * @return the tiles adjacent to the given tile
+     */
     public ATile[] getAdjacentTiles(ATile tile) {
         ArrayList<ATile> result = new ArrayList<ATile>();
         int x = tile.getIndX();
@@ -103,14 +120,20 @@ public class Board {
             spawn = new SpawnTile(x, y, g.CELL_W, g.CELL_H, g);
             return spawn;
         } else {
-            float waterNoise = (float) g.noise(x, y);
+            float waterNoise = g.noise(x, y);
             if (waterNoise > 0.66) {
                 return new WaterTile(x, y, g.CELL_W, g.CELL_H, g);
             }
-            return new ReachableTile(x, y, g.CELL_W, g.CELL_H, g);
+            return new LandResourceTile(x, y, g.CELL_W, g.CELL_H, g);
         }
     }
 
+
+    /**
+     * @param checker
+     * @param locationOfVillager
+     * @return The closest tile on the board that satisfies the given tile checker
+     */
     public ATile getClosestTilePasses(ITileChecker checker, PVector locationOfVillager) {
         // Setup an explored and found queue
         ArrayDeque<ATile> explored = new ArrayDeque<ATile>();
@@ -125,19 +148,11 @@ public class Board {
                 break;
             } else {
                 explored.offerFirst(curr);
-                int indX = curr.indX;
-                int indY = curr.indY;
-                if (indX > 0 && !explored.contains(board[indX - 1][indY])) {
-                    found.offerFirst(board[indX - 1][indY]);
-                }
-                if (indX < g.CELLS_WIDE && !explored.contains(board[indX + 1][indY])) {
-                    found.offerFirst(board[indX + 1][indY]);
-                }
-                if (indY > 0 && !explored.contains(board[indX][indY - 1])) {
-                    found.offerFirst(board[indX][indY - 1]);
-                }
-                if (indY < g.CELLS_TALL && !explored.contains(board[indX][indY + 1])) {
-                    found.offerFirst(board[indX][indY - 1]);
+                ATile[] adjacent = getAdjacentTiles(curr);
+                for (ATile tile: adjacent) {
+                    if (!explored.contains(tile)) {
+                        found.offerFirst(tile);
+                    }
                 }
             }
         }

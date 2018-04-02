@@ -113,7 +113,17 @@ public abstract class ATile {
      *
      * @return the tile's RESOURCE
      */
-    abstract public RESOURCES getResource();
+    public RESOURCES getResource() {
+        return resource;
+    };
+
+    /**
+     *
+     * @return whether this tile can be built on
+     */
+    public boolean canBeBuiltOn() {
+        return false;
+    }
 
     /**
      * View the tile's resource

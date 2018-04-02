@@ -54,9 +54,6 @@ public class Explorer  extends Task {
 
     }
 
-
-    //TODO: add code to go back to spawn.
-
     return 1;
   }
 }

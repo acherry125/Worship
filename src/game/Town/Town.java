@@ -20,8 +20,8 @@ public class Town {
     public Town(GodSim g) {
         this.g = g;
         this.board = g.getBoard();
-        initialize();
         townNeeds = new TownNeeds();
+        initialize();
     }
 
     /**
@@ -31,12 +31,12 @@ public class Town {
      */
     public Villager spawn() {
         ATile spawnTile = board.getSpawnTile();
-        Villager villager = new Villager(g, spawnTile.getXPx() - 200, spawnTile.getYPx() - 200,
-                VILLAGER_ROLES.EXPLORER);
+        Villager villager = new Villager(this, spawnTile.getXPx() - 800, spawnTile.getYPx() - 100,
+                VILLAGER_ROLES.BUILDER, g);
         villagers.add(villager);
 
-        Villager villager2 = new Villager(g, spawnTile.getXPx() -230, spawnTile.getYPx() - 230,
-                VILLAGER_ROLES.EXPLORER);
+        Villager villager2 = new Villager(this, spawnTile.getXPx() -230, spawnTile.getYPx() - 230,
+                VILLAGER_ROLES.BUILDER, g);
         villagers.add(villager2);
 
         // TODO: can make village needs itself increment, but at what rate? putting here for now.
@@ -50,9 +50,7 @@ public class Town {
 
     public void draw() {
 
-        // TODO: make new behavior, change code to move this to that default starting behavior.
         for (Villager villager : villagers) {
-            villager.setBtree(new Explorer(villager, townNeeds, board));
             villager.act();
             villager.draw();
         }

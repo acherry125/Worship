@@ -6,7 +6,10 @@ import java.util.List;
 import game.Board.ATile;
 import game.GodSim;
 import game.Town.RESOURCES;
-import game.Town.villagers.behaviors.Task;
+import game.Town.Town;
+import game.Town.villagers.behaviors.*;
+import game.Town.villagers.behaviors.explorer.*;
+import game.Town.villagers.behaviors.builder.*;
 import processing.core.PVector;
 
 public class Villager {
@@ -23,11 +26,13 @@ public class Villager {
     private RESOURCES resourceToTarget;
     private boolean onAMission;
     private ATile targetTile;
+    private Town town;
 
     final float speed = 2;
 
-    public Villager(GodSim g, float xPos, float yPos, VILLAGER_ROLES role) {
+    public Villager(Town town, float xPos, float yPos, VILLAGER_ROLES role, GodSim g) {
         this.g = g;
+        this.town = town;
         this.xPos = xPos;
         this.yPos = yPos;
         this.role = role;
@@ -35,15 +40,25 @@ public class Villager {
         this.resourcesInHand = new LinkedList<>();
         this.maxResourcesToCarry = 5;
         this.onAMission = false;
+
+        initializeBTree();
     }
 
     public void setVillageRole(VILLAGER_ROLES role) {
         this.role = role;
+        initializeBTree();
     }
 
     public void setBtree(Task btree) {
-
         this.btree = btree;
+    }
+
+    public void initializeBTree() {
+        if (role == VILLAGER_ROLES.EXPLORER) {
+            setBtree(new Explorer(this, town.getTownNeeds(), g.board));
+        } else if (role == VILLAGER_ROLES.BUILDER) {
+            setBtree(new Builder(this, town.getTownNeeds(), g.board));
+        }
     }
 
     /**
@@ -97,7 +112,6 @@ public class Villager {
     public void draw() {
 
         PVector curr = new PVector(xPos, yPos);
-        curr.add(target.copy().mult(2));
         g.ellipseMode(g.CENTER);
         g.rectMode(g.CENTER);
         g.stroke(100,100,100);

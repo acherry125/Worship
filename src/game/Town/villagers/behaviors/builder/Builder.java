@@ -40,7 +40,8 @@ public class Builder extends ATask {
             }
         } else {
             if (!villager.getTargetTile().isAtTile(villager.getPosition())) {
-                // System.out.println("on a mission to my target resource" + villager.getTarget());
+                villager.setBtree(new TargetBuildablePlot(villager, townNeeds, board));
+                villager.act();
                 villager.setBtree(new ApproachTarget(villager, townNeeds, board));
                 villager.act();
             } else if (villager.getTown().canSupportHut()) {
@@ -48,8 +49,6 @@ public class Builder extends ATask {
                 villager.act();
                 townNeeds.raiseNeed(RESOURCES.WOOD, 5);
             }
-
-
         }
 
         return 1;

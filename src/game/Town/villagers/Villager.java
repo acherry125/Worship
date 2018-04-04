@@ -28,7 +28,7 @@ public class Villager {
     private ATile targetTile;
     private Town town;
 
-    final float speed = 3;
+    final float moveSpeed = 3;
 
     public Villager(Town town, float xPos, float yPos, VILLAGER_ROLES role, GodSim g) {
         this.g = g;
@@ -97,7 +97,7 @@ public class Villager {
             PVector tileCenterPush = new PVector(futureT.getXPx() - this.getPosition().x, futureT.getYPx() - this.getPosition().y).normalize().mult(12/10);
             initialLinear.sub(tileCenterPush);
         }*/
-        initialLinear.mult(speed);
+        initialLinear.mult(moveSpeed);
         linear = initialLinear;
     }
 
@@ -122,8 +122,12 @@ public class Villager {
         g.ellipseMode(g.CENTER);
         g.rectMode(g.CENTER);
         g.stroke(100,100,100);
-        g.fill(254, 176, 80);
         // body
+        if (role == VILLAGER_ROLES.EXPLORER) {
+            g.fill(254, 176, 80);
+        } else if (role == VILLAGER_ROLES.BUILDER) {
+            g.fill(254, 80, 80);
+        }
         g.ellipse(xPos, yPos, 40, 40);
         g.fill(255, 206, 145);
         // head

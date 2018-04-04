@@ -5,6 +5,7 @@ import game.Board.structures.SpawnTile;
 import game.Board.tileCheckers.ITileChecker;
 import game.Board.tileCheckers.TileCheckerBuildable;
 import game.Board.tileCheckers.TileCheckerHasResource;
+import game.Board.tileCheckers.TileCheckerHasStructure;
 import game.GodSim;
 import game.Town.RESOURCES;
 import processing.core.PVector;
@@ -159,7 +160,7 @@ public class Board {
      * @param locationOfVillager
      * @return The closest tile on the board that satisfies the given tile checker
      */
-    public ATile getClosestTilePasses(ITileChecker checker, PVector locationOfVillager) {
+    public ATile getClosestTileThatPasses(ITileChecker checker, PVector locationOfVillager) {
         // Setup an explored and found queue
         ArrayDeque<ATile> explored = new ArrayDeque<ATile>();
         ArrayDeque<ATile> found = new ArrayDeque<ATile>();
@@ -191,7 +192,7 @@ public class Board {
      * @return
      */
     public ATile getClosestResourceTile(RESOURCES resource, PVector locationOfVillager) {
-        return getClosestTilePasses(new TileCheckerHasResource(resource), locationOfVillager);
+        return getClosestTileThatPasses(new TileCheckerHasResource(resource), locationOfVillager);
     }
 
     /**
@@ -201,7 +202,36 @@ public class Board {
      * @return
      */
     public ATile getClosestBuildableTile(PVector locationOfVillager) {
-        return getClosestTilePasses(new TileCheckerBuildable(), locationOfVillager);
+        return getClosestTileThatPasses(new TileCheckerBuildable(), locationOfVillager);
+    }
+
+    public int numStructuresOnMap() {
+        return countTilesThatPass(new TileCheckerHasStructure());
+    }
+
+    public ATile[] getTilesThatPass(ITileChecker checker) {
+        ArrayList<ATile> passing = new ArrayList<ATile>();
+        for (int x = 0; x < board.length; x++) {
+            for (int y = 0; y < board[0].length; y++) {
+                if(checker.passes(board[x][y])) {
+                    passing.add(board[x][y]);
+                }
+            }
+        }
+        return passing.toArray(new ATile[passing.size()]);
+    }
+
+
+    public int countTilesThatPass(ITileChecker checker) {
+        int count = 0;
+        for (int x = 0; x < board.length; x++) {
+            for (int y = 0; y < board[0].length; y++) {
+                if(checker.passes(board[x][y])) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
     /**

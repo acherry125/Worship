@@ -4,12 +4,12 @@ import game.Board.ATile;
 import game.Board.Board;
 import game.Town.TownNeeds;
 import game.Town.villagers.Villager;
-import game.Town.villagers.behaviors.Task;
+import game.Town.villagers.behaviors.ATask;
 import processing.core.PVector;
 
-public class TargetHighestVillageNeed extends Task {
+public class TargetTownNeed extends ATask {
 
-  public TargetHighestVillageNeed(Villager villager, TownNeeds townNeeds, Board board) {
+  public TargetTownNeed(Villager villager, TownNeeds townNeeds, Board board) {
     super(villager, townNeeds, board);
   }
 

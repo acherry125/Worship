@@ -1,13 +1,12 @@
 package game;
 
 import game.Board.Board;
+import game.Player.Player;
 import game.Town.Town;
-import game.handlers.ClickHandler;
+import game.Handlers.ClickHandler;
 import processing.core.PApplet;
-import processing.core.PFont;
 import processing.core.PVector;
 import processing.event.KeyEvent;
-import processing.event.MouseEvent;
 
 public class GodSim extends PApplet {
 
@@ -23,11 +22,12 @@ public class GodSim extends PApplet {
     public final float MAP_PX_WIDTH = CELL_W * CELLS_WIDE;
     public final float MAP_PX_HEIGHT = CELL_H * CELLS_TALL;
 
-    public Camera camera;
+    private Camera camera;
 
-    public Board board;
-    public Town town;
-    public UI ui;
+    private Board board;
+    private Town town;
+    private UI ui;
+    private Player player;
 
     private ClickHandler click;
 
@@ -36,6 +36,7 @@ public class GodSim extends PApplet {
         click = new ClickHandler(this);
         initializeBoard();
         initializeTown();
+        initializePlayer();
         camera = new Camera(MAP_PX_WIDTH, MAP_PX_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
         ui = new UI(this);
     }
@@ -43,7 +44,7 @@ public class GodSim extends PApplet {
     @Override
     public void settings() {
         size((int) (SCREEN_WIDTH), (int) (SCREEN_HEIGHT));
-        //fullScreen();
+        // fullScreen();
     }
 
     /**
@@ -61,6 +62,13 @@ public class GodSim extends PApplet {
     }
 
     /**
+     * Initialize the town
+     */
+    private void initializePlayer() {
+        player = new Player(this);
+    }
+
+    /**
      * Get the mouse's position on the board
      *
      * @return PVector with the mouse's position on the board
@@ -71,6 +79,15 @@ public class GodSim extends PApplet {
 
     public Board getBoard() {
         return board;
+    }
+    public Town getTown() {
+        return town;
+    }
+    public Camera getCamera() {
+        return camera;
+    }
+    public Player getPlayer() {
+        return player;
     }
 
     @Override

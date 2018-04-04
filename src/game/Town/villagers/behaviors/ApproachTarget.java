@@ -4,7 +4,7 @@ import game.Board.Board;
 import game.Town.TownNeeds;
 import game.Town.villagers.Villager;
 
-public class ApproachTarget extends Task {
+public class ApproachTarget extends ATask {
   public ApproachTarget(Villager villager, TownNeeds townNeeds, Board board) {
     super(villager, townNeeds, board);
   }

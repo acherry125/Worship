@@ -3,12 +3,12 @@ package game.Town.villagers.behaviors.explorer;
 import game.Board.Board;
 import game.Town.TownNeeds;
 import game.Town.villagers.Villager;
-import game.Town.villagers.behaviors.Task;
+import game.Town.villagers.behaviors.ATask;
 
 /**
  * Collects the resource until the villager can't carry anymore.
  */
-public class CollectTargetResource extends Task {
+public class CollectTargetResource extends ATask {
   public CollectTargetResource(Villager villager, TownNeeds townNeeds, Board board) {
     super(villager, townNeeds, board);
   }

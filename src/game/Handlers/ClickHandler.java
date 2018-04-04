@@ -1,4 +1,4 @@
-package game.handlers;
+package game.Handlers;
 
 import game.Board.ATile;
 import game.Board.Board;
@@ -12,8 +12,6 @@ public class ClickHandler {
         this.g = g;
     }
     public void handle() {
-        Board board = g.getBoard();
-        ATile clickedTile = board.getTile(g.getMouse());
-        board.buildHutOnTile(clickedTile);
+        g.getPlayer().act(g.getMouse());
     }
 }

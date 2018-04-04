@@ -6,7 +6,7 @@ import game.Town.TownNeeds;
 import game.Town.villagers.Villager;
 import game.Town.villagers.behaviors.*;
 
-public class Explorer  extends Task {
+public class Explorer  extends ATask {
 
   public Explorer(Villager villager, TownNeeds townNeeds, Board board) {
     super(villager, townNeeds, board);
@@ -30,7 +30,7 @@ public class Explorer  extends Task {
           townNeeds.reduceNeed(r);
         }
         villager.getResourcesInHand().clear();
-        villager.setBtree(new TargetHighestVillageNeed(villager, townNeeds, board));
+        villager.setBtree(new TargetTownNeed(villager, townNeeds, board));
         villager.act();
 
         // villager is now on a mission.
@@ -40,6 +40,8 @@ public class Explorer  extends Task {
 
       if (!villager.getTargetTile().isAtTile(villager.getPosition())) {
         // System.out.println("on a mission to my target resource" + villager.getTarget());
+        villager.setBtree(new TargetTownNeed(villager, townNeeds, board));
+        villager.act();
         villager.setBtree(new ApproachTarget(villager, townNeeds, board));
         villager.act();
       } else {

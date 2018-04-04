@@ -6,9 +6,9 @@ import game.Town.TownNeeds;
 import game.Town.villagers.Villager;
 import game.Town.villagers.behaviors.ApproachTarget;
 import game.Town.villagers.behaviors.GoToSpawn;
-import game.Town.villagers.behaviors.Task;
+import game.Town.villagers.behaviors.ATask;
 
-public class Builder extends Task {
+public class Builder extends ATask {
     public Builder(Villager villager, TownNeeds townNeeds, Board board) {
         super(villager, townNeeds, board);
     }

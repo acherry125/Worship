@@ -9,7 +9,7 @@ import processing.core.PVector;
 /**
  * Does the behavior of making the villager given go to the tile given.
  */
-public abstract class GoToTile extends Task {
+public abstract class GoToTile extends ATask {
     PVector target;
     public GoToTile(Villager villager, TownNeeds townNeeds, Board board) {
         super(villager, townNeeds, board);

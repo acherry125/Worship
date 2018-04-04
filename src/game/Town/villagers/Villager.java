@@ -16,7 +16,7 @@ public class Villager {
     private float xPos;
     private float yPos;
     private VILLAGER_ROLES role;
-    public Task btree;
+    public ATask btree;
     private double beliefInGod; // 1 is full belief, 0 is no belief.
     private PVector target;
     protected GodSim g;
@@ -49,15 +49,15 @@ public class Villager {
         //initializeBTree();
     }
 
-    public void setBtree(Task btree) {
+    public void setBtree(ATask btree) {
         this.btree = btree;
     }
 
     public void initializeBTree() {
         if (role == VILLAGER_ROLES.EXPLORER) {
-            setBtree(new Explorer(this, town.getTownNeeds(), g.board));
+            setBtree(new Explorer(this, town.getTownNeeds(), g.getBoard()));
         } else if (role == VILLAGER_ROLES.BUILDER) {
-            setBtree(new Builder(this, town.getTownNeeds(), g.board));
+            setBtree(new Builder(this, town.getTownNeeds(), g.getBoard()));
         }
     }
 

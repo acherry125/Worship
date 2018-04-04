@@ -8,7 +8,7 @@ import processing.core.PVector;
 /**
  * Behavior just for sample structure.
  */
-public class FollowMouse extends Task {
+public class FollowMouse extends ATask {
     int mouseX;
     int mouseY;
 

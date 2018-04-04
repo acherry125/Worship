@@ -4,9 +4,9 @@ import game.Board.ATile;
 import game.Board.Board;
 import game.Town.TownNeeds;
 import game.Town.villagers.Villager;
-import game.Town.villagers.behaviors.Task;
+import game.Town.villagers.behaviors.ATask;
 
-public class BuildHut extends Task {
+public class BuildHut extends ATask {
     public BuildHut(Villager villager, TownNeeds townNeeds, Board board) {
         super(villager, townNeeds, board);
     }

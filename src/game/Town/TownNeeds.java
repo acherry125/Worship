@@ -3,14 +3,14 @@ package game.Town;
 import java.util.HashMap;
 
 public class TownNeeds {
-    private HashMap<RESOURCES, Integer> villageNeeds;
+    private HashMap<RESOURCES, Integer> townNeeds;
 
     /**
      * Positive numbers means there is a need for that resource.
      * Negative needs means there is excess.
      */
     public TownNeeds() {
-        villageNeeds = new HashMap();
+        townNeeds = new HashMap();
         createNeed(RESOURCES.WOOD, 5);
         createNeed(RESOURCES.WATER, -10);
         createNeed(RESOURCES.STONE, -10);
@@ -18,7 +18,7 @@ public class TownNeeds {
     }
 
     public Integer get(RESOURCES key) {
-        return villageNeeds.get(key);
+        return townNeeds.get(key);
     }
 
     /**
@@ -30,32 +30,32 @@ public class TownNeeds {
     public void createNeed(RESOURCES need, int value) {
         int currentNeed;
 
-        if (villageNeeds.containsKey(need)) {
-            currentNeed = villageNeeds.get(need);
+        if (townNeeds.containsKey(need)) {
+            currentNeed = townNeeds.get(need);
         } else {
             currentNeed = 0;
         }
 
         currentNeed += value;
 
-        villageNeeds.put(need, currentNeed);
+        townNeeds.put(need, currentNeed);
 
     }
 
     public void reduceNeed(RESOURCES need, int num) {
-        villageNeeds.put(need, villageNeeds.get(need) - num);
+        townNeeds.put(need, townNeeds.get(need) - num);
     }
 
     public void reduceNeed(RESOURCES need) {
-        villageNeeds.put(need, villageNeeds.get(need) - 1);
+        townNeeds.put(need, townNeeds.get(need) - 1);
     }
 
     public void raiseNeed(RESOURCES need, int num) {
-        villageNeeds.put(need, villageNeeds.get(need) + num);
+        townNeeds.put(need, townNeeds.get(need) + num);
     }
 
     public void raiseNeed(RESOURCES need) {
-        villageNeeds.put(need, villageNeeds.get(need) + 1);
+        townNeeds.put(need, townNeeds.get(need) + 1);
     }
 
 
@@ -69,10 +69,10 @@ public class TownNeeds {
 
         int highestNeedValue = -Integer.MIN_VALUE;
 
-        for (RESOURCES need : villageNeeds.keySet()) {
-            if (villageNeeds.get(need) > highestNeedValue) {
+        for (RESOURCES need : townNeeds.keySet()) {
+            if (townNeeds.get(need) > highestNeedValue) {
                 highestNeed = need;
-                highestNeedValue = villageNeeds.get(need);
+                highestNeedValue = townNeeds.get(need);
             }
         }
 
@@ -82,8 +82,8 @@ public class TownNeeds {
     @Override
     public String toString() {
         StringBuffer result = new StringBuffer();
-        for (RESOURCES r : this.villageNeeds.keySet()) {
-            result.append(r + ": " + this.villageNeeds.get(r) + "\n");
+        for (RESOURCES r : this.townNeeds.keySet()) {
+            result.append(r + ": " + this.townNeeds.get(r) + "\n");
         }
 
         return result.toString();

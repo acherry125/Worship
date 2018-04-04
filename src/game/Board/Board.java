@@ -76,6 +76,23 @@ public class Board {
     }
 
     /**
+     * Replaces the given tile with a tile that contains a structure
+     * @param tile
+     * @return the new tile
+     */
+    public WaterTile floodTile(ATile tile) {
+        if (tile.isSpawner()) {
+            // we don't want to build on a built plot of land
+            return null;
+        }
+        int indX = tile.getIndX();
+        int indY = tile.getIndY();
+        WaterTile water = new WaterTile(indX, indY, g.CELL_W, g.CELL_H, g);
+        board[indX][indY] = water;
+        return water;
+    }
+
+    /**
      * @param tile
      * @return the tiles adjacent to the given tile
      */

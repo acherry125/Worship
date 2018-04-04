@@ -4,6 +4,7 @@ import game.Board.ATile;
 import game.Board.Board;
 import game.GodSim;
 import game.Player.powers.BuildHut;
+import game.Player.powers.Flood;
 import game.Player.powers.IPower;
 import game.Town.Town;
 
@@ -18,7 +19,7 @@ public class PowerManager {
     public PowerManager(GodSim g) {
         this.g = g;
         this.board = g.getBoard();
-        equipPower(new BuildHut());
+        equipPower(new Flood());
     }
 
     public void usePower(ATile tileSelected) {

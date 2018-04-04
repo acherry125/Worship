@@ -50,7 +50,6 @@ public class Town {
         }
     }
 
-
     public TownNeeds getTownNeeds() {
         return townNeeds;
     }

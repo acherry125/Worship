@@ -2,10 +2,12 @@ package game;
 
 import game.Board.Board;
 import game.Town.Town;
+import game.handlers.ClickHandler;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PVector;
 import processing.event.KeyEvent;
+import processing.event.MouseEvent;
 
 public class GodSim extends PApplet {
 
@@ -27,8 +29,11 @@ public class GodSim extends PApplet {
     public Town town;
     public UI ui;
 
+    private ClickHandler click;
+
     @Override
     public void setup() {
+        click = new ClickHandler(this);
         initializeBoard();
         initializeTown();
         camera = new Camera(MAP_PX_WIDTH, MAP_PX_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -88,6 +93,11 @@ public class GodSim extends PApplet {
         } else if (keyCode == RIGHT || keyCode == RIGHT_WASD) {
             camera.moveRight();
         }
+    }
+
+    @Override
+    public void mouseClicked() {
+        click.handle();
     }
 
     @Override

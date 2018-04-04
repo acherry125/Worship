@@ -1,15 +1,13 @@
 package game.Town;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import game.Board.ATile;
 import game.Board.Board;
 import game.GodSim;
-import game.Town.villagers.behaviors.explorer.Explorer;
 import game.Town.villagers.VILLAGER_ROLES;
 import game.Town.villagers.Villager;
-
-import static processing.core.PApplet.println;
 
 public class Town {
     GodSim g;
@@ -29,20 +27,29 @@ public class Town {
      *
      * @return the spawned Villager
      */
-    public Villager spawn() {
+    public Villager spawn(VILLAGER_ROLES role) {
         ATile spawnTile = board.getSpawnTile();
-        Villager villager = new Villager(this, spawnTile.getXPx() + 100, spawnTile.getYPx() - 100,
-                VILLAGER_ROLES.BUILDER, g);
+        Random r = new Random();
+        float randomMin = -200;
+        float randomMax = 200;
+        float randomX = spawnTile.getXPx() + randomMin + r.nextFloat() * (randomMax - randomMin);
+        float randomY= spawnTile.getXPx() + randomMin + r.nextFloat() * (randomMax - randomMin);
+        Villager villager = new Villager(this, randomX, randomY, role, g);
         villagers.add(villager);
-
-        Villager villager2 = new Villager(this, spawnTile.getXPx() -230, spawnTile.getYPx() - 230,
-                VILLAGER_ROLES.EXPLORER, g);
-        villagers.add(villager2);
-
-        // TODO: can make village needs itself increment, but at what rate? putting here for now.
-
         return villager;
     }
+
+    /**
+     * Spawns a number of villagers on the map at the spawn point
+     *
+     * @return the spawned Villager
+     */
+    public void spawnMany(VILLAGER_ROLES role, int quantity) {
+        for (int i = 0; i < quantity; i++) {
+            spawn(role);
+        }
+    }
+
 
     public TownNeeds getTownNeeds() {
         return townNeeds;
@@ -65,6 +72,7 @@ public class Town {
      * Creates a new villager in the village.
      */
     private void initialize() {
-        spawn();
+        spawnMany(VILLAGER_ROLES.BUILDER, 1);
+        spawnMany(VILLAGER_ROLES.EXPLORER, 2);
     }
 }

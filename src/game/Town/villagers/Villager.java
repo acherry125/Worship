@@ -28,7 +28,7 @@ public class Villager {
     private ATile targetTile;
     private Town town;
 
-    final float speed = 5;
+    final float speed = 3;
 
     public Villager(Town town, float xPos, float yPos, VILLAGER_ROLES role, GodSim g) {
         this.g = g;

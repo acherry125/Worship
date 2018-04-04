@@ -2,11 +2,19 @@ package game;
 
 import game.Board.Board;
 import game.Player.Player;
+import game.Player.powers.BuildHut;
+import game.Player.powers.Flood;
+import game.Player.powers.IPower;
 import game.Town.Town;
 import game.Handlers.ClickHandler;
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.core.PVector;
 import processing.event.KeyEvent;
+import processing.event.MouseEvent;
+
+import java.nio.file.Paths;
+import java.util.HashMap;
 
 public class GodSim extends PApplet {
 
@@ -31,6 +39,9 @@ public class GodSim extends PApplet {
 
     private ClickHandler click;
 
+    PImage cursorImg;
+    HashMap<IPower, PImage> cursorImages = new HashMap<IPower, PImage>();
+
     @Override
     public void setup() {
         click = new ClickHandler(this);
@@ -39,12 +50,17 @@ public class GodSim extends PApplet {
         initializePlayer();
         camera = new Camera(MAP_PX_WIDTH, MAP_PX_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
         ui = new UI(this);
+        PImage blueCursor = loadImage(Paths.get(System.getProperty("user.dir"), "images", "cursor-blue.png").toString());
+        PImage redCursor = loadImage(Paths.get(System.getProperty("user.dir"), "images", "cursor-red.png").toString());
+        cursorImages.put(Flood.single(), blueCursor);
+        cursorImages.put(BuildHut.single(), redCursor);
+        cursorImg = blueCursor;
     }
 
     @Override
     public void settings() {
-        size((int) (SCREEN_WIDTH), (int) (SCREEN_HEIGHT));
-        // fullScreen();
+        //size((int) (SCREEN_WIDTH), (int) (SCREEN_HEIGHT));
+        fullScreen();
     }
 
     /**
@@ -66,6 +82,10 @@ public class GodSim extends PApplet {
      */
     private void initializePlayer() {
         player = new Player(this);
+    }
+
+    public void setCursor(IPower power) {
+        cursorImg = cursorImages.get(power);
     }
 
     /**
@@ -113,9 +133,17 @@ public class GodSim extends PApplet {
     }
 
     @Override
+    public void mouseClicked(MouseEvent event) {
+        if (event.getButton() == RIGHT) {
+            click.handleRight();
+        }
+    }
+
+    @Override
     public void draw() {
-        if (mousePressed) {
-            click.handle();
+        cursor(cursorImg);
+        if (mousePressed && mouseButton == LEFT) {
+            click.handleLeft();
         }
         background(255);
         g.noStroke();
@@ -124,6 +152,7 @@ public class GodSim extends PApplet {
         town.draw();
         ui.draw();
     }
+
 
     /**
      * Start the game

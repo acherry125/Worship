@@ -13,10 +13,13 @@ public class Player {
         pm = new PowerManager(g);
     }
 
-    public void act(PVector loc) {
+    public void act(PVector loc, boolean leftClick) {
         ATile clickedTile = g.getBoard().getTile(g.getMouse());
-
-        pm.usePower(clickedTile);
+        if (leftClick) {
+            pm.usePower(clickedTile);
+        } else {
+            pm.rotatePower();
+        }
     }
 
     public void equipPower(IPower power) {

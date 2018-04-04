@@ -12,6 +12,7 @@ import processing.core.PVector;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Board {
     private GodSim g;
@@ -65,7 +66,9 @@ public class Board {
      * @return the new tile
      */
     public AStructureTile buildHutOnTile(ATile tile) {
-        if (tile.peekResource() != RESOURCES.NONE) {
+        ArrayList<RESOURCES> depletable = new ArrayList<>(Arrays.asList(new RESOURCES[]{RESOURCES.WOOD, RESOURCES.FOOD, RESOURCES.STONE}));
+        // only on empty tiles (including tiles with empty resources)
+        if (tile.peekResource() != RESOURCES.NONE && !depletable.contains(tile.peekResource()) || (tile.getResourceCount() != 0 && depletable.contains(tile.peekResource()))) {
             // we don't want to build on a built plot of land
             return null;
         }

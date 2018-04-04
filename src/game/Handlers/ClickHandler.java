@@ -11,7 +11,10 @@ public class ClickHandler {
     public ClickHandler(GodSim g) {
         this.g = g;
     }
-    public void handle() {
-        g.getPlayer().act(g.getMouse());
+    public void handleLeft() {
+        g.getPlayer().act(g.getMouse(), true);
+    }
+    public void handleRight() {
+        g.getPlayer().act(g.getMouse(), false);
     }
 }

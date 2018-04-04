@@ -31,8 +31,8 @@ public class Town {
      */
     public Villager spawn() {
         ATile spawnTile = board.getSpawnTile();
-        Villager villager = new Villager(this, spawnTile.getXPx() - 800, spawnTile.getYPx() - 100,
-                VILLAGER_ROLES.EXPLORER, g);
+        Villager villager = new Villager(this, spawnTile.getXPx() + 100, spawnTile.getYPx() - 100,
+                VILLAGER_ROLES.BUILDER, g);
         villagers.add(villager);
 
         Villager villager2 = new Villager(this, spawnTile.getXPx() -230, spawnTile.getYPx() - 230,
@@ -46,6 +46,10 @@ public class Town {
 
     public TownNeeds getTownNeeds() {
         return townNeeds;
+    }
+
+    public boolean canSupportHut() {
+        return townNeeds.get(RESOURCES.WOOD) <= 0;
     }
 
     public void draw() {

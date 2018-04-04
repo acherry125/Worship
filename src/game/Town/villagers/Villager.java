@@ -109,10 +109,15 @@ public class Villager {
         return new PVector(xPos, yPos);
     }
 
+    public Town getTown() {
+        return this.town;
+    }
+
     public void draw() {
 
         PVector curr = new PVector(xPos, yPos);
         curr.add(target.copy().mult(2));
+        //System.out.println(target.copy().mult(2));
 
         g.ellipseMode(g.CENTER);
         g.rectMode(g.CENTER);

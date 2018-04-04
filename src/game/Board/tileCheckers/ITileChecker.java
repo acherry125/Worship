@@ -1,4 +1,6 @@
-package game.Board;
+package game.Board.tileCheckers;
+
+import game.Board.ATile;
 
 public interface ITileChecker {
     /**

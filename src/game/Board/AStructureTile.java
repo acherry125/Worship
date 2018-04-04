@@ -31,6 +31,11 @@ public abstract class AStructureTile extends ATile {
     }
 
     @Override
+    public boolean hasStructure() {
+        return true;
+    }
+
+    @Override
     public RESOURCES getResource() {
         return RESOURCES.CRAFTED;
     }

@@ -4,6 +4,7 @@ import game.Board.Board;
 import game.Town.RESOURCES;
 import game.Town.TownNeeds;
 import game.Town.villagers.Villager;
+import game.Town.villagers.behaviors.ApproachTarget;
 import game.Town.villagers.behaviors.GoToSpawn;
 import game.Town.villagers.behaviors.Task;
 
@@ -14,10 +15,13 @@ public class Builder extends Task {
 
     @Override
     public int execute() {
+        // If not on a mission
         if (!villager.isOnAMission()) {
+
+            // System.out.println("get to mission");
             // Go to the spawn... to get a target.
             villager.setBtree(new GoToSpawn(villager, townNeeds, board));
-        } else {
+
             if (!board.getSpawnTile().isAtTile(villager.getPosition())) {
                 // System.out.println("out of spawn proximity");
                 villager.act();
@@ -26,13 +30,28 @@ public class Builder extends Task {
                     townNeeds.reduceNeed(r);
                 }
                 villager.getResourcesInHand().clear();
-                //villager.setBtree();
-                villager.act();
+                if (villager.getTown().canSupportHut()) {
+                    villager.setBtree(new TargetBuildablePlot(villager, townNeeds, board));
+                    villager.act();
 
-                // villager is now on a mission.
-                villager.setOnAMission(true);
+                    // villager is now on a mission.
+                    villager.setOnAMission(true);
+                }
             }
+        } else {
+            if (!villager.getTargetTile().isAtTile(villager.getPosition())) {
+                // System.out.println("on a mission to my target resource" + villager.getTarget());
+                villager.setBtree(new ApproachTarget(villager, townNeeds, board));
+                villager.act();
+            } else if (villager.getTown().canSupportHut()) {
+                villager.setBtree(new BuildHut(villager, townNeeds, board));
+                villager.act();
+                townNeeds.raiseNeed(RESOURCES.WOOD, 5);
+            }
+
+
         }
+
         return 1;
     }
 }

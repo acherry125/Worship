@@ -1,5 +1,7 @@
-package game.Board;
+package game.Board.tileCheckers;
 
+import game.Board.ATile;
+import game.Board.tileCheckers.ITileChecker;
 import game.Town.RESOURCES;
 
 public class TileCheckerHasResource implements ITileChecker {

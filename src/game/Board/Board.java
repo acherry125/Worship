@@ -1,6 +1,9 @@
 package game.Board;
 
 import game.Board.structures.HutTile;
+import game.Board.tileCheckers.ITileChecker;
+import game.Board.tileCheckers.TileCheckerBuildable;
+import game.Board.tileCheckers.TileCheckerHasResource;
 import game.GodSim;
 import game.Town.RESOURCES;
 import processing.core.PVector;
@@ -167,6 +170,16 @@ public class Board {
      */
     public ATile getClosestResourceTile(RESOURCES resource, PVector locationOfVillager) {
         return getClosestTilePasses(new TileCheckerHasResource(resource), locationOfVillager);
+    }
+
+    /**
+     * Returns the closest available plot of land
+     *
+     * @param locationOfVillager
+     * @return
+     */
+    public ATile getClosestBuildableTile(PVector locationOfVillager) {
+        return getClosestTilePasses(new TileCheckerBuildable(), locationOfVillager);
     }
 
     /**

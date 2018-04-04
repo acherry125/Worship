@@ -26,14 +26,10 @@ public class Explorer  extends Task {
         // System.out.println("out of spawn proximity");
         villager.act();
       } else {
-        System.out.println(townNeeds);
         for (RESOURCES r : villager.getResourcesInHand()) {
           townNeeds.reduceNeed(r);
         }
         villager.getResourcesInHand().clear();
-        System.out.println(townNeeds);
-        System.out.println(board.getSpawnTile().getXPx() + "," + board.getSpawnTile().getYPx() + " | " + villager.getPosition());
-        System.out.println("get a new target");
         villager.setBtree(new TargetHighestVillageNeed(villager, townNeeds, board));
         villager.act();
 
@@ -47,7 +43,6 @@ public class Explorer  extends Task {
         villager.setBtree(new ApproachTarget(villager, townNeeds, board));
         villager.act();
       } else {
-        System.out.println("collecting resource: " + villager.getResourceToTarget());
         villager.setBtree(new CollectTargetResource(villager, townNeeds, board));
         villager.act();
       }

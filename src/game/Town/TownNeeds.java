@@ -11,10 +11,10 @@ public class TownNeeds {
      */
     public TownNeeds() {
         villageNeeds = new HashMap();
-        createNeed(RESOURCES.WOOD, 10);
-        createNeed(RESOURCES.WATER, 10);
-        createNeed(RESOURCES.STONE, 10);
-        createNeed(RESOURCES.FOOD, 20);
+        createNeed(RESOURCES.WOOD, 5);
+        createNeed(RESOURCES.WATER, -10);
+        createNeed(RESOURCES.STONE, -10);
+        createNeed(RESOURCES.FOOD, -20);
     }
 
     public Integer get(RESOURCES key) {
@@ -42,9 +42,22 @@ public class TownNeeds {
 
     }
 
+    public void reduceNeed(RESOURCES need, int num) {
+        villageNeeds.put(need, villageNeeds.get(need) - num);
+    }
+
     public void reduceNeed(RESOURCES need) {
         villageNeeds.put(need, villageNeeds.get(need) - 1);
     }
+
+    public void raiseNeed(RESOURCES need, int num) {
+        villageNeeds.put(need, villageNeeds.get(need) + num);
+    }
+
+    public void raiseNeed(RESOURCES need) {
+        villageNeeds.put(need, villageNeeds.get(need) + 1);
+    }
+
 
     /**
      * Gets the key/highest need of the village.

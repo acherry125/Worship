@@ -69,9 +69,9 @@ public class Board {
         ArrayList<RESOURCES> depletable = new ArrayList<>(Arrays.asList(new RESOURCES[]{RESOURCES.WOOD, RESOURCES.FOOD, RESOURCES.STONE}));
         // only on empty tiles (including tiles with empty resources)
         if (tile.peekResource() != RESOURCES.NONE && !depletable.contains(tile.peekResource()) || (tile.getResourceCount() != 0 && depletable.contains(tile.peekResource()))) {
-            // we don't want to build on a built plot of land
             return null;
         }
+
         int indX = tile.getIndX();
         int indY = tile.getIndY();
         HutTile structure = new HutTile(indX, indY, g.CELL_W, g.CELL_H, g);

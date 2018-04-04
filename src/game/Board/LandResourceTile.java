@@ -4,9 +4,10 @@ import game.GodSim;
 import game.Town.RESOURCES;
 
 public class LandResourceTile extends ATile {
-    int resourceCount = 20;
+    int resourceCount ;
     public LandResourceTile(int indX, int indY, float cell_w, float cell_h, GodSim game) {
         super(indX, indY, cell_w, cell_h, game);
+        resetResourceCount();
     }
 
     @Override
@@ -73,6 +74,21 @@ public class LandResourceTile extends ATile {
         }
     }
 
+    @Override
+    public void setResource(RESOURCES res) {
+        if (resource == RESOURCES.NONE || resource == res || resourceCount == 0) {
+            setResourceOverride(res);
+        }
+    }
+
+    private void setResourceOverride(RESOURCES res) {
+        resource = res;
+        resetResourceCount();
+    }
+
+    private void resetResourceCount() {
+        resourceCount = 20;
+    }
     /**
      * Draw a tree on this tile
      */

@@ -193,6 +193,8 @@ public abstract class ATile {
         return distanceFrom(locationOfVillager) == 0;
     }
 
+    public void setResource(RESOURCES res) {}
+
     /* Protected Methods */
 
     /**

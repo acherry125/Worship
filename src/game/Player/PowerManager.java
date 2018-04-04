@@ -5,6 +5,7 @@ import game.Board.Board;
 import game.GodSim;
 import game.Player.powers.BuildHut;
 import game.Player.powers.Flood;
+import game.Player.powers.GrowTree;
 import game.Player.powers.IPower;
 import game.Town.Town;
 
@@ -23,7 +24,7 @@ public class PowerManager {
     public PowerManager(GodSim g) {
         this.g = g;
         this.board = g.getBoard();
-        powers = new IPower[]{Flood.single(), BuildHut.single()};
+        powers = new IPower[]{Flood.single(), BuildHut.single(), GrowTree.single()};
         for (int i = 0; i < powers.length; i++) {
             powerIndices.put(powers[i], i);
         }

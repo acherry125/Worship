@@ -7,21 +7,6 @@ public class LandResourceTile extends ATile {
     int resourceCount = 20;
     public LandResourceTile(int indX, int indY, float cell_w, float cell_h, GodSim game) {
         super(indX, indY, cell_w, cell_h, game);
-        if (resourceCount == 0) {
-
-        } else if (resource == RESOURCES.WOOD) {
-            drawTree();
-            g.fill(255);
-            g.text(resourceCount, getXPx(), getYPx());
-        } else if (resource == RESOURCES.STONE) {
-            drawStone();
-            g.fill(0);
-            g.text(resourceCount, getXPx(), getYPx());
-        } else if (resource == RESOURCES.FOOD) {
-            drawBerryBush();
-            g.fill(255);
-            g.text(resourceCount, getXPx(), getYPx());
-        }
     }
 
     @Override

@@ -23,7 +23,7 @@ public class Villager {
     private PVector linear;
     private List<RESOURCES> resourcesInHand;
     private int maxResourcesToCarry;
-    private RESOURCES resourceToTarget;
+    private RESOURCES resourceToTarget = RESOURCES.NONE;
     private boolean onAMission;
     private ATile targetTile;
     private Town town;

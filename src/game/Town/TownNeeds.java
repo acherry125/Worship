@@ -1,9 +1,11 @@
 package game.Town;
 
 import java.util.HashMap;
+import java.util.Random;
 
 public class TownNeeds {
     private HashMap<RESOURCES, Integer> townNeeds;
+    private Random rand = new Random();
 
     /**
      * Positive numbers means there is a need for that resource.
@@ -11,10 +13,10 @@ public class TownNeeds {
      */
     public TownNeeds() {
         townNeeds = new HashMap();
-        createNeed(RESOURCES.WOOD, 5);
-        createNeed(RESOURCES.WATER, -10);
-        createNeed(RESOURCES.STONE, -10);
-        createNeed(RESOURCES.FOOD, -20);
+        createNeed(RESOURCES.WOOD, 0);
+        createNeed(RESOURCES.WATER, 0);
+        createNeed(RESOURCES.STONE, 0);
+        createNeed(RESOURCES.FOOD, 0);
     }
 
     public Integer get(RESOURCES key) {
@@ -64,8 +66,11 @@ public class TownNeeds {
      *
      * @return the resource that the village needs most.
      */
-    public RESOURCES getHighestNeed() {
-        RESOURCES highestNeed = RESOURCES.WOOD;
+    public RESOURCES nextResourceToCollect() {
+
+        RESOURCES[] all = townNeeds.keySet().toArray(new RESOURCES[townNeeds.keySet().size()]);
+
+        /*RESOURCES highestNeed = RESOURCES.WOOD;
 
         int highestNeedValue = -Integer.MIN_VALUE;
 
@@ -74,9 +79,9 @@ public class TownNeeds {
                 highestNeed = need;
                 highestNeedValue = townNeeds.get(need);
             }
-        }
+        }*/
 
-        return highestNeed;
+        return all[rand.nextInt(all.length)];
     }
 
     @Override

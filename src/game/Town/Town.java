@@ -60,7 +60,7 @@ public class Town {
     }
 
     public boolean canSupportHut() {
-        return townNeeds.get(RESOURCES.WOOD) <= 0;
+        return townNeeds.get(RESOURCES.WOOD) > 10;
     }
 
     public void draw() {

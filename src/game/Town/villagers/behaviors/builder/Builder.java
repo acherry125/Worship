@@ -47,7 +47,7 @@ public class Builder extends ATask {
             } else if (villager.getTown().canSupportHut()) {
                 villager.setBtree(new BuildHut(villager, townNeeds, board));
                 villager.act();
-                townNeeds.raiseNeed(RESOURCES.WOOD, 5);
+                townNeeds.reduceNeed(RESOURCES.WOOD, 10);
             }
         }
 

@@ -1,6 +1,7 @@
 package game.Town.villagers.behaviors.explorer;
 
 import game.Board.Board;
+import game.Town.RESOURCES;
 import game.Town.TownNeeds;
 import game.Town.villagers.Villager;
 import game.Town.villagers.behaviors.ATask;
@@ -27,6 +28,7 @@ public class CollectTargetResource extends ATask {
     } else {
       // default behavior when villager has no mission is to return to spawn with resources
       villager.getTargetTile().stopHighlight();
+      villager.setResourceToTarget(RESOURCES.NONE);
       villager.setOnAMission(false);
     }
     return 1;

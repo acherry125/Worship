@@ -27,7 +27,7 @@ public class Explorer  extends ATask {
         villager.act();
       } else {
         for (RESOURCES r : villager.getResourcesInHand()) {
-          townNeeds.reduceNeed(r);
+          townNeeds.raiseNeed(r);
         }
         villager.getResourcesInHand().clear();
         villager.setBtree(new TargetTownNeed(villager, townNeeds, board));

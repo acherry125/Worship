@@ -32,11 +32,11 @@ public class Town {
     public Villager spawn() {
         ATile spawnTile = board.getSpawnTile();
         Villager villager = new Villager(this, spawnTile.getXPx() - 800, spawnTile.getYPx() - 100,
-                VILLAGER_ROLES.BUILDER, g);
+                VILLAGER_ROLES.EXPLORER, g);
         villagers.add(villager);
 
         Villager villager2 = new Villager(this, spawnTile.getXPx() -230, spawnTile.getYPx() - 230,
-                VILLAGER_ROLES.BUILDER, g);
+                VILLAGER_ROLES.EXPLORER, g);
         villagers.add(villager2);
 
         // TODO: can make village needs itself increment, but at what rate? putting here for now.
@@ -51,6 +51,7 @@ public class Town {
     public void draw() {
 
         for (Villager villager : villagers) {
+            villager.initializeBTree();
             villager.act();
             villager.draw();
         }

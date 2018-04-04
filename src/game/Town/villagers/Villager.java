@@ -28,7 +28,7 @@ public class Villager {
     private ATile targetTile;
     private Town town;
 
-    final float speed = 2;
+    final float speed = 5;
 
     public Villager(Town town, float xPos, float yPos, VILLAGER_ROLES role, GodSim g) {
         this.g = g;
@@ -41,12 +41,12 @@ public class Villager {
         this.maxResourcesToCarry = 5;
         this.onAMission = false;
 
-        initializeBTree();
+        //initializeBTree();
     }
 
     public void setVillageRole(VILLAGER_ROLES role) {
         this.role = role;
-        initializeBTree();
+        //initializeBTree();
     }
 
     public void setBtree(Task btree) {
@@ -112,6 +112,8 @@ public class Villager {
     public void draw() {
 
         PVector curr = new PVector(xPos, yPos);
+        curr.add(target.copy().mult(2));
+
         g.ellipseMode(g.CENTER);
         g.rectMode(g.CENTER);
         g.stroke(100,100,100);

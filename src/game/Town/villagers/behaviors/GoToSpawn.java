@@ -13,12 +13,11 @@ public class GoToSpawn extends GoToTile {
 
     public GoToSpawn(Villager villager, TownNeeds townNeeds, Board board) {
         super(villager, townNeeds, board);
+        super.goToTile(board.getSpawnTile());
     }
 
     @Override
     public int execute() {
-        println(villager.getTarget());
-        super.goToTile(board.getSpawnTile());
         this.villager.move();
         return 1;
     }

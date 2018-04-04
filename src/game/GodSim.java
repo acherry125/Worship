@@ -21,7 +21,7 @@ public class GodSim extends PApplet {
     public final float MAP_PX_WIDTH = CELL_W * CELLS_WIDE;
     public final float MAP_PX_HEIGHT = CELL_H * CELLS_TALL;
 
-    public Camera camera = new Camera(MAP_PX_WIDTH, MAP_PX_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
+    public Camera camera;
 
     public Board board;
     public Town town;
@@ -31,6 +31,7 @@ public class GodSim extends PApplet {
     public void setup() {
         initializeBoard();
         initializeTown();
+        camera = new Camera(MAP_PX_WIDTH, MAP_PX_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
         ui = new UI(this);
     }
 

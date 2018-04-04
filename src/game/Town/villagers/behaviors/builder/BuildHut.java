@@ -16,7 +16,7 @@ public class BuildHut extends Task {
         ATile targTile = villager.getTargetTile();
         board.buildHutOnTile(targTile);
         villager.setOnAMission(false);
-
+        targTile.stopHighlight();
         return 1;
     }
 }

@@ -21,6 +21,9 @@ public class TargetHighestVillageNeed extends Task {
     resourceToGet = board.getClosestResourceTile(townNeeds.getHighestNeed(),
             villager.getPosition());
 
+    resourceToGet.highlightTile(255, 0, 0);
+
+
     // If you can get to it, Set that villager's target to get the resource.
     villager.setTarget(new PVector(resourceToGet.getXPx(), resourceToGet.getYPx()));
 

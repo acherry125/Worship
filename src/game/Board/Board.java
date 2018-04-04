@@ -1,6 +1,7 @@
 package game.Board;
 
 import game.Board.structures.HutTile;
+import game.Board.structures.SpawnTile;
 import game.Board.tileCheckers.ITileChecker;
 import game.Board.tileCheckers.TileCheckerBuildable;
 import game.Board.tileCheckers.TileCheckerHasResource;
@@ -63,6 +64,10 @@ public class Board {
      * @return the new tile
      */
     public AStructureTile buildHutOnTile(ATile tile) {
+        if (tile.peekResource() != RESOURCES.NONE) {
+            // we don't want to build on a built plot of land
+            return null;
+        }
         int indX = tile.getIndX();
         int indY = tile.getIndY();
         HutTile structure = new HutTile(indX, indY, g.CELL_W, g.CELL_H, g);
@@ -82,7 +87,7 @@ public class Board {
             result.add(board[x - 1][y]);
         }
         if (x < board.length - 1) {
-            result.add(board[x][y]);
+            result.add(board[x + 1][y]);
         }
         if (y > 0) {
             result.add(board[x][y - 1]);

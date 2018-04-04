@@ -36,7 +36,8 @@ public abstract class AStructureTile extends ATile {
     }
 
     @Override
-    public RESOURCES getResource() {
-        return RESOURCES.CRAFTED;
+    protected void calculateResource() {
+        resource = RESOURCES.CRAFTED;
     }
+
 }

@@ -24,7 +24,7 @@ public class TargetBuildablePlot extends Task {
         villager.setTarget(new PVector(tileToBuildOn.getXPx(), tileToBuildOn.getYPx()));
 
         villager.setTargetTile(tileToBuildOn);
-
+        tileToBuildOn.highlightTile(0, 255, 255);
         return 1;
     }
 }

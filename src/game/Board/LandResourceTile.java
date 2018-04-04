@@ -60,11 +60,6 @@ public class LandResourceTile extends ATile {
     }
 
     @Override
-    public RESOURCES peekResource() {
-        return resource;
-    }
-
-    @Override
     protected void calculateResource() {
         float res = (float) g.noise((float) (indX * 1.25), (float) (indY * 1.25));
         if (res < 0.3) {

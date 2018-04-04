@@ -26,6 +26,7 @@ public class CollectTargetResource extends Task {
       villager.addResource(villager.getResourceToTarget());
     } else {
       // default behavior when villager has no mission is to return to spawn with resources
+      villager.getTargetTile().stopHighlight();
       villager.setOnAMission(false);
     }
     return 1;

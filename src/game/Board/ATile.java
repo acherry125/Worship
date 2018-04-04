@@ -4,6 +4,8 @@ import game.GodSim;
 import game.Town.RESOURCES;
 import processing.core.PVector;
 
+import java.awt.*;
+
 public abstract class ATile {
     /**
      * tile index horizontally
@@ -29,9 +31,12 @@ public abstract class ATile {
      * the game.GodSim instance that instantiates this tile
      */
     protected GodSim g;
-    protected RESOURCES resource;
+    protected RESOURCES resource = RESOURCES.NONE;
 
     private float temp;
+
+    private boolean highlight = false;
+    private Color highlightColor = new Color(255, 0, 0);
 
     /* Constructor */
     protected ATile(int indX, int indY, float cell_w, float cell_h, GodSim game) {
@@ -100,6 +105,15 @@ public abstract class ATile {
         return false;
     }
 
+    public void highlightTile(int r, int g, int b) {
+        this.highlight = true;
+        this.highlightColor = new Color(r,g,b);
+    }
+
+    public void stopHighlight() {
+        this.highlight = false;
+    }
+
     /**
      * Determine if this is a reachable tile.
      *
@@ -129,7 +143,7 @@ public abstract class ATile {
      * @return the tile's RESOURCE
      */
     public RESOURCES peekResource() {
-        return getResource();
+        return resource;
     };
 
     public Board getBoard() {
@@ -190,7 +204,11 @@ public abstract class ATile {
      */
     protected void drawSquareBase(int red, int green, int blue) {
         g.rectMode(g.CORNER);
-        g.fill(red, green, blue);
+        if (highlight) {
+            g.fill(highlightColor.getRed(), highlightColor.getGreen(), highlightColor.getBlue());
+        } else {
+            g.fill(red, green, blue);
+        }
         float xPixel = indX * cell_w;
         float yPixel = indY * cell_h;
         g.rect(xPixel, yPixel, cell_w, cell_h);

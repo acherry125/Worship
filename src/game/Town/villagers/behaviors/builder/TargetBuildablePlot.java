@@ -2,15 +2,15 @@ package game.Town.villagers.behaviors.builder;
 
 import game.Board.ATile;
 import game.Board.Board;
-import game.Town.TownNeeds;
+import game.Town.TownResources;
 import game.Town.villagers.Villager;
 import game.Town.villagers.behaviors.ATask;
 import processing.core.PVector;
 
 public class TargetBuildablePlot extends ATask {
 
-    public TargetBuildablePlot(Villager villager, TownNeeds townNeeds, Board board) {
-        super(villager, townNeeds, board);
+    public TargetBuildablePlot(Villager villager, TownResources townResources, Board board) {
+        super(villager, townResources, board);
     }
 
     @Override

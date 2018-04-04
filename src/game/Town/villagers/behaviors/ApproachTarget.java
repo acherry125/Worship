@@ -1,12 +1,12 @@
 package game.Town.villagers.behaviors;
 
 import game.Board.Board;
-import game.Town.TownNeeds;
+import game.Town.TownResources;
 import game.Town.villagers.Villager;
 
 public class ApproachTarget extends ATask {
-  public ApproachTarget(Villager villager, TownNeeds townNeeds, Board board) {
-    super(villager, townNeeds, board);
+  public ApproachTarget(Villager villager, TownResources townResources, Board board) {
+    super(villager, townResources, board);
   }
 
   @Override

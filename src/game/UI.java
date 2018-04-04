@@ -15,7 +15,7 @@ public class UI {
         g.fill(30);
         g.textAlign(g.LEFT, g.TOP);
         g.text("Village", 12, 18);
-        String needsString = g.getTown().getTownNeeds().toString();
+        String needsString = g.getTown().getTownResources().toString();
         String needs[] = needsString.split("\n");
         String needsFormatted = String.join(", ", needs);
         g.textAlign(g.LEFT, g.TOP);

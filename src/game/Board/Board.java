@@ -82,7 +82,7 @@ public class Board {
      * @return the new tile
      */
     public WaterTile floodTile(ATile tile) {
-        if (tile.isSpawner()) {
+        if (tile.isSpawner() || tile.peekResource() == RESOURCES.WATER) {
             // we don't want to build on a built plot of land
             return null;
         }

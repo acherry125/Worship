@@ -8,7 +8,7 @@ import game.GodSim;
 import game.Town.RESOURCES;
 import game.Town.Town;
 import game.Town.villagers.behaviors.*;
-import game.Town.villagers.behaviors.explorer.*;
+import game.Town.villagers.behaviors.gatherer.*;
 import game.Town.villagers.behaviors.builder.*;
 import processing.core.PVector;
 
@@ -54,10 +54,10 @@ public class Villager {
     }
 
     public void initializeBTree() {
-        if (role == VILLAGER_ROLES.EXPLORER) {
-            setBtree(new Explorer(this, town.getTownNeeds(), g.getBoard()));
+        if (role == VILLAGER_ROLES.GATHERER) {
+            setBtree(new Gatherer(this, town.getTownResources(), g.getBoard()));
         } else if (role == VILLAGER_ROLES.BUILDER) {
-            setBtree(new Builder(this, town.getTownNeeds(), g.getBoard()));
+            setBtree(new Builder(this, town.getTownResources(), g.getBoard()));
         }
     }
 
@@ -123,7 +123,7 @@ public class Villager {
         g.rectMode(g.CENTER);
         g.stroke(100,100,100);
         // body
-        if (role == VILLAGER_ROLES.EXPLORER) {
+        if (role == VILLAGER_ROLES.GATHERER) {
             g.fill(254, 176, 80);
         } else if (role == VILLAGER_ROLES.BUILDER) {
             g.fill(254, 80, 80);

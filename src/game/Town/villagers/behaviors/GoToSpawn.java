@@ -1,7 +1,7 @@
 package game.Town.villagers.behaviors;
 
 import game.Board.Board;
-import game.Town.TownNeeds;
+import game.Town.TownResources;
 import game.Town.villagers.Villager;
 
 import static processing.core.PApplet.println;
@@ -11,8 +11,8 @@ import static processing.core.PApplet.println;
  */
 public class GoToSpawn extends GoToTile {
 
-    public GoToSpawn(Villager villager, TownNeeds townNeeds, Board board) {
-        super(villager, townNeeds, board);
+    public GoToSpawn(Villager villager, TownResources townResources, Board board) {
+        super(villager, townResources, board);
         super.goToTile(board.getSpawnTile());
     }
 

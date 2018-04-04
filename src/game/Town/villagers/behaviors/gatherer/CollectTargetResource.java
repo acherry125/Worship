@@ -1,8 +1,8 @@
-package game.Town.villagers.behaviors.explorer;
+package game.Town.villagers.behaviors.gatherer;
 
 import game.Board.Board;
 import game.Town.RESOURCES;
-import game.Town.TownNeeds;
+import game.Town.TownResources;
 import game.Town.villagers.Villager;
 import game.Town.villagers.behaviors.ATask;
 
@@ -10,8 +10,8 @@ import game.Town.villagers.behaviors.ATask;
  * Collects the resource until the villager can't carry anymore.
  */
 public class CollectTargetResource extends ATask {
-  public CollectTargetResource(Villager villager, TownNeeds townNeeds, Board board) {
-    super(villager, townNeeds, board);
+  public CollectTargetResource(Villager villager, TownResources townResources, Board board) {
+    super(villager, townResources, board);
   }
 
   @Override

@@ -1,17 +1,17 @@
-package game.Town.villagers.behaviors.explorer;
+package game.Town.villagers.behaviors.gatherer;
 
 import game.Board.ATile;
 import game.Board.Board;
 import game.Town.RESOURCES;
-import game.Town.TownNeeds;
+import game.Town.TownResources;
 import game.Town.villagers.Villager;
 import game.Town.villagers.behaviors.ATask;
 import processing.core.PVector;
 
 public class TargetTownNeed extends ATask {
 
-  public TargetTownNeed(Villager villager, TownNeeds townNeeds, Board board) {
-    super(villager, townNeeds, board);
+  public TargetTownNeed(Villager villager, TownResources townResources, Board board) {
+    super(villager, townResources, board);
   }
 
   @Override
@@ -19,7 +19,7 @@ public class TargetTownNeed extends ATask {
 
     RESOURCES resourceNeeded;
     if (villager.getResourceToTarget() == RESOURCES.NONE) {
-      resourceNeeded = townNeeds.nextResourceToCollect();
+      resourceNeeded = townResources.nextResourceToCollect();
     } else {
       resourceNeeded = villager.getResourceToTarget();
     }

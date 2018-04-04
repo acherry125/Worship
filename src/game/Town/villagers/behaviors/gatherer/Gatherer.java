@@ -1,15 +1,15 @@
-package game.Town.villagers.behaviors.explorer;
+package game.Town.villagers.behaviors.gatherer;
 
 import game.Board.Board;
 import game.Town.RESOURCES;
-import game.Town.TownNeeds;
+import game.Town.TownResources;
 import game.Town.villagers.Villager;
 import game.Town.villagers.behaviors.*;
 
-public class Explorer  extends ATask {
+public class Gatherer extends ATask {
 
-  public Explorer(Villager villager, TownNeeds townNeeds, Board board) {
-    super(villager, townNeeds, board);
+  public Gatherer(Villager villager, TownResources townResources, Board board) {
+    super(villager, townResources, board);
   }
 
   @Override
@@ -20,17 +20,17 @@ public class Explorer  extends ATask {
 
       // System.out.println("get to mission");
       // Go to the spawn... to get a target.
-      villager.setBtree(new GoToSpawn(villager, townNeeds, board));
+      villager.setBtree(new GoToSpawn(villager, townResources, board));
 
       if (!board.getSpawnTile().isAtTile(villager.getPosition())) {
         // System.out.println("out of spawn proximity");
         villager.act();
       } else {
         for (RESOURCES r : villager.getResourcesInHand()) {
-          townNeeds.raiseNeed(r);
+          townResources.raiseNeed(r);
         }
         villager.getResourcesInHand().clear();
-        villager.setBtree(new TargetTownNeed(villager, townNeeds, board));
+        villager.setBtree(new TargetTownNeed(villager, townResources, board));
         villager.act();
 
         // villager is now on a mission.
@@ -40,12 +40,12 @@ public class Explorer  extends ATask {
 
       if (!villager.getTargetTile().isAtTile(villager.getPosition())) {
         // System.out.println("on a mission to my target resource" + villager.getTarget());
-        villager.setBtree(new TargetTownNeed(villager, townNeeds, board));
+        villager.setBtree(new TargetTownNeed(villager, townResources, board));
         villager.act();
-        villager.setBtree(new ApproachTarget(villager, townNeeds, board));
+        villager.setBtree(new ApproachTarget(villager, townResources, board));
         villager.act();
       } else {
-        villager.setBtree(new CollectTargetResource(villager, townNeeds, board));
+        villager.setBtree(new CollectTargetResource(villager, townResources, board));
         villager.act();
       }
 

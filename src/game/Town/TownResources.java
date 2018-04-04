@@ -3,7 +3,7 @@ package game.Town;
 import java.util.HashMap;
 import java.util.Random;
 
-public class TownNeeds {
+public class TownResources {
     private HashMap<RESOURCES, Integer> townNeeds;
     private Random rand = new Random();
 
@@ -11,7 +11,7 @@ public class TownNeeds {
      * Positive numbers means there is a need for that resource.
      * Negative needs means there is excess.
      */
-    public TownNeeds() {
+    public TownResources() {
         townNeeds = new HashMap();
         createNeed(RESOURCES.WOOD, 0);
         createNeed(RESOURCES.WATER, 0);
@@ -74,10 +74,10 @@ public class TownNeeds {
 
         int highestNeedValue = -Integer.MIN_VALUE;
 
-        for (RESOURCES need : townNeeds.keySet()) {
-            if (townNeeds.get(need) > highestNeedValue) {
+        for (RESOURCES need : townResources.keySet()) {
+            if (townResources.get(need) > highestNeedValue) {
                 highestNeed = need;
-                highestNeedValue = townNeeds.get(need);
+                highestNeedValue = townResources.get(need);
             }
         }*/
 

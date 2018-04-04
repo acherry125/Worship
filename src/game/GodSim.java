@@ -113,12 +113,10 @@ public class GodSim extends PApplet {
     }
 
     @Override
-    public void mouseClicked() {
-        click.handle();
-    }
-
-    @Override
     public void draw() {
+        if (mousePressed) {
+            click.handle();
+        }
         background(255);
         g.noStroke();
         translate(camera.getX(), camera.getY());

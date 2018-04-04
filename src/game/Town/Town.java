@@ -14,7 +14,7 @@ public class Town {
     GodSim g;
     Board board;
     ArrayList<Villager> villagers = new ArrayList<Villager>();
-    TownNeeds townNeeds;
+    TownResources townResources;
     // what portion of the population should be each role
     HashMap<VILLAGER_ROLES, Integer> roleRatio = new HashMap<VILLAGER_ROLES, Integer>();
     HashMap<VILLAGER_ROLES, Integer> villagerCount = new HashMap<VILLAGER_ROLES, Integer>();
@@ -22,7 +22,7 @@ public class Town {
     public Town(GodSim g) {
         this.g = g;
         this.board = g.getBoard();
-        townNeeds = new TownNeeds();
+        townResources = new TownResources();
         initialize();
     }
 
@@ -55,12 +55,12 @@ public class Town {
         }
     }
 
-    public TownNeeds getTownNeeds() {
-        return townNeeds;
+    public TownResources getTownResources() {
+        return townResources;
     }
 
     public boolean canSupportHut() {
-        return townNeeds.get(RESOURCES.WOOD) > 10;
+        return townResources.get(RESOURCES.WOOD) > 10;
     }
 
     public void draw() {
@@ -76,8 +76,8 @@ public class Town {
         int numBuildings = board.numStructuresOnMap();
         if (villagers.size() < numBuildings / 2) {
             // Explorers spawn first, make sure there's always around 3 explorers for every builder
-            if (villagerCount.get(VILLAGER_ROLES.EXPLORER) < roleRatio.get(VILLAGER_ROLES.EXPLORER) * villagerCount.get(VILLAGER_ROLES.BUILDER)) {
-                spawn(VILLAGER_ROLES.EXPLORER);
+            if (villagerCount.get(VILLAGER_ROLES.GATHERER) < roleRatio.get(VILLAGER_ROLES.GATHERER) * villagerCount.get(VILLAGER_ROLES.BUILDER)) {
+                spawn(VILLAGER_ROLES.GATHERER);
             } else {
                 // when there are 3n explorers, we can spawn a new builder
                 spawn(VILLAGER_ROLES.BUILDER);
@@ -91,13 +91,13 @@ public class Town {
     private void initialize() {
         int ratioExplorer = 3;
         int ratioBuilder = 1;
-        roleRatio.put(VILLAGER_ROLES.EXPLORER, ratioExplorer);
+        roleRatio.put(VILLAGER_ROLES.GATHERER, ratioExplorer);
         roleRatio.put(VILLAGER_ROLES.BUILDER, ratioBuilder);
 
-        villagerCount.put(VILLAGER_ROLES.EXPLORER, ratioExplorer);
+        villagerCount.put(VILLAGER_ROLES.GATHERER, ratioExplorer);
         villagerCount.put(VILLAGER_ROLES.BUILDER, ratioBuilder);
 
         spawnMany(VILLAGER_ROLES.BUILDER, ratioBuilder);
-        spawnMany(VILLAGER_ROLES.EXPLORER, ratioExplorer);
+        spawnMany(VILLAGER_ROLES.GATHERER, ratioExplorer);
     }
 }

@@ -197,4 +197,8 @@ public class Villager {
         return this.beliefInGod;
     }
 
+    public void setBelief(double belief) {
+        this.beliefInGod = belief;
+    }
+
 }

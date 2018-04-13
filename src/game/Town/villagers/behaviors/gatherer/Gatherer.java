@@ -35,12 +35,16 @@ public class Gatherer extends ATask {
 //          System.out.println(distanceTraveled);
 //          System.out.println(villager.getBelief());
         }
+        if (villager.getBelief() > 1000000) {
+          villager.setBelief(500000);
+        }
         villager.getResourcesInHand().clear();
 
 
         if (new FollowGodBasedOnBelief(villager, townResources, board).execute() >= 0) {
-          villager.setBtree(new TargetTownNeed(villager, townResources, board));
-          villager.act();
+          ATask targetTownNeed = new TargetTownNeed(villager, townResources, board);
+          villager.setBtree(targetTownNeed);
+          targetTownNeed.execute();
           // villager is now on a mission.
           villager.setOnAMission(true);
         } else {
@@ -56,7 +60,6 @@ public class Gatherer extends ATask {
         targetTown.execute();
         ATask target = new ApproachTarget(villager, townResources, board);
         villager.setBtree(target);
-        //villager.act();
         target.execute();
       } else {
         ATask collect = new CollectTargetResource(villager, townResources, board);

@@ -33,7 +33,7 @@ public class Gatherer extends ATask {
           float distanceTraveled = villager.getTarget().sub(villager.getPosition()).mag();
           villager.changeBelief(-distanceTraveled);
 //          System.out.println(distanceTraveled);
-          System.out.println(villager.getBelief());
+//          System.out.println(villager.getBelief());
         }
         villager.getResourcesInHand().clear();
 
@@ -51,13 +51,17 @@ public class Gatherer extends ATask {
 
       if (!villager.getTargetTile().isAtTile(villager.getPosition())) {
         // System.out.println("on a mission to my target resource" + villager.getTarget());
-        villager.setBtree(new TargetTownNeed(villager, townResources, board));
-        villager.act();
-        villager.setBtree(new ApproachTarget(villager, townResources, board));
-        villager.act();
+        ATask targetTown = new TargetTownNeed(villager, townResources, board);
+        villager.setBtree(targetTown);
+        targetTown.execute();
+        ATask target = new ApproachTarget(villager, townResources, board);
+        villager.setBtree(target);
+        //villager.act();
+        target.execute();
       } else {
-        villager.setBtree(new CollectTargetResource(villager, townResources, board));
-        villager.act();
+        ATask collect = new CollectTargetResource(villager, townResources, board);
+        villager.setBtree(collect);
+        collect.execute();
       }
 
     }

@@ -40,13 +40,16 @@ public class Builder extends ATask {
             }
         } else {
             if (!villager.getTargetTile().isAtTile(villager.getPosition())) {
-                villager.setBtree(new TargetBuildablePlot(villager, townResources, board));
-                villager.act();
-                villager.setBtree(new ApproachTarget(villager, townResources, board));
-                villager.act();
+                ATask targetBuildablePlot = new TargetBuildablePlot(villager, townResources, board);
+                villager.setBtree(targetBuildablePlot);
+                targetBuildablePlot.execute();
+                ATask approachTarget = new ApproachTarget(villager, townResources, board);
+                villager.setBtree(approachTarget);
+                approachTarget.execute();
             } else if (villager.getTown().canSupportHut()) {
-                villager.setBtree(new BuildHut(villager, townResources, board));
-                villager.act();
+                ATask buildhut = new BuildHut(villager, townResources, board);
+                villager.setBtree(buildhut);
+                buildhut.execute();
                 townResources.reduceNeed(RESOURCES.WOOD, 10);
             }
         }

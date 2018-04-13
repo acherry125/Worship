@@ -8,6 +8,7 @@ import game.Player.powers.Flood;
 import game.Player.powers.GrowTree;
 import game.Player.powers.IPower;
 import game.Town.Town;
+import game.Town.villagers.Villager;
 
 import java.util.HashMap;
 
@@ -21,7 +22,7 @@ public class PowerManager {
     IPower activePower;
     HashMap<IPower, Integer> powerIndices = new HashMap<IPower, Integer>();
 
-    public PowerManager(GodSim g) {
+    public PowerManager(GodSim g, Town t) {
         this.g = g;
         this.board = g.getBoard();
         powers = new IPower[]{Flood.single(), BuildHut.single(), GrowTree.single()};
@@ -29,10 +30,17 @@ public class PowerManager {
             powerIndices.put(powers[i], i);
         }
         equipPower(powers[0]);
+        this.town = t;
     }
 
     public void usePower(ATile tileSelected) {
+
         activePower.use(tileSelected, g);
+        if (activePower instanceof GrowTree) {
+            for (Villager villager : this.town.getVillagers()) {
+                villager.changeBelief(100f);
+            }
+        }
     }
 
     public void equipPower(IPower power) {

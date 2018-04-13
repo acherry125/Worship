@@ -8,6 +8,8 @@ import game.Town.villagers.behaviors.*;
 
 public class Gatherer extends ATask {
 
+  private float increaseBeliefRateEachFrame = 100f * board.huts;
+
   public Gatherer(Villager villager, TownResources townResources, Board board) {
     super(villager, townResources, board);
   }
@@ -28,13 +30,22 @@ public class Gatherer extends ATask {
       } else {
         for (RESOURCES r : villager.getResourcesInHand()) {
           townResources.raiseNeed(r);
+          float distanceTraveled = villager.getTarget().sub(villager.getPosition()).mag();
+          villager.changeBelief(-distanceTraveled);
+//          System.out.println(distanceTraveled);
+          System.out.println(villager.getBelief());
         }
         villager.getResourcesInHand().clear();
-        villager.setBtree(new TargetTownNeed(villager, townResources, board));
-        villager.act();
 
-        // villager is now on a mission.
-        villager.setOnAMission(true);
+
+        if (new FollowGodBasedOnBelief(villager, townResources, board).execute() >= 0) {
+          villager.setBtree(new TargetTownNeed(villager, townResources, board));
+          villager.act();
+          // villager is now on a mission.
+          villager.setOnAMission(true);
+        } else {
+          villager.changeBelief(increaseBeliefRateEachFrame);
+        }
       }
     } else {
 
@@ -52,5 +63,6 @@ public class Gatherer extends ATask {
     }
 
     return 1;
+
   }
 }

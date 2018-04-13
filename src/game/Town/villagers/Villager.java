@@ -40,7 +40,6 @@ public class Villager {
         this.resourcesInHand = new LinkedList<>();
         this.maxResourcesToCarry = 5;
         this.onAMission = false;
-
         //initializeBTree();
     }
 
@@ -190,5 +189,12 @@ public class Villager {
         return this.targetTile;
     }
 
+    public void changeBelief(double change) {
+        this.beliefInGod += change;
+    }
+
+    public double getBelief() {
+        return this.beliefInGod;
+    }
 
 }

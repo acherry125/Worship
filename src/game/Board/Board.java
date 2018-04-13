@@ -13,14 +13,18 @@ import processing.core.PVector;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Board {
     private GodSim g;
     private ATile[][] board;
     private ATile spawn;
+    public int huts;
 
     public Board(GodSim g) {
         this.g = g;
+        this.huts = 0;
         initialize();
     }
 
@@ -75,6 +79,7 @@ public class Board {
         int indX = tile.getIndX();
         int indY = tile.getIndY();
         HutTile structure = new HutTile(indX, indY, g.CELL_W, g.CELL_H, g);
+        this.huts += 1;
         board[indX][indY] = structure;
         return structure;
     }

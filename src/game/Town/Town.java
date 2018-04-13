@@ -2,6 +2,8 @@ package game.Town;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 import game.Board.ATile;
@@ -13,7 +15,7 @@ import game.Town.villagers.Villager;
 public class Town {
     GodSim g;
     Board board;
-    ArrayList<Villager> villagers = new ArrayList<Villager>();
+    LinkedList<Villager> villagers = new LinkedList<Villager>();
     TownResources townResources;
     // what portion of the population should be each role
     HashMap<VILLAGER_ROLES, Integer> roleRatio = new HashMap<VILLAGER_ROLES, Integer>();
@@ -99,5 +101,9 @@ public class Town {
 
         spawnMany(VILLAGER_ROLES.BUILDER, ratioBuilder);
         spawnMany(VILLAGER_ROLES.GATHERER, ratioExplorer);
+    }
+
+    public List<Villager> getVillagers() {
+      return this.villagers;
     }
 }

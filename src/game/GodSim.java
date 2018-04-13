@@ -62,8 +62,8 @@ public class GodSim extends PApplet {
 
     @Override
     public void settings() {
-        //size((int) (SCREEN_WIDTH), (int) (SCREEN_HEIGHT));
-        fullScreen();
+        size((int) (SCREEN_WIDTH), (int) (SCREEN_HEIGHT));
+//        fullScreen();
     }
 
     /**
@@ -84,7 +84,7 @@ public class GodSim extends PApplet {
      * Initialize the town
      */
     private void initializePlayer() {
-        player = new Player(this);
+        player = new Player(this, this.town);
     }
 
     public void setCursor(IPower power) {

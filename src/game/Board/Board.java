@@ -24,6 +24,7 @@ public class Board {
     private ATile spawn;
     public int huts;
     private HashMap<RESOURCES, ArrayList<ATile>> resourceLists = new HashMap<RESOURCES, ArrayList<ATile>>();
+    private ATile nextBuildableTile;
 
     public Board(GodSim g) {
         this.g = g;
@@ -84,6 +85,7 @@ public class Board {
         HutTile structure = new HutTile(indX, indY, g.CELL_W, g.CELL_H, g, this);
         this.huts += 1;
         board[indX][indY] = structure;
+        nextBuildableTile = getClosestBuildableTile(spawn.getPosition());
         return structure;
     }
 
@@ -145,6 +147,7 @@ public class Board {
                 board[i][j] = initializeTile(i, j);
             }
         }
+        nextBuildableTile = getClosestBuildableTile(spawn.getPosition());
     }
 
     public void removeResourceTile(ATile tile) {
@@ -230,7 +233,7 @@ public class Board {
         float closestDist = Float.MAX_VALUE;
         ATile closest = resourceLists.get(resource).get(0);
         for (ATile tile: resourceLists.get(resource)) {
-            float dist = PVector.sub(locationOfVillager, new PVector(tile.getXPx(), tile.getYPx())).mag();
+            float dist = PVector.sub(locationOfVillager, tile.getPosition()).mag();
             if (dist < closestDist) {
                 closest = tile;
                 closestDist = dist;
@@ -242,11 +245,15 @@ public class Board {
     /**
      * Returns the closest available plot of land
      *
-     * @param locationOfVillager
+     * @param loc
      * @return
      */
-    public ATile getClosestBuildableTile(PVector locationOfVillager) {
-        return getClosestTileThatPasses(new TileCheckerBuildable(), locationOfVillager);
+    private ATile getClosestBuildableTile(PVector loc) {
+        return getClosestTileThatPasses(new TileCheckerBuildable(), loc);
+    }
+
+    public ATile getNextBuildableTile() {
+        return nextBuildableTile;
     }
 
     public int numStructuresOnMap() {

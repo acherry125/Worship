@@ -149,7 +149,7 @@ public abstract class ATile {
     };
 
     public Board getBoard() {
-        return g.getBoard();
+        return board;
     }
 
     /**
@@ -182,6 +182,10 @@ public abstract class ATile {
         }
         return distrect(locX, locY, getXPx() - (g.CELL_W / 2), getYPx() - (g.CELL_H / 2),
                 getXPx() + (g.CELL_W / 2), getYPx() + (g.CELL_H / 2));
+    }
+
+    public PVector getPosition() {
+        return new PVector(getXPx(), getYPx());
     }
 
     /**

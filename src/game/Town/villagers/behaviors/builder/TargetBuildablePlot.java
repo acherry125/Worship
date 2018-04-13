@@ -17,7 +17,7 @@ public class TargetBuildablePlot extends ATask {
     public int execute() {
 
         // Get the village's highest need resource, and find the closest one to the villager.
-        ATile tileToBuildOn = board.getClosestBuildableTile(villager.getPosition());
+        ATile tileToBuildOn = board.getNextBuildableTile();
 
         // If you can get to it, Set that villager's target to get the resource.
         villager.setTarget(new PVector(tileToBuildOn.getXPx(), tileToBuildOn.getYPx()));

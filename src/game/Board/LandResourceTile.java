@@ -5,8 +5,8 @@ import game.Town.RESOURCES;
 
 public class LandResourceTile extends ATile {
     int resourceCount ;
-    public LandResourceTile(int indX, int indY, float cell_w, float cell_h, GodSim game) {
-        super(indX, indY, cell_w, cell_h, game);
+    public LandResourceTile(int indX, int indY, float cell_w, float cell_h, GodSim game, Board board) {
+        super(indX, indY, cell_w, cell_h, game, board);
         resetResourceCount();
     }
 

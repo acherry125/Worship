@@ -63,7 +63,7 @@ public class GodSim extends PApplet {
     @Override
     public void settings() {
         size((int) (SCREEN_WIDTH), (int) (SCREEN_HEIGHT));
-//        fullScreen();
+        //fullScreen();
     }
 
     /**

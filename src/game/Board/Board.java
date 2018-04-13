@@ -10,9 +10,11 @@ import game.GodSim;
 import game.Town.RESOURCES;
 import processing.core.PVector;
 
+import java.beans.PropertyVetoException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,6 +23,7 @@ public class Board {
     private ATile[][] board;
     private ATile spawn;
     public int huts;
+    private HashMap<RESOURCES, ArrayList<ATile>> resourceLists = new HashMap<RESOURCES, ArrayList<ATile>>();
 
     public Board(GodSim g) {
         this.g = g;
@@ -75,10 +78,10 @@ public class Board {
         if (tile.peekResource() != RESOURCES.NONE && !depletable.contains(tile.peekResource()) || (tile.getResourceCount() != 0 && depletable.contains(tile.peekResource()))) {
             return null;
         }
-
+        removeResourceTile(tile);
         int indX = tile.getIndX();
         int indY = tile.getIndY();
-        HutTile structure = new HutTile(indX, indY, g.CELL_W, g.CELL_H, g);
+        HutTile structure = new HutTile(indX, indY, g.CELL_W, g.CELL_H, g, this);
         this.huts += 1;
         board[indX][indY] = structure;
         return structure;
@@ -94,9 +97,11 @@ public class Board {
             // we don't want to build on a built plot of land
             return null;
         }
+        removeResourceTile(tile);
         int indX = tile.getIndX();
         int indY = tile.getIndY();
-        WaterTile water = new WaterTile(indX, indY, g.CELL_W, g.CELL_H, g);
+
+        WaterTile water = new WaterTile(indX, indY, g.CELL_W, g.CELL_H, g, this);
         board[indX][indY] = water;
         return water;
     }
@@ -142,6 +147,15 @@ public class Board {
         }
     }
 
+    public void removeResourceTile(ATile tile) {
+        RESOURCES res = tile.peekResource();
+        if (resourceLists.containsKey(res)) {
+            ArrayList<ATile> existingList = resourceLists.get(res);
+            existingList.remove(tile);
+            resourceLists.put(res, existingList);
+        }
+    }
+
     /**
      * Initialize a specific tile at the given board slot
      *
@@ -151,17 +165,30 @@ public class Board {
      */
     private ATile initializeTile(int x, int y) {
         if (x == board.length / 2 && y == board[x].length / 2) {
-            spawn = new SpawnTile(x, y, g.CELL_W, g.CELL_H, g);
+            spawn = new SpawnTile(x, y, g.CELL_W, g.CELL_H, g, this);
             return spawn;
         } else {
             float waterNoise = g.noise(x, y);
             if (waterNoise > 0.66) {
-                return new WaterTile(x, y, g.CELL_W, g.CELL_H, g);
+                return new WaterTile(x, y, g.CELL_W, g.CELL_H, g, this);
             }
-            return new LandResourceTile(x, y, g.CELL_W, g.CELL_H, g);
+            return new LandResourceTile(x, y, g.CELL_W, g.CELL_H, g, this);
         }
     }
 
+    public void addResourceTile(ATile tile) {
+        RESOURCES res = tile.peekResource();
+        if (res != RESOURCES.NONE && res != RESOURCES.CRAFTED) {
+            ArrayList<ATile> listToPut;
+            if (resourceLists.containsKey(res)) {
+                listToPut = resourceLists.get(res);
+            } else {
+                listToPut = new ArrayList<ATile>();
+            }
+            listToPut.add(tile);
+            resourceLists.put(res, listToPut);
+        }
+    }
 
     /**
      * @param checker
@@ -200,7 +227,16 @@ public class Board {
      * @return
      */
     public ATile getClosestResourceTile(RESOURCES resource, PVector locationOfVillager) {
-        return getClosestTileThatPasses(new TileCheckerHasResource(resource), locationOfVillager);
+        float closestDist = Float.MAX_VALUE;
+        ATile closest = resourceLists.get(resource).get(0);
+        for (ATile tile: resourceLists.get(resource)) {
+            float dist = PVector.sub(locationOfVillager, new PVector(tile.getXPx(), tile.getYPx())).mag();
+            if (dist < closestDist) {
+                closest = tile;
+                closestDist = dist;
+            }
+        }
+        return closest;
     }
 
     /**

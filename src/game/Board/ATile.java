@@ -31,6 +31,7 @@ public abstract class ATile {
      * the game.GodSim instance that instantiates this tile
      */
     protected GodSim g;
+    protected Board board;
     protected RESOURCES resource = RESOURCES.NONE;
 
     private float temp;
@@ -39,12 +40,13 @@ public abstract class ATile {
     private Color highlightColor = new Color(255, 0, 0);
 
     /* Constructor */
-    protected ATile(int indX, int indY, float cell_w, float cell_h, GodSim game) {
+    protected ATile(int indX, int indY, float cell_w, float cell_h, GodSim game, Board board) {
         this.indX = indX;
         this.indY = indY;
         this.cell_w = cell_w;
         this.cell_h = cell_h;
         this.g = game;
+        this.board = board;
         initialize();
     }
 
@@ -234,6 +236,7 @@ public abstract class ATile {
         calculateTemp();
         calculateResource();
         distanceFrom(500, 500);
+        board.addResourceTile(this);
     }
 
     /**

@@ -6,8 +6,8 @@ import game.Town.RESOURCES;
 public class WaterTile extends ATile {
     protected float water;
 
-    public WaterTile(int indX, int indY, float cell_w, float cell_h, GodSim game) {
-        super(indX, indY, cell_w, cell_h, game);
+    public WaterTile(int indX, int indY, float cell_w, float cell_h, GodSim game, Board board) {
+        super(indX, indY, cell_w, cell_h, game, board);
         this.water = (float) g.noise((float) (indX * 1.5), (float) (indY * 1.5));
     }
 

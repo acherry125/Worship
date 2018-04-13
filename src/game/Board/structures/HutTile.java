@@ -1,11 +1,12 @@
 package game.Board.structures;
 
 import game.Board.AStructureTile;
+import game.Board.Board;
 import game.GodSim;
 
 public class HutTile extends AStructureTile {
-    public HutTile(int indX, int indY, float cell_w, float cell_h, GodSim game) {
-        super(indX, indY, cell_w, cell_h, game);
+    public HutTile(int indX, int indY, float cell_w, float cell_h, GodSim game, Board board) {
+        super(indX, indY, cell_w, cell_h, game, board);
     }
 
     /**

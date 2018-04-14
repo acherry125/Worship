@@ -6,18 +6,18 @@ import game.Town.villagers.Villager;
 
 public class FollowGodBasedOnBelief extends ATask {
 
-  public FollowGodBasedOnBelief(Villager villager, TownResources townResources, Board board) {
-    super(villager, townResources, board);
+  public FollowGodBasedOnBelief(Villager villager) {
+    super(villager);
   }
 
   @Override
-  public int execute() {
+  public TASKRESULT execute() {
     // listen to the god
     if (this.villager.getBelief() > 0) {
-      return 1;
+      return TASKRESULT.SUCCESS;
     // don't listen to the god
     } else {
-      return -1;
+      return TASKRESULT.FAILURE;
     }
   }
 }

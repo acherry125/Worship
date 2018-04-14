@@ -5,13 +5,13 @@ import game.Town.TownResources;
 import game.Town.villagers.Villager;
 
 public class ApproachTarget extends ATask {
-  public ApproachTarget(Villager villager, TownResources townResources, Board board) {
-    super(villager, townResources, board);
+  public ApproachTarget(Villager villager) {
+    super(villager);
   }
 
   @Override
-  public int execute() {
+  public TASKRESULT execute() {
     villager.move();
-    return 1;
+    return TASKRESULT.SUCCESS;
   }
 }

@@ -26,10 +26,20 @@ public class Board {
     private HashMap<RESOURCES, ArrayList<ATile>> resourceLists = new HashMap<RESOURCES, ArrayList<ATile>>();
     private ATile nextBuildableTile;
 
-    public Board(GodSim g) {
+    private static Board ourInstance;
+
+    public static Board create(GodSim g){
+        ourInstance = new Board(g);
+        return ourInstance;
+    }
+
+    public static Board single() {
+        return ourInstance;
+    }
+
+    private Board(GodSim g) {
         this.g = g;
         this.huts = 0;
-        initialize();
     }
 
     /**
@@ -99,7 +109,7 @@ public class Board {
         removeResourceTile(tile);
         int indX = tile.getIndX();
         int indY = tile.getIndY();
-        HutTile structure = new HutTile(indX, indY, g.CELL_W, g.CELL_H, g, this);
+        HutTile structure = new HutTile(indX, indY, g.CELL_W, g.CELL_H);
         this.huts += 1;
         board[indX][indY] = structure;
         nextBuildableTile = getClosestBuildableTile(spawn.getPosition());
@@ -120,7 +130,7 @@ public class Board {
         int indX = tile.getIndX();
         int indY = tile.getIndY();
 
-        WaterTile water = new WaterTile(indX, indY, g.CELL_W, g.CELL_H, g, this);
+        WaterTile water = new WaterTile(indX, indY, g.CELL_W, g.CELL_H);
         board[indX][indY] = water;
         return water;
     }
@@ -157,7 +167,7 @@ public class Board {
         }
     }
 
-    private void initialize() {
+    public void initialize() {
         board = new ATile[(int) (g.CELLS_WIDE)][(int) (g.CELLS_TALL)];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
@@ -185,14 +195,14 @@ public class Board {
      */
     private ATile initializeTile(int x, int y) {
         if (x == board.length / 2 && y == board[x].length / 2) {
-            spawn = new SpawnTile(x, y, g.CELL_W, g.CELL_H, g, this);
+            spawn = new SpawnTile(x, y, g.CELL_W, g.CELL_H);
             return spawn;
         } else {
             float waterNoise = g.noise(x, y);
             if (waterNoise > 0.66) {
-                return new WaterTile(x, y, g.CELL_W, g.CELL_H, g, this);
+                return new WaterTile(x, y, g.CELL_W, g.CELL_H);
             }
-            return new LandResourceTile(x, y, g.CELL_W, g.CELL_H, g, this);
+            return new LandResourceTile(x, y, g.CELL_W, g.CELL_H);
         }
     }
 

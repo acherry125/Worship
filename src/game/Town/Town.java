@@ -21,11 +21,20 @@ public class Town {
     private HashMap<VILLAGER_ROLES, Integer> roleRatio = new HashMap<VILLAGER_ROLES, Integer>();
     private HashMap<VILLAGER_ROLES, Integer> villagerCount = new HashMap<VILLAGER_ROLES, Integer>();
 
-    public Town(GodSim g) {
+    private static Town ourInstance;
+
+    public static Town create(GodSim g) {
+        ourInstance = new Town(g);
+        return ourInstance;
+    }
+
+    public static Town single() {
+        return ourInstance;
+    }
+
+    private Town(GodSim g) {
         this.g = g;
-        this.board = g.getBoard();
         townResources = new TownResources();
-        initialize();
     }
 
     /*** GETTERS ***/
@@ -34,6 +43,9 @@ public class Town {
     }
     public List<Villager> getVillagers() {
         return this.villagers;
+    }
+    public GodSim getGodSim() {
+        return this.g;
     }
 
     public void draw() {
@@ -57,7 +69,7 @@ public class Town {
         float randomMax = 200;
         float randomX = spawnTile.getXPx() + randomMin + r.nextFloat() * (randomMax - randomMin);
         float randomY= spawnTile.getXPx() + randomMin + r.nextFloat() * (randomMax - randomMin);
-        Villager villager = new Villager(this, randomX, randomY, role, g);
+        Villager villager = new Villager(randomX, randomY, role);
         villagers.add(villager);
         villagerCount.put(role, villagerCount.get(role) + 1);
         return villager;
@@ -94,7 +106,8 @@ public class Town {
     /**
      * Creates a new villager in the village.
      */
-    private void initialize() {
+    public void initialize() {
+        this.board = Board.single();
         int ratioExplorer = 3;
         int ratioBuilder = 1;
         roleRatio.put(VILLAGER_ROLES.GATHERER, ratioExplorer);

@@ -10,19 +10,19 @@ public class Gatherer extends ATask {
 
   private float increaseBeliefRateEachFrame = 100f * board.huts;
 
-  public Gatherer(Villager villager, TownResources townResources, Board board) {
-    super(villager, townResources, board);
+  public Gatherer(Villager villager) {
+    super(villager);
   }
 
   @Override
-  public int execute() {
+  public TASKRESULT execute() {
 
     // If not on a mission
     if (!villager.getOnAMission()) {
 
       // System.out.println("get to mission");
       // Go to the spawn... to get a target.
-      villager.setBtree(new GoToSpawn(villager, townResources, board));
+      villager.setBtree(new GoToSpawn(villager));
 
       if (!board.getSpawnTile().isAtTile(villager.getPosition())) {
         // System.out.println("out of spawn proximity");
@@ -41,8 +41,8 @@ public class Gatherer extends ATask {
         villager.getResourcesInHand().clear();
 
 
-        if (new FollowGodBasedOnBelief(villager, townResources, board).execute() >= 0) {
-          ATask targetTownNeed = new TargetTownNeed(villager, townResources, board);
+        if (new FollowGodBasedOnBelief(villager).execute() == TASKRESULT.SUCCESS) {
+          ATask targetTownNeed = new TargetTownNeed(villager);
           villager.setBtree(targetTownNeed);
           targetTownNeed.execute();
           // villager is now on a mission.
@@ -55,18 +55,18 @@ public class Gatherer extends ATask {
 
       if (!villager.getTargetTile().isAtTile(villager.getPosition())) {
         // System.out.println("on a mission to my target resource" + villager.getTarget());
-        ATask targetTown = new TargetTownNeed(villager, townResources, board);
+        ATask targetTown = new TargetTownNeed(villager);
         villager.setBtree(targetTown);
         targetTown.execute();
-        ATask target = new ApproachTarget(villager, townResources, board);
+        ATask target = new ApproachTarget(villager);
         villager.setBtree(target);
         target.execute();
       } else {
-        ATask collect = new CollectTargetResource(villager, townResources, board);
+        ATask collect = new CollectTargetResource(villager);
         villager.setBtree(collect);
         collect.execute();
       }
     }
-    return 1;
+    return TASKRESULT.SUCCESS;
   }
 }

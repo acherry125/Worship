@@ -12,16 +12,16 @@ public class FollowMouse extends ATask {
     int mouseX;
     int mouseY;
 
-    public FollowMouse(Villager villager, TownResources townResources, Board board, int mouseX, int mouseY) {
-        super(villager, townResources, board);
+    public FollowMouse(Villager villager) {
+        super(villager);
         this.mouseX = mouseX;
         this.mouseY = mouseY;
     }
 
     @Override
-    public int execute() {
+    public TASKRESULT execute() {
         this.villager.setTarget(new PVector(mouseX, mouseY));
         this.villager.move();
-        return 0;
+        return TASKRESULT.SUCCESS;
     }
 }

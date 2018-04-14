@@ -6,16 +6,18 @@ import game.Town.RESOURCES;
 import game.Town.TownResources;
 import game.Town.villagers.Villager;
 import game.Town.villagers.behaviors.ATask;
+import game.Town.villagers.behaviors.Blackboard;
+import game.Town.villagers.behaviors.TASKRESULT;
 import processing.core.PVector;
 
 public class TargetTownNeed extends ATask {
 
-  public TargetTownNeed(Villager villager, TownResources townResources, Board board) {
-    super(villager, townResources, board);
+  public TargetTownNeed(Villager villager) {
+    super(villager);
   }
 
   @Override
-  public int execute() {
+  public TASKRESULT execute() {
     RESOURCES resourceNeeded;
     if (villager.getResourceToTarget() == RESOURCES.NONE) {
       resourceNeeded = townResources.nextResourceToCollect();
@@ -31,6 +33,6 @@ public class TargetTownNeed extends ATask {
     // Set the villager's target resource to this, to remember to collect it later.
     villager.setResourceToTarget(resourceNeeded);
     villager.setTargetTile(resourceTileToGet);
-    return 1;
+    return TASKRESULT.SUCCESS;
   }
 }

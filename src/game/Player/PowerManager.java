@@ -22,15 +22,15 @@ public class PowerManager {
     IPower activePower;
     HashMap<IPower, Integer> powerIndices = new HashMap<IPower, Integer>();
 
-    public PowerManager(GodSim g, Town t) {
+    public PowerManager(GodSim g) {
         this.g = g;
-        this.board = g.getBoard();
+        this.board = Board.single();
         powers = new IPower[]{Flood.single(), BuildHut.single(), GrowTree.single()};
         for (int i = 0; i < powers.length; i++) {
             powerIndices.put(powers[i], i);
         }
         equipPower(powers[0]);
-        this.town = t;
+        this.town = Town.single();
     }
 
     public void usePower(ATile tileSelected) {

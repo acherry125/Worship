@@ -6,8 +6,8 @@ import game.Town.RESOURCES;
 
 public abstract class AStructureTile extends ATile {
     RESOURCES building;
-    protected AStructureTile(int indX, int indY, float cell_w, float cell_h, GodSim game, Board board) {
-        super(indX, indY, cell_w, cell_h, game, board);
+    protected AStructureTile(int indX, int indY, float cell_w, float cell_h) {
+        super(indX, indY, cell_w, cell_h);
     }
 
     /** GETTERS **/

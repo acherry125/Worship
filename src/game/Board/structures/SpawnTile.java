@@ -6,8 +6,8 @@ import game.GodSim;
 
 public class SpawnTile extends AStructureTile {
     int resourceCount = 0;
-    public SpawnTile(int indX, int indY, float cell_w, float cell_h, GodSim game, Board board) {
-        super(indX, indY, cell_w, cell_h, game, board);
+    public SpawnTile(int indX, int indY, float cell_w, float cell_h) {
+        super(indX, indY, cell_w, cell_h);
     }
 
     @Override

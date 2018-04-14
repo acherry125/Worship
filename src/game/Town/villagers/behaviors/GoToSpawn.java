@@ -11,14 +11,14 @@ import static processing.core.PApplet.println;
  */
 public class GoToSpawn extends GoToTile {
 
-    public GoToSpawn(Villager villager, TownResources townResources, Board board) {
-        super(villager, townResources, board);
+    public GoToSpawn(Villager villager) {
+        super(villager);
         super.goToTile(board.getSpawnTile());
     }
 
     @Override
-    public int execute() {
+    public TASKRESULT execute() {
         this.villager.move();
-        return 1;
+        return TASKRESULT.SUCCESS;
     }
 }

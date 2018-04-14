@@ -11,8 +11,8 @@ import processing.core.PVector;
  */
 public abstract class GoToTile extends ATask {
     PVector target;
-    public GoToTile(Villager villager, TownResources townResources, Board board) {
-        super(villager, townResources, board);
+    public GoToTile(Villager villager) {
+        super(villager);
     }
 
     public void goToTile(ATile tile) {

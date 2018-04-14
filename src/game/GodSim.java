@@ -77,8 +77,10 @@ public class GodSim extends PApplet {
     @Override
     public void setup() {
         click = new ClickHandler(this);
-        initializeBoard();
         initializeTown();
+        initializeBoard();
+        board.initialize();
+        town.initialize();
         initializePlayer();
         camera = new Camera(MAP_PX_WIDTH, MAP_PX_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
         ui = new UI(this);
@@ -141,6 +143,27 @@ public class GodSim extends PApplet {
     }
 
     /**
+     * Initialize the board
+     */
+    private void initializeBoard() {
+        board = Board.create(this);
+    }
+
+    /**
+     * Initialize the town
+     */
+    private void initializeTown() {
+        town = Town.create(this);
+    }
+
+    /**
+     * Initialize the town
+     */
+    private void initializePlayer() {
+        player = new Player();
+    }
+
+    /**
      * Start the game
      *
      * @param args no additional args used
@@ -149,24 +172,4 @@ public class GodSim extends PApplet {
         PApplet.main("game.GodSim");
     }
 
-    /**
-     * Initialize the board
-     */
-    private void initializeBoard() {
-        board = new Board(this);
-    }
-
-    /**
-     * Initialize the town
-     */
-    private void initializeTown() {
-        town = new Town(this);
-    }
-
-    /**
-     * Initialize the town
-     */
-    private void initializePlayer() {
-        player = new Player(this, this.town);
-    }
 }

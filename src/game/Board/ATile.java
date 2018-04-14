@@ -2,6 +2,7 @@ package game.Board;
 
 import game.GodSim;
 import game.Town.RESOURCES;
+import game.Town.Town;
 import processing.core.PVector;
 
 import java.awt.*;
@@ -31,7 +32,6 @@ public abstract class ATile {
      * the game.GodSim instance that instantiates this tile
      */
     protected GodSim g;
-    protected Board board;
     protected RESOURCES resource = RESOURCES.NONE;
 
     private float temp;
@@ -40,13 +40,12 @@ public abstract class ATile {
     private Color highlightColor = new Color(255, 0, 0);
 
     /* Constructor */
-    protected ATile(int indX, int indY, float cell_w, float cell_h, GodSim game, Board board) {
+    protected ATile(int indX, int indY, float cell_w, float cell_h) {
         this.indX = indX;
         this.indY = indY;
         this.cell_w = cell_w;
         this.cell_h = cell_h;
-        this.g = game;
-        this.board = board;
+        this.g = Town.single().getGodSim();
         initialize();
     }
 
@@ -92,9 +91,6 @@ public abstract class ATile {
     public RESOURCES getResource() {
         return resource;
     };
-    public Board getBoard() {
-        return board;
-    }
     public PVector getPosition() {
         return new PVector(getXPx(), getYPx());
     }
@@ -202,7 +198,7 @@ public abstract class ATile {
         calculateTemp();
         calculateResource();
         distanceFrom(500, 500);
-        board.addResourceTile(this);
+        Board.single().addResourceTile(this);
     }
 
     /**

@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import game.Board.ATile;
+import game.Board.Board;
 import game.GodSim;
 import game.Town.RESOURCES;
 import game.Town.Town;
@@ -27,12 +28,13 @@ public class Villager {
     private boolean onAMission;
     private ATile targetTile;
     private Town town;
+    private Blackboard blackboard;
 
     final float moveSpeed = 3;
 
-    public Villager(Town town, float xPos, float yPos, VILLAGER_ROLES role, GodSim g) {
-        this.g = g;
-        this.town = town;
+    public Villager(float xPos, float yPos, VILLAGER_ROLES role) {
+        this.town = Town.single();
+        this.g = town.getGodSim();
         this.xPos = xPos;
         this.yPos = yPos;
         this.role = role;
@@ -40,6 +42,7 @@ public class Villager {
         this.resourcesInHand = new LinkedList<>();
         this.maxResourcesToCarry = 5;
         this.onAMission = false;
+        this.blackboard = Blackboard.single();
         //initializeBTree();
     }
 
@@ -130,9 +133,9 @@ public class Villager {
      **/
     public void initializeBTree() {
         if (role == VILLAGER_ROLES.GATHERER) {
-            setBtree(new Gatherer(this, town.getTownResources(), g.getBoard()));
+            setBtree(new Gatherer(this));
         } else if (role == VILLAGER_ROLES.BUILDER) {
-            setBtree(new Builder(this, town.getTownResources(), g.getBoard()));
+            setBtree(new Builder(this));
         }
     }
 
@@ -161,7 +164,7 @@ public class Villager {
         }
         PVector copyLinear = initialLinear.copy().mult(g.CELL_W / 5);
         PVector futureV = PVector.add(this.getPosition(), copyLinear);
-        ATile futureT = g.getBoard().getTile(futureV);
+        ATile futureT = Board.single().getTile(futureV);
         initialLinear.mult(moveSpeed);
         linear = initialLinear;
     }

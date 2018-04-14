@@ -5,8 +5,8 @@ import game.Board.Board;
 import game.GodSim;
 
 public class HutTile extends AStructureTile {
-    public HutTile(int indX, int indY, float cell_w, float cell_h, GodSim game, Board board) {
-        super(indX, indY, cell_w, cell_h, game, board);
+    public HutTile(int indX, int indY, float cell_w, float cell_h) {
+        super(indX, indY, cell_w, cell_h);
     }
 
     @Override

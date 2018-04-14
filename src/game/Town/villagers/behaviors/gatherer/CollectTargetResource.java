@@ -5,17 +5,19 @@ import game.Town.RESOURCES;
 import game.Town.TownResources;
 import game.Town.villagers.Villager;
 import game.Town.villagers.behaviors.ATask;
+import game.Town.villagers.behaviors.Blackboard;
+import game.Town.villagers.behaviors.TASKRESULT;
 
 /**
  * Collects the resource until the villager can't carry anymore.
  */
 public class CollectTargetResource extends ATask {
-  public CollectTargetResource(Villager villager, TownResources townResources, Board board) {
-    super(villager, townResources, board);
+  public CollectTargetResource(Villager villager) {
+    super(villager);
   }
 
   @Override
-  public int execute() {
+  public TASKRESULT execute() {
     // While the villager can still attain more resources....
     if (villager.getResourcesInHand().size() < villager.getMaxResourcesToCarry()) {
       // Deduct the resource from the tile.
@@ -28,6 +30,6 @@ public class CollectTargetResource extends ATask {
       villager.setResourceToTarget(RESOURCES.NONE);
       villager.setOnAMission(false);
     }
-    return 1;
+    return TASKRESULT.SUCCESS;
   }
 }

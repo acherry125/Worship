@@ -1,6 +1,7 @@
 package game.Player;
 
 import game.Board.ATile;
+import game.Board.Board;
 import game.GodSim;
 import game.Player.powers.IPower;
 import game.Town.Town;
@@ -11,14 +12,14 @@ public class Player {
     GodSim g;
     Town t;
 
-    public Player(GodSim g, Town t) {
-        this.g = g;
-        this.t = t;
-        pm = new PowerManager(g, t);
+    public Player() {
+        this.t = Town.single();
+        this.g = t.getGodSim();
+        pm = new PowerManager(g);
     }
 
     public void act(PVector loc, boolean leftClick) {
-        ATile clickedTile = g.getBoard().getTile(g.getMouse());
+        ATile clickedTile = Board.single().getTile(g.getMouse());
         if (leftClick) {
             pm.usePower(clickedTile);
         } else {

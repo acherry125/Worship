@@ -16,16 +16,16 @@ public class SpawnTile extends AStructureTile {
     }
 
     @Override
+    public boolean isReachable() {
+        return true;
+    }
+
+    @Override
     public void draw() {
         int red = 255;
         int green = 140;
         int blue = 0;
         g.fill(red, green, blue);
         drawSquareBase(red, green, blue);
-    }
-
-    @Override
-    public boolean isReachable() {
-        return true;
     }
 }

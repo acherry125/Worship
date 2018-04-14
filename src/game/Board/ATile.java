@@ -52,14 +52,14 @@ public abstract class ATile {
 
     /* API */
 
+    /*** GETTERS ***/
+    abstract public int getResourceCount();
     public int getIndX() {
         return indX;
     }
-
     public int getIndY() {
         return indY;
     }
-
     /**
      * Get the x position of the tile
      *
@@ -68,7 +68,6 @@ public abstract class ATile {
     public float getXPx() {
         return indX * g.CELL_W + (g.CELL_W / 2);
     }
-
     /**
      * Get the y position of the tile
      *
@@ -77,7 +76,6 @@ public abstract class ATile {
     public float getYPx() {
         return indY * g.CELL_H + (g.CELL_H / 2);
     }
-
     /**
      * Get the temperature of the tile
      *
@@ -86,6 +84,36 @@ public abstract class ATile {
     public float getTemp() {
         return this.temp;
     }
+    /**
+     * Get the tile's resource, and deplete if finite from the tile
+     *
+     * @return the tile's RESOURCE
+     */
+    public RESOURCES getResource() {
+        return resource;
+    };
+    public Board getBoard() {
+        return board;
+    }
+    public PVector getPosition() {
+        return new PVector(getXPx(), getYPx());
+    }
+    /**
+     * View the tile's resource
+     * @return the tile's RESOURCE
+     */
+    public RESOURCES peekResource() {
+        return resource;
+    };
+
+    /*** SETTERS ***/
+    public void setResource(RESOURCES res) {}
+
+
+    /**
+     * Draw this tile to the screen
+     */
+    abstract public void draw();
 
     /**
      * Determine if this is a spawning tile
@@ -95,15 +123,32 @@ public abstract class ATile {
     public boolean isSpawner() {
         return false;
     }
-
     /**
-     * Draw this tile to the screen
+     * Determine if this is a reachable tile.
+     *
+     * @return whether this tile be entered by a villager
      */
-    abstract public void draw();
-
-    abstract public int getResourceCount();
+    abstract public boolean isReachable();
 
     public boolean hasStructure() {
+        return false;
+    }
+    /**
+     * Checks if the location of the villager given is at this tile (near it, determined by
+     * the cell width/height.
+     *
+     * @param locationOfVillager the location of the villager.
+     * @return whether or not the villager is at (near) this tile.
+     */
+    public boolean isAtTile(PVector locationOfVillager) {
+        return distanceFrom(locationOfVillager) == 0;
+    }
+
+    /**
+     *
+     * @return whether this tile can be built on
+     */
+    public boolean canBeBuiltOn() {
         return false;
     }
 
@@ -114,42 +159,6 @@ public abstract class ATile {
 
     public void stopHighlight() {
         this.highlight = false;
-    }
-
-    /**
-     * Determine if this is a reachable tile.
-     *
-     * @return whether this tile be entered by a villager
-     */
-    abstract public boolean isReachable();
-
-    /**
-     * Get the tile's resource, and deplete if finite from the tile
-     *
-     * @return the tile's RESOURCE
-     */
-    public RESOURCES getResource() {
-        return resource;
-    };
-
-    /**
-     *
-     * @return whether this tile can be built on
-     */
-    public boolean canBeBuiltOn() {
-        return false;
-    }
-
-    /**
-     * View the tile's resource
-     * @return the tile's RESOURCE
-     */
-    public RESOURCES peekResource() {
-        return resource;
-    };
-
-    public Board getBoard() {
-        return board;
     }
 
     /**
@@ -184,24 +193,17 @@ public abstract class ATile {
                 getXPx() + (g.CELL_W / 2), getYPx() + (g.CELL_H / 2));
     }
 
-    public PVector getPosition() {
-        return new PVector(getXPx(), getYPx());
-    }
+    /* Protected Methods */
 
     /**
-     * Checks if the location of the villager given is at this tile (near it, determined by
-     * the cell width/height.
-     *
-     * @param locationOfVillager the location of the villager.
-     * @return whether or not the villager is at (near) this tile.
+     * Initialize this tile based on its location
      */
-    public boolean isAtTile(PVector locationOfVillager) {
-        return distanceFrom(locationOfVillager) == 0;
+    protected void initialize() {
+        calculateTemp();
+        calculateResource();
+        distanceFrom(500, 500);
+        board.addResourceTile(this);
     }
-
-    public void setResource(RESOURCES res) {}
-
-    /* Protected Methods */
 
     /**
      * Draw the tile's square with the given color
@@ -229,19 +231,7 @@ public abstract class ATile {
         resource = RESOURCES.NONE;
     }
 
-    ;
-
     /* Private Methods */
-
-    /**
-     * Initialize this tile based on its location
-     */
-    protected void initialize() {
-        calculateTemp();
-        calculateResource();
-        distanceFrom(500, 500);
-        board.addResourceTile(this);
-    }
 
     /**
      * Set the temperature of the tile

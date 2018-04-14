@@ -69,6 +69,23 @@ public class Board {
     }
 
     /**
+     * Returns the spawn. Currently returns the actual spawn reference rather
+     * than a copy.  Will consider changing in the future.
+     *
+     * @return the spawn.
+     */
+    public ATile getSpawn() {
+        return spawn;
+    }
+
+    /**
+     * Temporary method to get constants.
+     */
+    public GodSim getG() {
+        return g;
+    }
+
+    /**
      * Replaces the given tile with a tile that contains a structure
      * @param tile
      * @return the new tile
@@ -260,19 +277,6 @@ public class Board {
         return countTilesThatPass(new TileCheckerHasStructure());
     }
 
-    public ATile[] getTilesThatPass(ITileChecker checker) {
-        ArrayList<ATile> passing = new ArrayList<ATile>();
-        for (int x = 0; x < board.length; x++) {
-            for (int y = 0; y < board[0].length; y++) {
-                if(checker.passes(board[x][y])) {
-                    passing.add(board[x][y]);
-                }
-            }
-        }
-        return passing.toArray(new ATile[passing.size()]);
-    }
-
-
     public int countTilesThatPass(ITileChecker checker) {
         int count = 0;
         for (int x = 0; x < board.length; x++) {
@@ -283,22 +287,5 @@ public class Board {
             }
         }
         return count;
-    }
-
-    /**
-     * Returns the spawn. Currently returns the actual spawn reference rather
-     * than a copy.  Will consider changing in the future.
-     *
-     * @return the spawn.
-     */
-    public ATile getSpawn() {
-        return spawn;
-    }
-
-    /**
-     * Temporary method to get constants.
-     */
-    public GodSim getG() {
-        return g;
     }
 }

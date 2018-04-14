@@ -10,6 +10,41 @@ public class LandResourceTile extends ATile {
         resetResourceCount();
     }
 
+    /*** GETTERS ***/
+    @Override
+    public int getResourceCount() {
+        return resourceCount;
+    }
+
+    @Override
+    public RESOURCES getResource() {
+        if (resourceCount > 0) {
+            resourceCount--;
+            return resource;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public boolean isReachable() {
+        return true;
+    }
+
+    @Override
+    public boolean canBeBuiltOn() {
+        return true;
+    }
+
+    /*** SETTERS ***/
+
+    @Override
+    public void setResource(RESOURCES res) {
+        if (resource == RESOURCES.NONE || resource == res || resourceCount == 0) {
+            setResourceOverride(res);
+        }
+    }
+
     @Override
     public void draw() {
         int otherColors = 80;
@@ -36,31 +71,6 @@ public class LandResourceTile extends ATile {
     }
 
     @Override
-    public int getResourceCount() {
-        return resourceCount;
-    }
-
-    @Override
-    public boolean isReachable() {
-        return true;
-    }
-
-    @Override
-    public RESOURCES getResource() {
-        if (resourceCount > 0) {
-            resourceCount--;
-            return resource;
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    public boolean canBeBuiltOn() {
-        return true;
-    }
-
-    @Override
     protected void calculateResource() {
         float res = (float) g.noise((float) (indX * 1.25), (float) (indY * 1.25));
         if (res < 0.3) {
@@ -71,13 +81,6 @@ public class LandResourceTile extends ATile {
             resource = RESOURCES.STONE;
         } else {
             resourceCount = 0;
-        }
-    }
-
-    @Override
-    public void setResource(RESOURCES res) {
-        if (resource == RESOURCES.NONE || resource == res || resourceCount == 0) {
-            setResourceOverride(res);
         }
     }
 

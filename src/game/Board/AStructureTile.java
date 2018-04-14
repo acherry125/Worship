@@ -10,16 +10,7 @@ public abstract class AStructureTile extends ATile {
         super(indX, indY, cell_w, cell_h, game, board);
     }
 
-    @Override
-    public void draw() {
-        int otherColors = 80;
-        g.ellipseMode(g.CORNER);
-        g.rectMode(g.CORNER);
-        g.noStroke();
-        drawSquareBase(otherColors, (int) getTemp(), otherColors);
-        g.textSize(cell_w / 5);
-    }
-
+    /** GETTERS **/
     @Override
     public int getResourceCount() {
         return 0;
@@ -33,6 +24,16 @@ public abstract class AStructureTile extends ATile {
     @Override
     public boolean hasStructure() {
         return true;
+    }
+
+    @Override
+    public void draw() {
+        int otherColors = 80;
+        g.ellipseMode(g.CORNER);
+        g.rectMode(g.CORNER);
+        g.noStroke();
+        drawSquareBase(otherColors, (int) getTemp(), otherColors);
+        g.textSize(cell_w / 5);
     }
 
     @Override

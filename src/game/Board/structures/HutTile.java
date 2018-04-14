@@ -9,6 +9,12 @@ public class HutTile extends AStructureTile {
         super(indX, indY, cell_w, cell_h, game, board);
     }
 
+    @Override
+    public void draw() {
+        super.draw();
+        drawHut();
+    }
+
     /**
      * Draw a hut on this tile
      */
@@ -32,11 +38,4 @@ public class HutTile extends AStructureTile {
         g.fill(254, 176, 80);
         g.rect(x2 + 4, y2, pWidth - 8, 25);
     }
-
-    @Override
-    public void draw() {
-        super.draw();
-        drawHut();
-    }
-
 }

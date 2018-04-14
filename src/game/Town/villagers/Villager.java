@@ -43,81 +43,62 @@ public class Villager {
         //initializeBTree();
     }
 
-    public void setVillageRole(VILLAGER_ROLES role) {
-        this.role = role;
-        //initializeBTree();
+    /*** Getters ***/
+    public PVector getTarget() {
+        return this.target;
+    }
+    public PVector getPosition() {
+        return new PVector(xPos, yPos);
+    }
+    public Town getTown() {
+        return this.town;
+    }
+    public int getMaxResourcesToCarry() {
+        return this.maxResourcesToCarry;
+    }
+    public boolean getOnAMission() {
+        return onAMission;
+    }
+    public ATile getTargetTile() {
+        return targetTile;
+    }
+    public double getBelief() {
+        return beliefInGod;
+    }
+    public RESOURCES getResourceToTarget() {
+        return this.resourceToTarget;
+    }
+    public List<RESOURCES> getResourcesInHand() {
+        return resourcesInHand;
     }
 
+    /*** Setters ***/
+    public void setOnAMission(boolean bool) {
+        this.onAMission = bool;
+    }
+    public void setTargetTile(ATile targetTile) {
+        this.targetTile = targetTile;
+    }
+    public void setResourceToTarget(RESOURCES resource) {
+        this.resourceToTarget = resource;
+    }
+    public void setBelief(double belief) {
+        this.beliefInGod = belief;
+    }
+    public void setVillageRole(VILLAGER_ROLES role) {
+        this.role = role;
+    }
     public void setBtree(ATask btree) {
         this.btree = btree;
     }
-
-    public void initializeBTree() {
-        if (role == VILLAGER_ROLES.GATHERER) {
-            setBtree(new Gatherer(this, town.getTownResources(), g.getBoard()));
-        } else if (role == VILLAGER_ROLES.BUILDER) {
-            setBtree(new Builder(this, town.getTownResources(), g.getBoard()));
-        }
-    }
-
-    /**
-     * Execute the villagers behavior tree
-     */
-    public void act() {
-        this.btree.execute();
-    }
-
-    /**
-     * Simple vector based move toward target
-     */
-    public void move() {
-        this.xPos += linear.x;
-        this.yPos += linear.y;
-    }
-
     public void setTarget(PVector target) {
         this.target = target;
         calculateLinear();
     }
 
-    public void calculateLinear() {
-       PVector initialLinear;
-        if (g.abs(target.x - getPosition().x) > 2
-                || g.abs(target.y - getPosition().y) > 2) {
-            initialLinear = this.target.sub(this.getPosition()).normalize();
-        } else {
-            initialLinear = new PVector(0, 0);
-        }
-        PVector copyLinear = initialLinear.copy().mult(g.CELL_W / 5);
-        PVector futureV = PVector.add(this.getPosition(), copyLinear);
-        ATile futureT = g.getBoard().getTile(futureV);
-        // if the tile that we would end up on is a water tile, avoid it
-        /* if (!futureT.isReachable()) {
-            PVector tileCenterPush = new PVector(futureT.getXPx() - this.getPosition().x, futureT.getYPx() - this.getPosition().y).normalize().mult(12/10);
-            initialLinear.sub(tileCenterPush);
-        }*/
-        initialLinear.mult(moveSpeed);
-        linear = initialLinear;
-    }
-
-    public PVector getTarget() {
-        return this.target;
-    }
-
-    public PVector getPosition() {
-        return new PVector(xPos, yPos);
-    }
-
-    public Town getTown() {
-        return this.town;
-    }
-
     public void draw() {
-
         PVector curr = new PVector(xPos, yPos);
         curr.add(target.copy().mult(2));
-        //System.out.println(target.copy().mult(2));
-
         g.ellipseMode(g.CENTER);
         g.rectMode(g.CENTER);
         g.stroke(100,100,100);
@@ -142,63 +123,54 @@ public class Villager {
         g.fill(0);
         g.textAlign(g.CENTER);
         g.text(resourcesInHand.size(), curr.x, curr.y - 32);
-
     }
 
     /**
-     * Returns the amount of resources the villager is carrying.
-     * @return
-     */
-    public List<RESOURCES> getResourcesInHand() {
-        return resourcesInHand;
+     *  Initialize the Behavior tree based on the current role
+     **/
+    public void initializeBTree() {
+        if (role == VILLAGER_ROLES.GATHERER) {
+            setBtree(new Gatherer(this, town.getTownResources(), g.getBoard()));
+        } else if (role == VILLAGER_ROLES.BUILDER) {
+            setBtree(new Builder(this, town.getTownResources(), g.getBoard()));
+        }
     }
 
     /**
-     * Returns the max number of resources this villager can carry.
-     * @return
+     * Execute the villagers behavior tree
      */
-    public int getMaxResourcesToCarry() {
-        return this.maxResourcesToCarry;
+    public void act() {
+        this.btree.execute();
+    }
+
+    /**
+     * Simple vector based move toward target
+     */
+    public void move() {
+        this.xPos += linear.x;
+        this.yPos += linear.y;
+    }
+
+    public void calculateLinear() {
+       PVector initialLinear;
+        if (g.abs(target.x - getPosition().x) > 2
+                || g.abs(target.y - getPosition().y) > 2) {
+            initialLinear = this.target.sub(this.getPosition()).normalize();
+        } else {
+            initialLinear = new PVector(0, 0);
+        }
+        PVector copyLinear = initialLinear.copy().mult(g.CELL_W / 5);
+        PVector futureV = PVector.add(this.getPosition(), copyLinear);
+        ATile futureT = g.getBoard().getTile(futureV);
+        initialLinear.mult(moveSpeed);
+        linear = initialLinear;
     }
 
     public void addResource(RESOURCES resource) {
         this.resourcesInHand.add(resource);
     }
 
-    public void setResourceToTarget(RESOURCES resource) {
-        this.resourceToTarget = resource;
-    }
-
-    public RESOURCES getResourceToTarget() {
-        return this.resourceToTarget;
-    }
-
-    public void setOnAMission(boolean bool) {
-        this.onAMission = bool;
-    }
-
-    public boolean isOnAMission() {
-        return this.onAMission;
-    }
-
-    public void setTargetTile(ATile targetTile) {
-        this.targetTile = targetTile;
-    }
-
-    public ATile getTargetTile() {
-        return this.targetTile;
-    }
-
     public void changeBelief(double change) {
         this.beliefInGod += change;
     }
-
-    public double getBelief() {
-        return this.beliefInGod;
-    }
-
-    public void setBelief(double belief) {
-        this.beliefInGod = belief;
-    }
-
 }

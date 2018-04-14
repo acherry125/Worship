@@ -16,13 +16,10 @@ public class CollectTargetResource extends ATask {
 
   @Override
   public int execute() {
-
     // While the villager can still attain more resources....
     if (villager.getResourcesInHand().size() < villager.getMaxResourcesToCarry()) {
-
       // Deduct the resource from the tile.
       villager.getTargetTile().getResource();
-
       // Add the resource to the villager to carry.
       villager.addResource(villager.getResourceToTarget());
     } else {

@@ -16,12 +16,10 @@ public class Builder extends ATask {
     @Override
     public int execute() {
         // If not on a mission
-        if (!villager.isOnAMission()) {
-
+        if (!villager.getOnAMission()) {
             // System.out.println("get to mission");
             // Go to the spawn... to get a target.
             villager.setBtree(new GoToSpawn(villager, townResources, board));
-
             if (!board.getSpawnTile().isAtTile(villager.getPosition())) {
                 // System.out.println("out of spawn proximity");
                 villager.act();
@@ -33,12 +31,12 @@ public class Builder extends ATask {
                 if (villager.getTown().canSupportHut()) {
                     villager.setBtree(new TargetBuildablePlot(villager, townResources, board));
                     villager.act();
-
                     // villager is now on a mission.
                     villager.setOnAMission(true);
                 }
             }
         } else {
+            // villager is on a mission, but hasn't reached the target
             if (!villager.getTargetTile().isAtTile(villager.getPosition())) {
                 ATask targetBuildablePlot = new TargetBuildablePlot(villager, townResources, board);
                 villager.setBtree(targetBuildablePlot);
@@ -46,6 +44,7 @@ public class Builder extends ATask {
                 ATask approachTarget = new ApproachTarget(villager, townResources, board);
                 villager.setBtree(approachTarget);
                 approachTarget.execute();
+            // has reached the target
             } else if (villager.getTown().canSupportHut()) {
                 ATask buildhut = new BuildHut(villager, townResources, board);
                 villager.setBtree(buildhut);
@@ -53,7 +52,6 @@ public class Builder extends ATask {
                 townResources.reduceNeed(RESOURCES.WOOD, 10);
             }
         }
-
         return 1;
     }
 }

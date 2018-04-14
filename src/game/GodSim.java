@@ -43,6 +43,37 @@ public class GodSim extends PApplet {
     PImage cursorImg;
     HashMap<IPower, PImage> cursorImages = new HashMap<IPower, PImage>();
 
+    /*** GETTERS ***/
+    /**
+     * Get the mouse's position on the board
+     *
+     * @return PVector with the mouse's position on the board
+     */
+    public PVector getMouse() {
+        return new PVector(mouseX - camera.getX(), mouseY - camera.getY());
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+    public Town getTown() {
+        return town;
+    }
+    public Camera getCamera() {
+        return camera;
+    }
+    public Player getPlayer() {
+        return player;
+    }
+
+    /*** SETTERS ***/
+    /**
+     * Set the cursor to be the state's current cursor image
+     **/
+    public void setCursor(IPower power) {
+        cursorImg = cursorImages.get(power);
+    }
+
     @Override
     public void setup() {
         click = new ClickHandler(this);
@@ -64,53 +95,6 @@ public class GodSim extends PApplet {
     public void settings() {
         size((int) (SCREEN_WIDTH), (int) (SCREEN_HEIGHT));
         //fullScreen();
-    }
-
-    /**
-     * Initialize the board
-     */
-    private void initializeBoard() {
-        board = new Board(this);
-    }
-
-    /**
-     * Initialize the town
-     */
-    private void initializeTown() {
-        town = new Town(this);
-    }
-
-    /**
-     * Initialize the town
-     */
-    private void initializePlayer() {
-        player = new Player(this, this.town);
-    }
-
-    public void setCursor(IPower power) {
-        cursorImg = cursorImages.get(power);
-    }
-
-    /**
-     * Get the mouse's position on the board
-     *
-     * @return PVector with the mouse's position on the board
-     */
-    public PVector getMouse() {
-        return new PVector(mouseX - camera.getX(), mouseY - camera.getY());
-    }
-
-    public Board getBoard() {
-        return board;
-    }
-    public Town getTown() {
-        return town;
-    }
-    public Camera getCamera() {
-        return camera;
-    }
-    public Player getPlayer() {
-        return player;
     }
 
     @Override
@@ -156,7 +140,6 @@ public class GodSim extends PApplet {
         ui.draw();
     }
 
-
     /**
      * Start the game
      *
@@ -164,5 +147,26 @@ public class GodSim extends PApplet {
      */
     public static void main(String[] args) {
         PApplet.main("game.GodSim");
+    }
+
+    /**
+     * Initialize the board
+     */
+    private void initializeBoard() {
+        board = new Board(this);
+    }
+
+    /**
+     * Initialize the town
+     */
+    private void initializeTown() {
+        town = new Town(this);
+    }
+
+    /**
+     * Initialize the town
+     */
+    private void initializePlayer() {
+        player = new Player(this, this.town);
     }
 }

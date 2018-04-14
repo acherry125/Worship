@@ -15,6 +15,7 @@ public class BuildHut extends ATask {
     public int execute() {
         ATile targTile = villager.getTargetTile();
         board.buildHutOnTile(targTile);
+        // we've built the hut, villager is done
         villager.setOnAMission(false);
         targTile.stopHighlight();
         return 1;

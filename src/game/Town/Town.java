@@ -13,19 +13,36 @@ import game.Town.villagers.VILLAGER_ROLES;
 import game.Town.villagers.Villager;
 
 public class Town {
-    GodSim g;
-    Board board;
-    LinkedList<Villager> villagers = new LinkedList<Villager>();
-    TownResources townResources;
+    private GodSim g;
+    private Board board;
+    private LinkedList<Villager> villagers = new LinkedList<Villager>();
+    private TownResources townResources;
     // what portion of the population should be each role
-    HashMap<VILLAGER_ROLES, Integer> roleRatio = new HashMap<VILLAGER_ROLES, Integer>();
-    HashMap<VILLAGER_ROLES, Integer> villagerCount = new HashMap<VILLAGER_ROLES, Integer>();
+    private HashMap<VILLAGER_ROLES, Integer> roleRatio = new HashMap<VILLAGER_ROLES, Integer>();
+    private HashMap<VILLAGER_ROLES, Integer> villagerCount = new HashMap<VILLAGER_ROLES, Integer>();
 
     public Town(GodSim g) {
         this.g = g;
         this.board = g.getBoard();
         townResources = new TownResources();
         initialize();
+    }
+
+    /*** GETTERS ***/
+    public TownResources getTownResources() {
+        return townResources;
+    }
+    public List<Villager> getVillagers() {
+        return this.villagers;
+    }
+
+    public void draw() {
+        manageVillagers();
+        for (Villager villager : villagers) {
+            villager.initializeBTree();
+            villager.act();
+            villager.draw();
+        }
     }
 
     /**
@@ -57,21 +74,8 @@ public class Town {
         }
     }
 
-    public TownResources getTownResources() {
-        return townResources;
-    }
-
     public boolean canSupportHut() {
         return townResources.get(RESOURCES.WOOD) > 10;
-    }
-
-    public void draw() {
-        manageVillagers();
-        for (Villager villager : villagers) {
-            villager.initializeBTree();
-            villager.act();
-            villager.draw();
-        }
     }
 
     private void manageVillagers() {
@@ -95,15 +99,9 @@ public class Town {
         int ratioBuilder = 1;
         roleRatio.put(VILLAGER_ROLES.GATHERER, ratioExplorer);
         roleRatio.put(VILLAGER_ROLES.BUILDER, ratioBuilder);
-
         villagerCount.put(VILLAGER_ROLES.GATHERER, ratioExplorer);
         villagerCount.put(VILLAGER_ROLES.BUILDER, ratioBuilder);
-
         spawnMany(VILLAGER_ROLES.BUILDER, ratioBuilder);
         spawnMany(VILLAGER_ROLES.GATHERER, ratioExplorer);
-    }
-
-    public List<Villager> getVillagers() {
-      return this.villagers;
     }
 }

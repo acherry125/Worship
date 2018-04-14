@@ -12,12 +12,12 @@ public class FollowGodBasedOnBelief extends ATask {
 
   @Override
   public int execute() {
-
+    // listen to the god
     if (this.villager.getBelief() > 0) {
       return 1;
+    // don't listen to the god
     } else {
       return -1;
     }
-
   }
 }

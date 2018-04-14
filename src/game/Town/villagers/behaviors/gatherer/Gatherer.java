@@ -18,7 +18,7 @@ public class Gatherer extends ATask {
   public int execute() {
 
     // If not on a mission
-    if (!villager.isOnAMission()) {
+    if (!villager.getOnAMission()) {
 
       // System.out.println("get to mission");
       // Go to the spawn... to get a target.
@@ -32,8 +32,8 @@ public class Gatherer extends ATask {
           townResources.raiseNeed(r);
           float distanceTraveled = villager.getTarget().sub(villager.getPosition()).mag();
           villager.changeBelief(-distanceTraveled);
-//          System.out.println(distanceTraveled);
-//          System.out.println(villager.getBelief());
+        // System.out.println(distanceTraveled);
+        // System.out.println(villager.getBelief());
         }
         if (villager.getBelief() > 1000000) {
           villager.setBelief(500000);
@@ -66,10 +66,7 @@ public class Gatherer extends ATask {
         villager.setBtree(collect);
         collect.execute();
       }
-
     }
-
     return 1;
-
   }
 }

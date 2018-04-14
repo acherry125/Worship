@@ -19,6 +19,14 @@ public class Camera {
         this.screenHeight = screenHeight;
     }
 
+    /*** GETTERS ***/
+    public float getX() {
+        return this.x;
+    }
+    public float getY() {
+        return this.y;
+    }
+
     public void moveLeft() {
         if (x < 0) {
             x += SHIFT_HORIZ;
@@ -43,11 +51,4 @@ public class Camera {
         }
     }
 
-    public float getX() {
-        return this.x;
-    }
-
-    public float getY() {
-        return this.y;
-    }
 }

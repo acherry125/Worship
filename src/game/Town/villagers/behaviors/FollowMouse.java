@@ -12,9 +12,7 @@ public class FollowMouse extends ATask {
     int mouseX;
     int mouseY;
 
-    public FollowMouse(Villager villager, TownResources townResources, Board board,
-                       int mouseX, int mouseY) {
-
+    public FollowMouse(Villager villager, TownResources townResources, Board board, int mouseX, int mouseY) {
         super(villager, townResources, board);
         this.mouseX = mouseX;
         this.mouseY = mouseY;

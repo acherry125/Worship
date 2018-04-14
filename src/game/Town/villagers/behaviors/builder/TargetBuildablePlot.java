@@ -15,13 +15,9 @@ public class TargetBuildablePlot extends ATask {
 
     @Override
     public int execute() {
-
-        // Get the village's highest need resource, and find the closest one to the villager.
+        // Ask the town for building orders
         ATile tileToBuildOn = board.getNextBuildableTile();
-
-        // If you can get to it, Set that villager's target to get the resource.
-        villager.setTarget(new PVector(tileToBuildOn.getXPx(), tileToBuildOn.getYPx()));
-
+        villager.setTarget(tileToBuildOn.getPosition());
         villager.setTargetTile(tileToBuildOn);
         tileToBuildOn.highlightTile(0, 255, 255);
         return 1;

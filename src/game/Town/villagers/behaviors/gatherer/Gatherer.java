@@ -1,10 +1,21 @@
 package game.Town.villagers.behaviors.gatherer;
 
+import com.sun.org.apache.regexp.internal.RE;
+import game.Board.ATile;
 import game.Board.Board;
 import game.Town.RESOURCES;
-import game.Town.TownResources;
 import game.Town.villagers.Villager;
 import game.Town.villagers.behaviors.*;
+import game.Town.villagers.behaviors.composites.Selector;
+import game.Town.villagers.behaviors.composites.Sequence;
+import game.Town.villagers.behaviors.general.AdvanceTowardsTargetA;
+import game.Town.villagers.behaviors.general.InSpawnC;
+import game.Town.villagers.behaviors.general.ReachedTargetC;
+import game.Town.villagers.behaviors.general.SetTargetA;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 public class Gatherer extends ATask {
 
@@ -17,56 +28,33 @@ public class Gatherer extends ATask {
   @Override
   public TASKRESULT execute() {
 
-    // If not on a mission
-    if (!villager.getOnAMission()) {
-
-      // System.out.println("get to mission");
-      // Go to the spawn... to get a target.
-      villager.setBtree(new GoToSpawn(villager));
-
-      if (!board.getSpawnTile().isAtTile(villager.getPosition())) {
-        // System.out.println("out of spawn proximity");
-        villager.act();
-      } else {
-        for (RESOURCES r : villager.getResourcesInHand()) {
-          townResources.raiseNeed(r);
-          float distanceTraveled = villager.getTarget().sub(villager.getPosition()).mag();
-          villager.changeBelief(-distanceTraveled);
-        // System.out.println(distanceTraveled);
-        // System.out.println(villager.getBelief());
+    ArrayList<RESOURCES> possibleResources = new ArrayList<RESOURCES>(Arrays.asList(RESOURCES.FOOD, RESOURCES.WOOD, RESOURCES.STONE, RESOURCES.WATER));
+    RESOURCES resource = possibleResources.get(new Random().nextInt(possibleResources.size()));
+    String thisId = Integer.toString(villager.hashCode());
+    ATile targetTile = (ATile) Blackboard.single().get(thisId);
+    if (targetTile == null || !possibleResources.contains(targetTile.peekResource()) || targetTile.getResourceCount() == 0) {
+        targetTile = board.getClosestResourceTile(resource, villager.getPosition());
+        if (targetTile == null) {
+            // TODO, what to do when resources all run out?
+            return TASKRESULT.FAILURE;
         }
-        if (villager.getBelief() > 1000000) {
-          villager.setBelief(500000);
-        }
-        villager.getResourcesInHand().clear();
-
-
-        if (new FollowGodBasedOnBelief(villager).execute() == TASKRESULT.SUCCESS) {
-          ATask targetTownNeed = new TargetTownNeed(villager);
-          villager.setBtree(targetTownNeed);
-          targetTownNeed.execute();
-          // villager is now on a mission.
-          villager.setOnAMission(true);
-        } else {
-          villager.changeBelief(increaseBeliefRateEachFrame);
-        }
-      }
-    } else {
-
-      if (!villager.getTargetTile().isAtTile(villager.getPosition())) {
-        // System.out.println("on a mission to my target resource" + villager.getTarget());
-        ATask targetTown = new TargetTownNeed(villager);
-        villager.setBtree(targetTown);
-        targetTown.execute();
-        ATask target = new ApproachTarget(villager);
-        villager.setBtree(target);
-        target.execute();
-      } else {
-        ATask collect = new CollectTargetResource(villager);
-        villager.setBtree(collect);
-        collect.execute();
-      }
+        Blackboard.single().put(thisId, targetTile);
     }
-    return TASKRESULT.SUCCESS;
+
+    Villager v = villager;
+
+    // TODO, rewrite this so it's easy to follow the trees
+    ATask reachedTargetCollectSeqDone = new Sequence(v, new ATask[]{new ReachedTargetC(v), new CollectTargetA(v)});
+    ATask findThenAdvanceSeqDone = new Sequence(v, new ATask[]{new SetTargetA(v, targetTile), new AdvanceTowardsTargetA(v)});
+    ATask advanceOrCollectSel = new Selector(v, new ATask[]{reachedTargetCollectSeqDone, findThenAdvanceSeqDone});
+    ATask fullInventoryNotAtSpawnSeqDone = new Sequence(v, new ATask[]{new SetTargetA(v, Board.single().getSpawnTile()), new AdvanceTowardsTargetA(v)});
+    ATask fullInventoryAtSpawnSeqDone = new Sequence(v, new ATask[]{new InSpawnC(v), new DepositResourcesA(v)});
+
+    ATask notFullInventorySeq = new Sequence(v, new ATask[]{new NotFilledInventoryC(v), advanceOrCollectSel});
+    ATask fullInventorySeq = new Selector(v, new ATask[]{fullInventoryAtSpawnSeqDone, fullInventoryNotAtSpawnSeqDone});
+
+    ATask topSelector = new Selector(v, new ATask[]{notFullInventorySeq, fullInventorySeq});
+
+    return topSelector.execute();
   }
 }

@@ -1,5 +1,7 @@
 package game.Town.villagers;
 
+import java.util.Deque;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,26 +13,27 @@ import game.Town.Town;
 import game.Town.villagers.behaviors.*;
 import game.Town.villagers.behaviors.gatherer.*;
 import game.Town.villagers.behaviors.builder.*;
+import game.Town.villagers.behaviors.idle.IdleA;
 import processing.core.PVector;
 
 public class Villager {
     private float xPos;
     private float yPos;
     private VILLAGER_ROLES role;
+    private boolean idle;
     public ATask btree;
     private double beliefInGod; // 1 is full belief, 0 is no belief.
-    private PVector target;
     protected GodSim g;
     private PVector linear;
-    private List<RESOURCES> resourcesInHand;
+    private Deque<RESOURCES> resourcesInHand;
     private int maxResourcesToCarry;
     private RESOURCES resourceToTarget = RESOURCES.NONE;
-    private boolean onAMission;
     private ATile targetTile;
     private Town town;
     private Blackboard blackboard;
+    private HashMap<String, Integer> timers = new HashMap<String, Integer>();
 
-    final float moveSpeed = 3;
+    final float moveSpeed = 2;
 
     public Villager(float xPos, float yPos, VILLAGER_ROLES role) {
         this.town = Town.single();
@@ -38,29 +41,27 @@ public class Villager {
         this.xPos = xPos;
         this.yPos = yPos;
         this.role = role;
+        this.idle = true;
         this.beliefInGod = 0.5;
         this.resourcesInHand = new LinkedList<>();
         this.maxResourcesToCarry = 5;
-        this.onAMission = false;
         this.blackboard = Blackboard.single();
+        this.setTargetTile(Board.single().getSpawnTile());
         //initializeBTree();
     }
 
     /*** Getters ***/
-    public PVector getTarget() {
-        return this.target;
-    }
     public PVector getPosition() {
         return new PVector(xPos, yPos);
+    }
+    public VILLAGER_ROLES getRole() {
+        return role;
     }
     public Town getTown() {
         return this.town;
     }
     public int getMaxResourcesToCarry() {
         return this.maxResourcesToCarry;
-    }
-    public boolean getOnAMission() {
-        return onAMission;
     }
     public ATile getTargetTile() {
         return targetTile;
@@ -71,16 +72,25 @@ public class Villager {
     public RESOURCES getResourceToTarget() {
         return this.resourceToTarget;
     }
-    public List<RESOURCES> getResourcesInHand() {
+    public Deque<RESOURCES> getResourcesInHand() {
         return resourcesInHand;
+    }
+    public boolean isIdle() {
+        return idle;
+    }
+    public int getTimer(String name) {
+        if (timers.get(name) == null) {
+            return 0;
+        }
+        else {
+            return timers.get(name);
+        }
     }
 
     /*** Setters ***/
-    public void setOnAMission(boolean bool) {
-        this.onAMission = bool;
-    }
     public void setTargetTile(ATile targetTile) {
         this.targetTile = targetTile;
+        calculateLinear();
     }
     public void setResourceToTarget(RESOURCES resource) {
         this.resourceToTarget = resource;
@@ -94,14 +104,15 @@ public class Villager {
     public void setBtree(ATask btree) {
         this.btree = btree;
     }
-    public void setTarget(PVector target) {
-        this.target = target;
-        calculateLinear();
+    public void setIdle(boolean val) {
+        idle = val;
     }
+    public void setTimerNow(String name) { timers.put(name, g.millis()); };
+    public void removeTimer(String name) { timers.remove(name); };
 
     public void draw() {
-        PVector curr = new PVector(xPos, yPos);
-        curr.add(target.copy().mult(2));
+        PVector dir = PVector.sub(targetTile.getPosition(), getPosition()).setMag(8);
+        PVector head = PVector.add(getPosition(), dir);
         g.ellipseMode(g.CENTER);
         g.rectMode(g.CENTER);
         g.stroke(100,100,100);
@@ -114,18 +125,18 @@ public class Villager {
         g.ellipse(xPos, yPos, 40, 40);
         g.fill(255, 206, 145);
         // head
-        g.ellipse(curr.x, curr.y, 26, 26);
+        g.ellipse(head.x, head.y, 26, 26);
         g.fill(0, 0, 0);
         // hat/hair or whatever
-        g.ellipse(curr.x, curr.y, 10, 15);
+        g.ellipse(head.x, head.y, 10, 15);
         // resource collection text bg
         g.fill(255);
         g.stroke(200, 200, 200);
-        g.rect(curr.x, curr.y - 40, 70, 20);
+        g.rect(head.x, head.y - 40, 70, 20);
         // resource collection text
         g.fill(0);
         g.textAlign(g.CENTER);
-        g.text(resourcesInHand.size(), curr.x, curr.y - 32);
+        g.text(resourcesInHand.size(), head.x, head.y - 32);
     }
 
     /**
@@ -155,10 +166,11 @@ public class Villager {
     }
 
     public void calculateLinear() {
-       PVector initialLinear;
+        PVector target = targetTile.getPosition();
+        PVector initialLinear;
         if (g.abs(target.x - getPosition().x) > 2
                 || g.abs(target.y - getPosition().y) > 2) {
-            initialLinear = this.target.sub(this.getPosition()).normalize();
+            initialLinear = target.sub(this.getPosition()).normalize();
         } else {
             initialLinear = new PVector(0, 0);
         }

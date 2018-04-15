@@ -19,7 +19,9 @@ public class LandResourceTile extends ATile {
     @Override
     public RESOURCES getResource() {
         if (resourceCount > 0) {
-            resourceCount--;
+            if (--resourceCount <= 0) {
+                Board.single().removeResourceTile(this);
+            }
             return resource;
         } else {
             return null;
@@ -87,6 +89,7 @@ public class LandResourceTile extends ATile {
     private void setResourceOverride(RESOURCES res) {
         resource = res;
         resetResourceCount();
+        Board.single().addResourceTile(this);
     }
 
     private void resetResourceCount() {

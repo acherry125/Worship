@@ -9,7 +9,7 @@ import game.Town.villagers.behaviors.TASKRESULT;
 
 public class Selector extends ATask {
     ATask[] tasks;
-    Selector(Villager villager, ATask[] tasks) {
+    public Selector(Villager villager, ATask[] tasks) {
         super(villager);
         this.tasks = tasks;
     }

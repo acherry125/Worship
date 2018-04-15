@@ -15,7 +15,7 @@ public class Blackboard {
 
     HashMap<String, Object> lookup;
 
-    public Object single(String key) {
+    public Object get(String key) {
         return lookup.get(key);
     }
 

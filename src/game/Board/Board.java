@@ -8,6 +8,7 @@ import game.Board.tileCheckers.TileCheckerHasResource;
 import game.Board.tileCheckers.TileCheckerHasStructure;
 import game.GodSim;
 import game.Town.RESOURCES;
+import game.Town.villagers.behaviors.Blackboard;
 import processing.core.PVector;
 
 import java.beans.PropertyVetoException;
@@ -17,6 +18,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+
+import static processing.core.PApplet.println;
 
 public class Board {
     private GodSim g;
@@ -70,7 +73,8 @@ public class Board {
      */
     public ATile getTile(float x, float y) {
         if (x > g.MAP_PX_WIDTH || x < 0 || y > g.MAP_PX_HEIGHT || y < 0) {
-            throw new IndexOutOfBoundsException("Outside of board bounds.");
+            println("ERROR: Outside of board bounds.");
+            return spawn;
         }
         int tileIndexX = (int) (x / g.CELL_W);
         int tileIndexY = (int) (y / g.CELL_H);
@@ -184,6 +188,9 @@ public class Board {
             existingList.remove(tile);
             resourceLists.put(res, existingList);
         }
+        if (tile.hasStructure()) {
+            huts--;
+        }
     }
 
     /**
@@ -235,7 +242,7 @@ public class Board {
         // Breadth first search essentially on the 2d array from the villagers position
         while (found.size() > 0) {
             curr = found.pollLast();
-            if (checker.passes(curr)) {
+            if (checker.passes(curr) && !curr.isHighlighted()) {
                 break;
             } else {
                 explored.offerFirst(curr);
@@ -258,10 +265,14 @@ public class Board {
      */
     public ATile getClosestResourceTile(RESOURCES resource, PVector locationOfVillager) {
         float closestDist = Float.MAX_VALUE;
+        if (resourceLists.get(resource) == null || resourceLists.get(resource).size() == 0) {
+            return null;
+        }
         ATile closest = resourceLists.get(resource).get(0);
+        Blackboard bb = Blackboard.single();
         for (ATile tile: resourceLists.get(resource)) {
             float dist = PVector.sub(locationOfVillager, tile.getPosition()).mag();
-            if (dist < closestDist) {
+            if (dist < closestDist && !tile.isHighlighted()) {
                 closest = tile;
                 closestDist = dist;
             }
@@ -280,10 +291,12 @@ public class Board {
     }
 
     public ATile getNextBuildableTile() {
-        return nextBuildableTile;
+        ATile buildable = nextBuildableTile;
+        nextBuildableTile = getClosestBuildableTile(spawn.getPosition());
+        return buildable;
     }
 
-    public int numStructuresOnMap() {
+    public int getNumStructuresOnMap() {
         return countTilesThatPass(new TileCheckerHasStructure());
     }
 

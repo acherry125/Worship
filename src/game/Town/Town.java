@@ -1,6 +1,5 @@
 package game.Town;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +19,7 @@ public class Town {
     // what portion of the population should be each role
     private HashMap<VILLAGER_ROLES, Integer> roleRatio = new HashMap<VILLAGER_ROLES, Integer>();
     private HashMap<VILLAGER_ROLES, Integer> villagerCount = new HashMap<VILLAGER_ROLES, Integer>();
-
+    private int numWoodToBuildHut = 10;
     private static Town ourInstance;
 
     public static Town create(GodSim g) {
@@ -46,6 +45,9 @@ public class Town {
     }
     public GodSim getGodSim() {
         return this.g;
+    }
+    public int requiredWoodToBuildHut() {
+        return numWoodToBuildHut;
     }
 
     public void draw() {
@@ -91,7 +93,8 @@ public class Town {
     }
 
     private void manageVillagers() {
-        int numBuildings = board.numStructuresOnMap();
+        // TODO use the Board's function getNumStructures
+        int numBuildings = board.getNumStructuresOnMap();
         if (villagers.size() < numBuildings / 2) {
             // Explorers spawn first, make sure there's always around 3 explorers for every builder
             if (villagerCount.get(VILLAGER_ROLES.GATHERER) < roleRatio.get(VILLAGER_ROLES.GATHERER) * villagerCount.get(VILLAGER_ROLES.BUILDER)) {

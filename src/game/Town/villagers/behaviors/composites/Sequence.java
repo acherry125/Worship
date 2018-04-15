@@ -9,7 +9,7 @@ import game.Town.villagers.behaviors.TASKRESULT;
 
 public class Sequence extends ATask {
     ATask[] tasks;
-    Sequence(Villager villager, ATask[] tasks) {
+    public Sequence(Villager villager, ATask[] tasks) {
         super(villager);
         this.tasks = tasks;
     }

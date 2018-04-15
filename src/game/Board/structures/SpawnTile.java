@@ -3,6 +3,7 @@ package game.Board.structures;
 import game.Board.AStructureTile;
 import game.Board.Board;
 import game.GodSim;
+import game.Town.RESOURCES;
 
 public class SpawnTile extends AStructureTile {
     int resourceCount = 0;
@@ -27,5 +28,10 @@ public class SpawnTile extends AStructureTile {
         int blue = 0;
         g.fill(red, green, blue);
         drawSquareBase(red, green, blue);
+    }
+
+    @Override
+    protected void calculateResource() {
+        resource = RESOURCES.NONE;
     }
 }

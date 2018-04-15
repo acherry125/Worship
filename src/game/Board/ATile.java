@@ -94,6 +94,7 @@ public abstract class ATile {
     public PVector getPosition() {
         return new PVector(getXPx(), getYPx());
     }
+    public boolean isHighlighted() { return highlight; }
     /**
      * View the tile's resource
      * @return the tile's RESOURCE

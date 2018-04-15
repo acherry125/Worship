@@ -9,7 +9,6 @@ import game.Player.powers.GrowTree;
 import game.Player.powers.IPower;
 import game.Town.Town;
 import game.Handlers.ClickHandler;
-import org.omg.PortableInterceptor.INACTIVE;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;

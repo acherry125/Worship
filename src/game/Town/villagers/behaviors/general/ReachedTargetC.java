@@ -4,8 +4,6 @@ import game.Town.villagers.Villager;
 import game.Town.villagers.behaviors.ATask;
 import game.Town.villagers.behaviors.TASKRESULT;
 
-import static jdk.nashorn.internal.objects.Global.println;
-
 public class ReachedTargetC extends ATask {
     public ReachedTargetC(Villager v) {
         super(v);

@@ -1,6 +1,5 @@
 package game.Town.villagers.behaviors.gatherer;
 
-import com.sun.org.apache.regexp.internal.RE;
 import game.Board.ATile;
 import game.Board.Board;
 import game.Town.RESOURCES;

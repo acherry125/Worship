@@ -99,6 +99,8 @@ public class Board {
         return g;
     }
 
+    public int getNumHuts() { return huts;}
+
     /**
      * Replaces the given tile with a tile that contains a structure
      * @param tile

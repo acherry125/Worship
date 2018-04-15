@@ -14,9 +14,9 @@ public class TownResources {
     public TownResources() {
         townNeeds = new HashMap();
         createNeed(RESOURCES.WOOD, 0);
-        createNeed(RESOURCES.WATER, 0);
+        createNeed(RESOURCES.WATER, 50);
         createNeed(RESOURCES.STONE, 0);
-        createNeed(RESOURCES.FOOD, 0);
+        createNeed(RESOURCES.FOOD, 50);
     }
 
     public Integer get(RESOURCES key) {

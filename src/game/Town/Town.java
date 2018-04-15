@@ -20,6 +20,10 @@ public class Town {
     private HashMap<VILLAGER_ROLES, Integer> roleRatio = new HashMap<VILLAGER_ROLES, Integer>();
     private HashMap<VILLAGER_ROLES, Integer> villagerCount = new HashMap<VILLAGER_ROLES, Integer>();
     private int numWoodToBuildHut = 10;
+    private int foodWaterTimer = 0;
+    private int foodWaterInterval = 10000;
+    private int foodPerPerson = 2;
+    private int waterPerPerson = 2;
     private static Town ourInstance;
 
     public static Town create(GodSim g) {
@@ -94,14 +98,38 @@ public class Town {
 
     private void manageVillagers() {
         // TODO use the Board's function getNumStructures
-        int numBuildings = board.getNumStructuresOnMap();
-        if (villagers.size() < numBuildings / 2) {
-            // Explorers spawn first, make sure there's always around 3 explorers for every builder
-            if (villagerCount.get(VILLAGER_ROLES.GATHERER) < roleRatio.get(VILLAGER_ROLES.GATHERER) * villagerCount.get(VILLAGER_ROLES.BUILDER)) {
-                spawn(VILLAGER_ROLES.GATHERER);
-            } else {
-                // when there are 3n explorers, we can spawn a new builder
-                spawn(VILLAGER_ROLES.BUILDER);
+        int numBuildings = board.getNumHuts();
+        if (g.millis() - foodWaterTimer > foodWaterInterval) {
+            foodWaterTimer = g.millis();
+            int count = villagers.size();
+            int openSlots = numBuildings + 4 - count;
+            // go through existing people, see which survive, spawn more if sustainable
+            for (int i = 0; i < count + openSlots; i++) {
+                int foodCount = townResources.get(RESOURCES.FOOD);
+                int waterCount = townResources.get(RESOURCES.WATER);
+                // still checking the existing villagers
+                if (i < count) {
+                    // remove the villager from the end
+                    Villager currVill = villagers.pop();
+                    if (foodCount >= foodPerPerson && waterCount >= waterPerPerson) {
+                        // add the villager back at the beginning so it's in the same order
+                        villagers.addFirst(currVill);
+                        townResources.reduceNeed(RESOURCES.FOOD, foodPerPerson);
+                        townResources.reduceNeed(RESOURCES.WATER, waterPerPerson);
+                    }
+                    // if there's no food, don't readd the villager
+                // check if we can add more villagers
+                } else if (foodCount >= foodPerPerson && waterCount >= waterPerPerson) {
+                    townResources.reduceNeed(RESOURCES.FOOD, foodPerPerson);
+                    townResources.reduceNeed(RESOURCES.WATER, waterPerPerson);
+                    // Explorers spawn first, make sure there's always around 3 explorers for every builder
+                    if (villagerCount.get(VILLAGER_ROLES.GATHERER) < roleRatio.get(VILLAGER_ROLES.GATHERER) * villagerCount.get(VILLAGER_ROLES.BUILDER)) {
+                        spawn(VILLAGER_ROLES.GATHERER);
+                    } else {
+                        // when there are 3n explorers, we can spawn a new builder
+                        spawn(VILLAGER_ROLES.BUILDER);
+                    }
+                }
             }
         }
     }

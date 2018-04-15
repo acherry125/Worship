@@ -9,14 +9,16 @@ public class Camera {
     private float mapHeight;
     private float screenWidth;
     private float screenHeight;
+    private GodSim g;
 
-    public Camera(float mapWidth, float mapHeight, float screenWidth, float screenHeight) {
+    public Camera(float mapWidth, float mapHeight, float screenWidth, float screenHeight, GodSim g) {
         x = (-mapWidth / 2) + (screenWidth / 2);
         y = (-mapHeight / 2) + (screenHeight / 2);
         this.mapWidth = mapWidth;
         this.mapHeight = mapHeight;
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
+        this.g = g;
     }
 
     /*** GETTERS ***/
@@ -27,27 +29,67 @@ public class Camera {
         return this.y;
     }
 
-    public void moveLeft() {
-        if (x < 0) {
-            x += SHIFT_HORIZ;
+    public void execute() {
+        int LEFT_WASD = 65;
+        int UP_WASD = 87;
+        int RIGHT_WASD = 68;
+        int DOWN_WASD = 83;
+
+        if (g.getKeyPressed(g.LEFT) || g.getKeyPressed(LEFT_WASD)) {
+            moveLeft();
+        }
+        if (g.getKeyPressed(g.UP) || g.getKeyPressed(UP_WASD)) {
+            moveUp();
+        }
+        if (g.getKeyPressed(g.DOWN) || g.getKeyPressed(DOWN_WASD)) {
+            moveDown();
+        }
+        if (g.getKeyPressed(g.RIGHT) || g.getKeyPressed(RIGHT_WASD)) {
+            moveRight();
+        }
+    }
+    private float getShiftHoriz() {
+        if (g.getKeyPressed(g.SHIFT)) {
+            return 2*SHIFT_HORIZ;
+        }
+        return SHIFT_HORIZ;
+    }
+    private float getShiftVert() {
+        if (g.getKeyPressed(g.SHIFT)) {
+            return 2*SHIFT_VERT;
+        }
+        return SHIFT_VERT;
+    }
+
+    private void moveLeft() {
+        if (x + getShiftHoriz() < 0) {
+            x += getShiftHoriz();
+        } else {
+            x = 0;
         }
     }
 
-    public void moveRight() {
-        if (x > -(mapWidth - screenWidth)) {
-            x -= SHIFT_HORIZ;
+    private void moveRight() {
+        if (x - getShiftHoriz() > -(mapWidth - screenWidth)) {
+            x -= getShiftHoriz();
+        } else {
+            x = -(mapWidth - screenWidth);
         }
     }
 
-    public void moveUp() {
-        if (y < 0) {
-            y += SHIFT_HORIZ;
+    private void moveUp() {
+        if (y + getShiftVert() < 0) {
+            y += getShiftVert();
+        } else {
+            y = 0;
         }
     }
 
-    public void moveDown() {
-        if (y > -(mapHeight - screenHeight)) {
-            y -= SHIFT_HORIZ;
+    private void moveDown() {
+        if (y - getShiftVert() > -(mapHeight - screenHeight)) {
+            y -= getShiftVert();
+        } else {
+            y = -(mapHeight - screenHeight);
         }
     }
 

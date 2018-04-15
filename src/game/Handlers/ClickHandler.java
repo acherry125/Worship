@@ -12,9 +12,17 @@ public class ClickHandler {
         this.g = g;
     }
     public void handleLeft() {
-        g.getPlayer().act(g.getMouse(), true);
+        if (g.gameStarted) {
+            g.getPlayer().act(g.getMouse(), true);
+        } else {
+            if (g.getUI().mouseOnButton()) {
+                g.startGame();
+            }
+        }
     }
     public void handleRight() {
-        g.getPlayer().act(g.getMouse(), false);
+        if (g.gameStarted) {
+            g.getPlayer().act(g.getMouse(), false);
+        }
     }
 }

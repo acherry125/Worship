@@ -46,7 +46,7 @@ public class GodSim extends PApplet {
 
     private PImage cursorImg;
     private HashMap<IPower, PImage> cursorImages = new HashMap<IPower, PImage>();
-    public boolean gameStarted = false;
+    public boolean gameStarted = true;
     public PImage treeImage;
 
 

@@ -55,6 +55,7 @@ public class LandResourceTile extends ATile {
         g.noStroke();
         drawSquareBase(otherColors, (int) getTemp(), otherColors);
         g.textSize(cell_w / 5);
+        g.textAlign(g.RIGHT, g.BOTTOM);
         if (resourceCount == 0) {
 
         } else if (resource == RESOURCES.WOOD) {
@@ -118,13 +119,8 @@ public class LandResourceTile extends ATile {
         float pWidth = cell_w - 2*padding;
         float pHeight = cell_h - 2*padding;
 
-        g.fill(200,200,200);
-        g.noStroke();
-        g.ellipseMode(g.CORNER);
-        g.ellipse(pX, pY, pWidth, pHeight);
-        g.stroke(150, 150, 150);
-        g.ellipse(pX + 40, pY + 34, pWidth / 3, pHeight / 3);
-        g.ellipse(pX + 5, pY + 5, pWidth / 4, pHeight / 3);
+        g.imageMode(g.CORNER);
+        g.image(g.rocksImg, pX, pY, pWidth, pHeight);
     }
 
     /**
@@ -137,13 +133,6 @@ public class LandResourceTile extends ATile {
         float pWidth = cell_w - 2*padding;
         float pHeight = cell_h - 2*padding;
 
-        g.fill(0,210,0);
-        g.noStroke();
-        g.ellipse(pX, pY, pWidth, pHeight);
-        g.fill(200,0,0);
-        g.ellipseMode(g.CORNER);
-        g.ellipse(pX + 30, pY + 24, pWidth / 5, pHeight / 5);
-        g.ellipse(pX + 40, pY + 54, pWidth / 6, pHeight / 6);
-        g.ellipse(pX + 20, pY + 5, pWidth / 5, pHeight / 5);
+        g.image(g.bushImg, pX, pY, pWidth, pHeight);
     }
 }

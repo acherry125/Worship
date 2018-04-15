@@ -48,6 +48,8 @@ public class GodSim extends PApplet {
     private HashMap<IPower, PImage> cursorImages = new HashMap<IPower, PImage>();
     public boolean gameStarted = true;
     public PImage treeImg;
+    public PImage bushImg;
+    public PImage rocksImg;
     public PImage vHeadImg;
     public PImage gathererB;
     public PImage builderB;
@@ -104,6 +106,8 @@ public class GodSim extends PApplet {
         cursorImages.put(GrowTree.single(), greenCursor);
         cursorImg = blueCursor;
         treeImg = loadImage(Paths.get(System.getProperty("user.dir"), "images", "tree.png").toString());
+        bushImg = loadImage(Paths.get(System.getProperty("user.dir"), "images", "bush.png").toString());
+        rocksImg = loadImage(Paths.get(System.getProperty("user.dir"), "images", "rocks.png").toString());
         vHeadImg = loadImage(Paths.get(System.getProperty("user.dir"), "images", "v-head.png").toString());
         gathererB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "gathererB.png").toString());
         builderB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "builderB.png").toString());

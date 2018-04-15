@@ -1,10 +1,10 @@
 package game.Board;
 
-import game.GodSim;
 import game.Town.RESOURCES;
 
 public class LandResourceTile extends ATile {
     int resourceCount ;
+
     public LandResourceTile(int indX, int indY, float cell_w, float cell_h) {
         super(indX, indY, cell_w, cell_h);
         resetResourceCount();
@@ -99,24 +99,13 @@ public class LandResourceTile extends ATile {
      * Draw a tree on this tile
      */
     private void drawTree() {
-        float padding = 10;
+        float padding = 5;
         float pX = (indX * cell_w) + padding;
         float pY = (indY * cell_h) + padding;
         float pWidth = cell_w - 2*padding;
         float pHeight = cell_h - 2*padding;
-
-        float x1 = pX + (pWidth / 2);
-        float y1 = pY;
-        float x2 = pX;
-        float y2 = pY + pHeight;
-        float x3 = pX + pWidth;
-        float y3 = pY + pHeight;
-
-        g.fill(160, 82, 45);
-        g.noStroke();
-        g.rect(x1 - 4, y1 + 10, 8, pHeight);
-        g.fill(0, 130, 0);
-        g.triangle(x1, y1, x2, y2, x3, y3);
+        g.imageMode(g.CORNER);
+        g.image(g.treeImage, pX, pY, pWidth, pHeight);
     }
 
     /**

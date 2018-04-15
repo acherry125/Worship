@@ -27,7 +27,8 @@ public class Gatherer extends ATask {
   @Override
   public TASKRESULT execute() {
 
-    ArrayList<RESOURCES> possibleResources = new ArrayList<RESOURCES>(Arrays.asList(RESOURCES.FOOD, RESOURCES.WOOD, RESOURCES.STONE, RESOURCES.WATER));
+
+    ArrayList<RESOURCES> possibleResources = new ArrayList<RESOURCES>(Arrays.asList(RESOURCES.FOOD, RESOURCES.WATER));
     RESOURCES resource = possibleResources.get(new Random().nextInt(possibleResources.size()));
     String thisId = Integer.toString(villager.hashCode());
     ATile targetTile = (ATile) Blackboard.single().get(thisId);
@@ -54,6 +55,6 @@ public class Gatherer extends ATask {
 
     ATask topSelector = new Selector(v, new ATask[]{notFullInventorySeq, fullInventorySeq});
 
-    return topSelector.execute();
+      return topSelector.execute();
   }
 }

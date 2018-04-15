@@ -1,9 +1,6 @@
 package game.Town.villagers;
 
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import game.Board.ATile;
 import game.Board.Board;
@@ -146,7 +143,24 @@ public class Villager {
      * Execute the villagers behavior tree
      */
     public void act() {
+        // check if dying
+        if (getTimer("die") != 0) {
+            // in the act of dying
+            int interval =  new Random().nextInt(500) + 500;
+            if (g.millis() - getTimer("die") > interval) {
+                ATile markedTile = (ATile) Blackboard.single().get(Integer.toString(hashCode()));
+                if (markedTile != null) {
+                    markedTile.stopHighlight();
+                }
+                town.queueVillagerDeath(this);
+            }
+        }
+        // normal behavior
         this.btree.execute();
+    }
+
+    public void die() {
+        setTimerNow("die");
     }
 
     /**

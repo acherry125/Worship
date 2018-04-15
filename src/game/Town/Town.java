@@ -1,9 +1,6 @@
 package game.Town;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import game.Board.ATile;
 import game.Board.Board;
@@ -15,6 +12,7 @@ public class Town {
     private GodSim g;
     private Board board;
     private LinkedList<Villager> villagers = new LinkedList<Villager>();
+    private LinkedList<Villager> toDieQueue = new LinkedList<Villager>();
     private TownResources townResources;
     // what portion of the population should be each role
     private HashMap<VILLAGER_ROLES, Integer> roleRatio = new HashMap<VILLAGER_ROLES, Integer>();
@@ -22,8 +20,9 @@ public class Town {
     private int numWoodToBuildHut = 10;
     private int foodWaterTimer = 0;
     private int foodWaterInterval = 10000;
-    private int foodPerPerson = 2;
-    private int waterPerPerson = 2;
+    private int foodPerPerson = 5;
+    private int waterPerPerson = 5;
+
     private static Town ourInstance;
 
     public static Town create(GodSim g) {
@@ -61,6 +60,7 @@ public class Town {
             villager.act();
             villager.draw();
         }
+        killVillagers();
     }
 
     /**
@@ -92,6 +92,19 @@ public class Town {
         }
     }
 
+    public void queueVillagerDeath(Villager v) {
+        toDieQueue.add(v);
+    }
+    public void killVillagers() {
+        int count = toDieQueue.size();
+        for (int i = 0; i < count; i++) {
+            Villager v = toDieQueue.poll();
+            VILLAGER_ROLES role = v.getRole();
+            villagerCount.put(role, villagerCount.get(role) - 1);
+            villagers.remove(v);
+        }
+    }
+
     public boolean canSupportHut() {
         return townResources.get(RESOURCES.WOOD) > 10;
     }
@@ -110,12 +123,13 @@ public class Town {
                 // still checking the existing villagers
                 if (i < count) {
                     // remove the villager from the end
-                    Villager currVill = villagers.pop();
+                    Villager currVill = villagers.get(i);
                     if (foodCount >= foodPerPerson && waterCount >= waterPerPerson) {
                         // add the villager back at the beginning so it's in the same order
-                        villagers.addFirst(currVill);
                         townResources.reduceNeed(RESOURCES.FOOD, foodPerPerson);
                         townResources.reduceNeed(RESOURCES.WATER, waterPerPerson);
+                    } else {
+                        currVill.die();
                     }
                     // if there's no food, don't readd the villager
                 // check if we can add more villagers
@@ -139,13 +153,15 @@ public class Town {
      */
     public void initialize() {
         this.board = Board.single();
-        int ratioExplorer = 3;
+        int ratioGatherer = 8;
+        int startingGatherers = 3;
         int ratioBuilder = 1;
-        roleRatio.put(VILLAGER_ROLES.GATHERER, ratioExplorer);
+        int startingBuilders = 1;
+        roleRatio.put(VILLAGER_ROLES.GATHERER, ratioGatherer);
         roleRatio.put(VILLAGER_ROLES.BUILDER, ratioBuilder);
-        villagerCount.put(VILLAGER_ROLES.GATHERER, ratioExplorer);
-        villagerCount.put(VILLAGER_ROLES.BUILDER, ratioBuilder);
-        spawnMany(VILLAGER_ROLES.BUILDER, ratioBuilder);
-        spawnMany(VILLAGER_ROLES.GATHERER, ratioExplorer);
+        villagerCount.put(VILLAGER_ROLES.GATHERER, ratioGatherer);
+        villagerCount.put(VILLAGER_ROLES.BUILDER, startingGatherers);
+        spawnMany(VILLAGER_ROLES.BUILDER, startingBuilders);
+        spawnMany(VILLAGER_ROLES.GATHERER, startingGatherers);
     }
 }

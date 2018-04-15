@@ -47,7 +47,10 @@ public class GodSim extends PApplet {
     private PImage cursorImg;
     private HashMap<IPower, PImage> cursorImages = new HashMap<IPower, PImage>();
     public boolean gameStarted = true;
-    public PImage treeImage;
+    public PImage treeImg;
+    public PImage vHeadImg;
+    public PImage gathererB;
+    public PImage builderB;
 
 
     /*** GETTERS ***/
@@ -100,7 +103,11 @@ public class GodSim extends PApplet {
         cursorImages.put(BuildHut.single(), redCursor);
         cursorImages.put(GrowTree.single(), greenCursor);
         cursorImg = blueCursor;
-        treeImage = loadImage(Paths.get(System.getProperty("user.dir"), "images", "tree.png").toString());
+        treeImg = loadImage(Paths.get(System.getProperty("user.dir"), "images", "tree.png").toString());
+        vHeadImg = loadImage(Paths.get(System.getProperty("user.dir"), "images", "v-head.png").toString());
+        gathererB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "gathererB.png").toString());
+        builderB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "builderB.png").toString());
+
         camera = new Camera(MAP_PX_WIDTH, MAP_PX_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT, this);
         if (gameStarted) {
             initializeAll();

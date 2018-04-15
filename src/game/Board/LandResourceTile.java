@@ -105,7 +105,7 @@ public class LandResourceTile extends ATile {
         float pWidth = cell_w - 2*padding;
         float pHeight = cell_h - 2*padding;
         g.imageMode(g.CORNER);
-        g.image(g.treeImage, pX, pY, pWidth, pHeight);
+        g.image(g.treeImg, pX, pY, pWidth, pHeight);
     }
 
     /**

@@ -115,24 +115,16 @@ public class Villager {
         PVector head = PVector.add(getPosition(), dir);
         g.ellipseMode(g.CENTER);
         g.rectMode(g.CENTER);
+        g.imageMode(g.CENTER);
         g.stroke(100,100,100);
         // body
         if (role == VILLAGER_ROLES.GATHERER) {
-            g.fill(254, 176, 80);
+            g.image(g.gathererB, xPos, yPos);
         } else if (role == VILLAGER_ROLES.BUILDER) {
-            g.fill(254, 80, 80);
+            g.image(g.builderB, xPos, yPos);
         }
-        g.ellipse(xPos, yPos, 40, 40);
-        g.fill(255, 206, 145);
-        // head
-        g.ellipse(head.x, head.y, 26, 26);
-        g.fill(0, 0, 0);
-        // hat/hair or whatever
-        g.ellipse(head.x, head.y, 10, 15);
-        // resource collection text bg
-        g.fill(255);
-        g.stroke(200, 200, 200);
-        g.rect(head.x, head.y - 40, 70, 20);
+        g.image(g.vHeadImg, head.x, head.y);
+
         // resource collection text
         g.fill(0);
         g.textAlign(g.CENTER);

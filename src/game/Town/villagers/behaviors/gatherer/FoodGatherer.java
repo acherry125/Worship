@@ -6,8 +6,8 @@ import java.util.Arrays;
 import game.Town.RESOURCES;
 import game.Town.villagers.Villager;
 
-public class BerryGatherer extends Gatherer {
-  public BerryGatherer(Villager villager) {
+public class FoodGatherer extends Gatherer {
+  public FoodGatherer(Villager villager) {
     super(villager);
   }
 

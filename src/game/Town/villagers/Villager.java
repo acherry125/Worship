@@ -151,10 +151,27 @@ public class Villager {
      *  Initialize the Behavior tree based on the current role
      **/
     public void initializeBTree() {
-        if (role == VILLAGER_ROLES.GATHERER) {
-            setBtree(new Gatherer(this));
-        } else if (role == VILLAGER_ROLES.BUILDER) {
-            setBtree(new Builder(this));
+        switch (role) {
+            case GATHERER:
+                setBtree(new Gatherer(this));
+                break;
+            case FOODGATHERER:
+                setBtree(new FoodGatherer(this));
+                break;
+            case WOODGATHERER:
+                setBtree(new WoodGatherer(this));
+                break;
+            case WATERGATHERER:
+                setBtree(new WaterGatherer(this));
+                break;
+            case STONEGATHERER:
+                setBtree(new StoneGatherer(this));
+                break;
+            case BUILDER:
+                setBtree(new Builder(this));
+                break;
+            default:
+                break;
         }
     }
 

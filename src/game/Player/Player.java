@@ -1,5 +1,6 @@
 package game.Player;
 
+import game.Board.AStructureTile;
 import game.Board.ATile;
 import game.Board.Board;
 import game.GodSim;
@@ -19,17 +20,22 @@ public class Player {
         pm = new PowerManager(g);
     }
 
-    public void act(PVector loc, boolean leftClick) {
-        ATile clickedTile = Board.single().getTile(g.getMouse());
-        if (leftClick) {
-            pm.usePower(clickedTile);
-        } else {
-            pm.rotatePower();
+    public void actLeft(PVector loc) {
+        AStructureTile clickedTile = (AStructureTile) Board.single().getTile(g.getMouse());
+        if (clickedTile.hasStructure()) {
+            clickedTile.toggleType();
         }
     }
 
-    public void equipPower(IPower power) {
+    public void actRight(PVector loc) {
+        ATile clickedTile = Board.single().getTile(g.getMouse());
+        pm.usePower(clickedTile);
+    }
+    public void rotatePower(boolean forward) {
+        pm.rotatePower(forward);
+    }
 
+    public void equipPower(IPower power) {
         pm.equipPower(power);
     }
 }

@@ -6,22 +6,8 @@ import game.GodSim;
 import game.Town.villagers.VILLAGER_ROLES;
 
 public class HutTile extends AStructureTile {
-    protected HUTTYPE type;
     public HutTile(int indX, int indY, float cell_w, float cell_h) {
         super(indX, indY, cell_w, cell_h);
-        type = HUTTYPE.DEFAULT;
-    }
-
-    /** GETTERS **/
-    /**
-     * Get the structure's type
-     */
-    public HUTTYPE getType() {
-        return type;
-    }
-
-    public void setType(HUTTYPE t) {
-        this.type = t;
     }
 
     @Override
@@ -31,7 +17,7 @@ public class HutTile extends AStructureTile {
     }
 
     public VILLAGER_ROLES supportedRole() {
-        switch(type) {
+        switch(getType()) {
             case STONE:
                 return VILLAGER_ROLES.STONEGATHERER;
             case WOOD:
@@ -58,7 +44,7 @@ public class HutTile extends AStructureTile {
         float pWidth = cell_w - 2*paddingW;
         float pHeight = cell_h - 2*paddingH;
 
-        switch(type) {
+        switch(getType()) {
             case DEFAULT:
                 g.image(g.defaultHut, pX, pY, pWidth, pHeight);
                 break;

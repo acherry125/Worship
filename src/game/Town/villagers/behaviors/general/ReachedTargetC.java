@@ -11,7 +11,7 @@ public class ReachedTargetC extends ATask {
 
     @Override
     public TASKRESULT execute() {
-        if(villager.getTargetTile().isAtTile(villager.getPosition())) {
+        if (villager.getTargetTile().isAtTile(villager.getPosition())) {
             return TASKRESULT.SUCCESS;
         } else {
             return TASKRESULT.FAILURE;

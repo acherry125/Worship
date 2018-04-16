@@ -8,7 +8,7 @@ import game.Player.powers.Flood;
 import game.Player.powers.GrowTree;
 import game.Player.powers.IPower;
 import game.Town.Town;
-import game.Handlers.ClickHandler;
+import game.Handlers.MouseHandler;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
@@ -39,7 +39,7 @@ public class GodSim extends PApplet {
     private UI ui;
     private Player player;
 
-    private ClickHandler click;
+    private MouseHandler mouse;
     private KeyHandler keyboard;
 
     private HashMap<Integer, Boolean> keysPressed = new HashMap<Integer, Boolean>();
@@ -104,7 +104,7 @@ public class GodSim extends PApplet {
 
     @Override
     public void setup() {
-        click = new ClickHandler(this);
+        mouse = new MouseHandler(this);
         keyboard = new KeyHandler(this);
         ui = new UI(this);
         PImage blueCursor = loadImage(Paths.get(System.getProperty("user.dir"), "images", "cursor-blue.png").toString());
@@ -171,17 +171,26 @@ public class GodSim extends PApplet {
     }
 
     @Override
-    public void mouseClicked(MouseEvent event) {
-        if (event.getButton() == RIGHT) {
-            click.handleRight();
+    public void mousePressed(MouseEvent event) {
+        if (event.getButton() == LEFT) {
+            mouse.handleLeft();
+        }
+    }
+
+    @Override
+    public void mouseWheel(MouseEvent event) {
+        if (event.getCount() == 1) {
+            mouse.handleScrollDown();
+        } else {
+            mouse.handleScrollUp();
         }
     }
 
     @Override
     public void draw() {
         cursor(cursorImg, 5, 5);
-        if (mousePressed && mouseButton == LEFT) {
-            click.handleLeft();
+        if (mousePressed && mouseButton == RIGHT) {
+            mouse.handleRight();
         }
         background(255);
         g.noStroke();

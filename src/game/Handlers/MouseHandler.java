@@ -6,14 +6,14 @@ import game.GodSim;
 
 import static processing.core.PApplet.println;
 
-public class ClickHandler {
+public class MouseHandler {
     GodSim g;
-    public ClickHandler(GodSim g) {
+    public MouseHandler(GodSim g) {
         this.g = g;
     }
     public void handleLeft() {
         if (g.gameStarted) {
-            g.getPlayer().act(g.getMouse(), true);
+            g.getPlayer().actLeft(g.getMouse());
         } else {
             if (g.getUI().mouseOnButton()) {
                 g.startGame();
@@ -22,7 +22,17 @@ public class ClickHandler {
     }
     public void handleRight() {
         if (g.gameStarted) {
-            g.getPlayer().act(g.getMouse(), false);
+            g.getPlayer().actRight(g.getMouse());
+        }
+    }
+    public void handleScrollUp() {
+        if (g.gameStarted) {
+            g.getPlayer().rotatePower(true);
+        }
+    }
+    public void handleScrollDown() {
+        if (g.gameStarted) {
+            g.getPlayer().rotatePower(false);
         }
     }
 }

@@ -36,7 +36,6 @@ public class PowerManager {
     }
 
     public void usePower(ATile tileSelected) {
-
         activePower.use(tileSelected, g);
         godPowerUsed();
     }
@@ -60,9 +59,14 @@ public class PowerManager {
         activePower = power;
     }
 
-    public void rotatePower() {
+    public void rotatePower(boolean forward) {
         int currIndex = powerIndices.get(activePower);
-        int newIndex = ++currIndex % powers.length;
+        int newIndex;
+        if (forward) {
+            newIndex = Math.floorMod(++currIndex, powers.length);
+        } else {
+            newIndex = Math.floorMod(--currIndex, powers.length);
+        }
         activePower = powers[newIndex];
         g.setCursor(activePower);
     }

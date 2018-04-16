@@ -120,16 +120,16 @@ public class Villager {
                 g.image(g.gathererB, xPos, yPos);
                 break;
             case WATERGATHERER:
-                g.image(g.gathererWater, xPos, yPos);
+                g.image(g.waterB, xPos, yPos);
                 break;
             case FOODGATHERER:
-                g.image(g.gathererFood, xPos, yPos);
+                g.image(g.foodB, xPos, yPos);
                 break;
             case STONEGATHERER:
-                g.image(g.gathererStone, xPos, yPos);
+                g.image(g.stoneB, xPos, yPos);
                 break;
             case WOODGATHERER:
-                g.image(g.gathererWood, xPos, yPos);
+                g.image(g.woodB, xPos, yPos);
                 break;
             case BUILDER:
                 g.image(g.builderB, xPos, yPos);

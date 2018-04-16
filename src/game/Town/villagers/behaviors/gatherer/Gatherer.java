@@ -62,7 +62,8 @@ public class Gatherer extends ATask {
 
     ATask topSelector = new Selector(v, new ATask[]{notFullInventorySeq, fullInventorySeq});
 
-      return topSelector.execute();
+    TASKRESULT result = topSelector.execute();
+    return result;
   }
 
   protected void setPossibleResources() {

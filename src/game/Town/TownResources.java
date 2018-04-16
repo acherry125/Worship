@@ -3,6 +3,8 @@ package game.Town;
 import java.util.HashMap;
 import java.util.Random;
 
+import static processing.core.PApplet.println;
+
 public class TownResources {
     private HashMap<RESOURCES, Integer> townNeeds;
     private Random rand = new Random();
@@ -53,6 +55,9 @@ public class TownResources {
     }
 
     public void raiseNeed(RESOURCES need, int num) {
+        if (need == RESOURCES.CRAFTED || need == RESOURCES.NONE) {
+            println("whoops");
+        }
         townNeeds.put(need, townNeeds.get(need) + num);
     }
 

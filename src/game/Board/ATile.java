@@ -190,6 +190,11 @@ public abstract class ATile {
                 getXPx() + (g.CELL_W / 2), getYPx() + (g.CELL_H / 2));
     }
 
+    @Override
+    public String toString() {
+        return String.format("x: %d, y: %d, res: %s", getIndX(), getIndY(), peekResource().toString());
+    }
+
     /* Protected Methods */
 
     /**
@@ -199,7 +204,6 @@ public abstract class ATile {
         calculateTemp();
         calculateResource();
         distanceFrom(500, 500);
-        Board.single().addResourceTile(this);
     }
 
     /**

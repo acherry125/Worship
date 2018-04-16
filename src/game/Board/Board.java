@@ -4,20 +4,16 @@ import game.Board.structures.HutTile;
 import game.Board.structures.SpawnTile;
 import game.Board.tileCheckers.ITileChecker;
 import game.Board.tileCheckers.TileCheckerBuildable;
-import game.Board.tileCheckers.TileCheckerHasResource;
 import game.Board.tileCheckers.TileCheckerHasStructure;
 import game.GodSim;
 import game.Town.RESOURCES;
 import game.Town.villagers.behaviors.Blackboard;
 import processing.core.PVector;
 
-import java.beans.PropertyVetoException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 
 import static processing.core.PApplet.println;
 
@@ -25,7 +21,6 @@ public class Board {
     public GodSim g;
     private ATile[][] board;
     private ATile spawn;
-    public int huts;
     private HashMap<RESOURCES, ArrayList<ATile>> resourceLists = new HashMap<RESOURCES, ArrayList<ATile>>();
     private ATile nextBuildableTile;
 
@@ -42,7 +37,6 @@ public class Board {
 
     private Board(GodSim g) {
         this.g = g;
-        this.huts = 0;
     }
 
     /**
@@ -83,6 +77,17 @@ public class Board {
     }
 
     /**
+     * Retrieve the tile at the given pixel location
+     *
+     * @param x the x value of the px location of the tile
+     * @param y the y value of the px location of the tile
+     * @return the Tile at the location
+     */
+    public ATile getTileAtIndex(int x, int y) {
+        return board[x][y];
+    }
+
+    /**
      * Returns the spawn. Currently returns the actual spawn reference rather
      * than a copy.  Will consider changing in the future.
      *
@@ -99,7 +104,14 @@ public class Board {
         return g;
     }
 
-    public int getNumHuts() { return huts;}
+    public int getNumHuts() {
+        ArrayList<ATile> resources = resourceLists.get(RESOURCES.CRAFTED);
+        if (resources != null) {
+            return resourceLists.get(RESOURCES.CRAFTED).size();
+        } else {
+            return 0;
+        }
+    }
 
     /**
      * Replaces the given tile with a tile that contains a structure
@@ -112,12 +124,10 @@ public class Board {
         if (tile.peekResource() != RESOURCES.NONE && !depletable.contains(tile.peekResource()) || (tile.getResourceCount() != 0 && depletable.contains(tile.peekResource()))) {
             return null;
         }
-        removeResourceTile(tile);
         int indX = tile.getIndX();
         int indY = tile.getIndY();
         HutTile structure = new HutTile(indX, indY, g.CELL_W, g.CELL_H);
-        this.huts += 1;
-        board[indX][indY] = structure;
+        updateTileSlot(structure, RESOURCES.CRAFTED);
         nextBuildableTile = getClosestBuildableTile(spawn.getPosition());
         return structure;
     }
@@ -129,15 +139,14 @@ public class Board {
      */
     public WaterTile floodTile(ATile tile) {
         if (tile.isSpawner() || tile.peekResource() == RESOURCES.WATER) {
-            // we don't want to build on a built plot of land
+            // we don't want to overwrite water tiles or the spawn
             return null;
         }
-        removeResourceTile(tile);
         int indX = tile.getIndX();
         int indY = tile.getIndY();
 
         WaterTile water = new WaterTile(indX, indY, g.CELL_W, g.CELL_H);
-        board[indX][indY] = water;
+        updateTileSlot(water, RESOURCES.WATER);
         return water;
     }
 
@@ -150,16 +159,16 @@ public class Board {
         int x = tile.getIndX();
         int y = tile.getIndY();
         if (x > 0) {
-            result.add(board[x - 1][y]);
+            result.add(getTileAtIndex(x-1, y));
         }
         if (x < board.length - 1) {
-            result.add(board[x + 1][y]);
+            result.add(getTileAtIndex(x+1, y));
         }
         if (y > 0) {
-            result.add(board[x][y - 1]);
+            result.add(getTileAtIndex(x, y-1));
         }
         if (y < board[0].length - 1) {
-                result.add(board[x][y + 1]);
+                result.add(getTileAtIndex(x, y + 1));
         }
         return result.toArray(new ATile[result.size()]);
     }
@@ -167,7 +176,7 @@ public class Board {
     public void draw() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                ATile tile = board[i][j];
+                ATile tile = getTileAtIndex(i, j);
                 tile.draw();
             }
         }
@@ -177,22 +186,31 @@ public class Board {
         board = new ATile[(int) (g.CELLS_WIDE)][(int) (g.CELLS_TALL)];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                board[i][j] = initializeTile(i, j);
+                ATile newTile = initializeTile(i,j);
+                updateTileSlot(newTile, newTile.peekResource());
             }
         }
         nextBuildableTile = getClosestBuildableTile(spawn.getPosition());
     }
 
-    public void removeResourceTile(ATile tile) {
-        RESOURCES res = tile.peekResource();
-        if (resourceLists.containsKey(res)) {
-            ArrayList<ATile> existingList = resourceLists.get(res);
-            existingList.remove(tile);
-            resourceLists.put(res, existingList);
+    public void updateTileSlot(ATile tile, RESOURCES res) {
+        int indX = tile.getIndX();
+        int indY = tile.getIndY();
+        if (getTileAtIndex(indX, indY) != null) {
+            removeTileMeta(getTileAtIndex(indX, indY));
         }
-        if (tile.hasStructure()) {
-            huts--;
+        tile.setResource(res);
+        if (res != RESOURCES.NONE) {
+            ArrayList<ATile> listToPut;
+            if (resourceLists.containsKey(res)) {
+                listToPut = resourceLists.get(res);
+            } else {
+                listToPut = new ArrayList<ATile>();
+            }
+            listToPut.add(tile);
+            resourceLists.put(res, listToPut);
         }
+        board[indX][indY] = tile;
     }
 
     /**
@@ -215,17 +233,12 @@ public class Board {
         }
     }
 
-    public void addResourceTile(ATile tile) {
+    private void removeTileMeta(ATile tile) {
         RESOURCES res = tile.peekResource();
-        if (res != RESOURCES.NONE && res != RESOURCES.CRAFTED) {
-            ArrayList<ATile> listToPut;
-            if (resourceLists.containsKey(res)) {
-                listToPut = resourceLists.get(res);
-            } else {
-                listToPut = new ArrayList<ATile>();
-            }
-            listToPut.add(tile);
-            resourceLists.put(res, listToPut);
+        if (resourceLists.containsKey(res)) {
+            ArrayList<ATile> existingList = resourceLists.get(res);
+            tile.stopHighlight();
+            existingList.remove(tile);
         }
     }
 
@@ -306,7 +319,7 @@ public class Board {
         int count = 0;
         for (int x = 0; x < board.length; x++) {
             for (int y = 0; y < board[0].length; y++) {
-                if(checker.passes(board[x][y])) {
+                if(checker.passes(getTileAtIndex(x, y))) {
                     count++;
                 }
             }

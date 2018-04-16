@@ -1,6 +1,7 @@
 package game.Player.powers;
 
 import game.Board.ATile;
+import game.Board.Board;
 import game.GodSim;
 import game.Town.RESOURCES;
 import processing.core.PVector;
@@ -16,6 +17,6 @@ public class GrowTree implements IPower {
 
     @Override
     public void use(ATile clickedTile, GodSim g) {
-        clickedTile.setResource(RESOURCES.WOOD);
+        Board.single().updateTileSlot(clickedTile, RESOURCES.WOOD);
     }
 }

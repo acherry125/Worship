@@ -109,6 +109,7 @@ public class Town {
             Villager v = toDieQueue.poll();
             VILLAGER_ROLES role = v.getRole();
             villagerCount.put(role, villagerCount.get(role) - 1);
+            v.getTargetTile().stopHighlight();
             villagers.remove(v);
         }
     }
@@ -173,6 +174,7 @@ public class Town {
                         townResources.reduceNeed(RESOURCES.FOOD, foodPerPerson);
                         townResources.reduceNeed(RESOURCES.WATER, waterPerPerson);
                     } else {
+                        currVill.getTargetTile().stopHighlight();
                         currVill.die();
                     }
                     // if there's no food, don't readd the villager
@@ -183,9 +185,6 @@ public class Town {
                     // Explorers spawn first, make sure there's always around 3 explorers for every builder
                     if (villagerCount.get(VILLAGER_ROLES.GATHERER) < roleRatio.get(VILLAGER_ROLES.GATHERER) * villagerCount.get(VILLAGER_ROLES.BUILDER)) {
                         spawn(VILLAGER_ROLES.FOODGATHERER);
-                        spawn(VILLAGER_ROLES.WATERGATHERER);
-                        spawn(VILLAGER_ROLES.WOODGATHERER);
-                        spawn(VILLAGER_ROLES.STONEGATHERER);
                     } else {
                         // when there are 3n explorers, we can spawn a new builder
                         spawn(VILLAGER_ROLES.BUILDER);

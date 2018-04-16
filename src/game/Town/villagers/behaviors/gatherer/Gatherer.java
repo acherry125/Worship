@@ -41,11 +41,11 @@ public class Gatherer extends ATask {
     if (targetTile == null || !possibleResources.contains(targetTile.peekResource()) || targetTile.getResourceCount() == 0) {
 
       targetTile = board.getClosestResourceTile(resource, villager.getPosition());
-        if (targetTile == null) {
-            // TODO, what to do when resources all run out?
-            return TASKRESULT.FAILURE;
-        }
-        Blackboard.single().put(thisId, targetTile);
+      if (targetTile == null) {
+        // TODO, what to do when resources all run out?
+        return TASKRESULT.FAILURE;
+      }
+      Blackboard.single().put(thisId, targetTile);
     }
 
     Villager v = villager;

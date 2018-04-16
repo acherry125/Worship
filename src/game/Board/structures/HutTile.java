@@ -29,15 +29,25 @@ public class HutTile extends AStructureTile {
      * Draw a hut on this tile
      */
     private void drawHut() {
-        float padding = 5;
-        float pX = (indX * cell_w) + padding;
-        float pY = (indY * cell_h) + 5*padding;
-        float pWidth = cell_w - 2*padding;
-        float pHeight = cell_h - 10*padding;
+        float paddingW = 5;
+        float paddingH = 10;
+        float pX = (indX * cell_w) + paddingW;
+        float pY = (indY * cell_h) + paddingH;
+        float pWidth = cell_w - 2*paddingW;
+        float pHeight = cell_h - 2*paddingH;
 
         switch(type) {
             case DEFAULT:
                 g.image(g.defaultHut, pX, pY, pWidth, pHeight);
+                break;
+            case STONE:
+                g.image(g.stoneHut, pX, pY, pWidth, pHeight);
+                break;
+            case WOOD:
+                g.image(g.woodHut, pX, pY, pWidth, pHeight);
+                break;
+            case WATER:
+                g.image(g.waterHut, pX, pY, pWidth, pHeight);
                 break;
             case FOOD:
                 g.image(g.berryHut, pX, pY, pWidth, pHeight);

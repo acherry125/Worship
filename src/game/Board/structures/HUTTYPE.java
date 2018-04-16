@@ -1,5 +1,5 @@
 package game.Board.structures;
 
 public enum HUTTYPE {
-    DEFAULT, FOOD
+    DEFAULT, FOOD, WATER, WOOD, STONE
 }

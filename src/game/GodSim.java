@@ -59,6 +59,9 @@ public class GodSim extends PApplet {
     public PImage builderB;
     public PImage defaultHut;
     public PImage berryHut;
+    public PImage waterHut;
+    public PImage stoneHut;
+    public PImage woodHut;
 
     /*** GETTERS ***/
     /**
@@ -122,6 +125,9 @@ public class GodSim extends PApplet {
         builderB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "builderB.png").toString());
         defaultHut = loadImage(Paths.get(System.getProperty("user.dir"), "images", "default-hut.png").toString());
         berryHut = loadImage(Paths.get(System.getProperty("user.dir"), "images", "berry-hut.png").toString());
+        waterHut = loadImage(Paths.get(System.getProperty("user.dir"), "images", "water-hut.png").toString());
+        stoneHut = loadImage(Paths.get(System.getProperty("user.dir"), "images", "stone-hut.png").toString());
+        woodHut = loadImage(Paths.get(System.getProperty("user.dir"), "images", "wood-hut.png").toString());
 
         camera = new Camera(MAP_PX_WIDTH, MAP_PX_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT, this);
         if (gameStarted) {

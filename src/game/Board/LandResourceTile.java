@@ -100,7 +100,7 @@ public class LandResourceTile extends ATile {
      * Draw a tree on this tile
      */
     private void drawTree() {
-        float padding = 5;
+        float padding = 0;
         float pX = (indX * cell_w) + padding;
         float pY = (indY * cell_h) + padding;
         float pWidth = cell_w - 2*padding;

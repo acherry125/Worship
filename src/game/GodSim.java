@@ -6,6 +6,7 @@ import game.Player.Player;
 import game.Player.powers.BuildHut;
 import game.Player.powers.Flood;
 import game.Player.powers.GrowTree;
+import game.Player.powers.GrowFood;
 import game.Player.powers.IPower;
 import game.Town.Town;
 import game.Handlers.MouseHandler;
@@ -108,10 +109,13 @@ public class GodSim extends PApplet {
         keyboard = new KeyHandler(this);
         ui = new UI(this);
         PImage blueCursor = loadImage(Paths.get(System.getProperty("user.dir"), "images", "cursor-blue.png").toString());
-        PImage redCursor = loadImage(Paths.get(System.getProperty("user.dir"), "images", "cursor-orange.png").toString());
+        PImage orangeCursor = loadImage(Paths.get(System.getProperty("user.dir"), "images", "cursor-orange.png").toString());
         PImage greenCursor = loadImage(Paths.get(System.getProperty("user.dir"), "images", "cursor-green.png").toString());
+        PImage redCursor = loadImage(Paths.get(System.getProperty("user.dir"), "images", "cursor-red.png").toString());
+
         cursorImages.put(Flood.single(), blueCursor);
-        cursorImages.put(BuildHut.single(), redCursor);
+        cursorImages.put(BuildHut.single(), orangeCursor);
+        cursorImages.put(GrowFood.single(), redCursor);
         cursorImages.put(GrowTree.single(), greenCursor);
         cursorImg = blueCursor;
         treeImg = loadImage(Paths.get(System.getProperty("user.dir"), "images", "tree.png").toString());

@@ -5,6 +5,7 @@ import game.Board.Board;
 import game.GodSim;
 import game.Player.powers.IPower;
 import game.Town.Town;
+import game.Town.villagers.Villager;
 import processing.core.PVector;
 
 public class Player {
@@ -28,6 +29,7 @@ public class Player {
     }
 
     public void equipPower(IPower power) {
+
         pm.equipPower(power);
     }
 }

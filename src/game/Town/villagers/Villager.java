@@ -126,6 +126,7 @@ public class Villager {
         g.fill(0);
         g.textAlign(g.CENTER);
         g.text(resourcesInHand.size(), head.x, head.y - 32);
+        g.text((float) beliefInGod, head.x, head.y + 50);
     }
 
     /**
@@ -193,5 +194,8 @@ public class Villager {
 
     public void changeBelief(double change) {
         this.beliefInGod += change;
+        if (this.beliefInGod <= 0) {
+            this.beliefInGod = 0.01;
+        }
     }
 }

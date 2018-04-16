@@ -3,6 +3,7 @@ package game.Town.villagers.behaviors.gatherer;
 import game.Board.ATile;
 import game.Board.Board;
 import game.Town.RESOURCES;
+import game.Town.Town;
 import game.Town.villagers.Villager;
 import game.Town.villagers.behaviors.*;
 import game.Town.villagers.behaviors.composites.Selector;
@@ -30,6 +31,19 @@ public class Gatherer extends ATask {
 
     ArrayList<RESOURCES> possibleResources = new ArrayList<RESOURCES>(Arrays.asList(RESOURCES.FOOD, RESOURCES.WATER));
     RESOURCES resource = possibleResources.get(new Random().nextInt(possibleResources.size()));
+
+    // Chance to get a random resource = 0.15
+    // Otherwise, select random resource but increase probability of getting a needed resource by
+    // the belief in god.
+    double chanceForFood;
+    double chanceForWater;
+
+    RESOURCES mostNeedResource = Town.single().getTownResources().getHighestNeed();
+
+    
+
+
+
     String thisId = Integer.toString(villager.hashCode());
     ATile targetTile = (ATile) Blackboard.single().get(thisId);
     if (targetTile == null || !possibleResources.contains(targetTile.peekResource()) || targetTile.getResourceCount() == 0) {

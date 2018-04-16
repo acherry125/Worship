@@ -22,6 +22,8 @@ public class Town {
     private int foodWaterInterval = 10000;
     private int foodPerPerson = 5;
     private int waterPerPerson = 5;
+    private int godPowerTimer = 0;
+    private int godUsedPowerInterval = 5000;
 
     private static Town ourInstance;
 
@@ -61,6 +63,7 @@ public class Town {
             villager.draw();
         }
         killVillagers();
+        checkGodPowersUsed();
     }
 
     /**
@@ -107,6 +110,33 @@ public class Town {
 
     public boolean canSupportHut() {
         return townResources.get(RESOURCES.WOOD) > 10;
+    }
+
+    /**
+     * Reduces god's belief every 30 seconds in every villager.
+     * God's belief will increase for every villager if a power is used (code is triggered
+     * in the power's package), which can effect the timer.
+     */
+    private void checkGodPowersUsed() {
+        if (g.millis() - godPowerTimer > godUsedPowerInterval) {
+            godPowerTimer = g.millis();
+            int multiplier = (g.millis() - godPowerTimer) % godUsedPowerInterval;
+            multiplier = Math.max(multiplier, 4); // Cap the multiplier by 4
+            for (Villager villager : villagers) {
+                villager.changeBelief(g.map((float) Math.random(), 0, 1, -0.01f,
+                        // if 1, -0.15
+                        // if 2, -0.30, etc, up to -0.6
+                        g.map(multiplier, 1, 4, -0.15f, -0.6f)));
+            }
+        }
+    }
+
+    /**
+     * Resets the god power timer to the current time to avoid decreasing the belief
+     * in checkGodPowerUsed.
+     */
+    public void resetGodPowerTimer() {
+        this.godPowerTimer = g.millis();
     }
 
     private void manageVillagers() {

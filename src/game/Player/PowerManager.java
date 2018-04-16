@@ -21,6 +21,8 @@ public class PowerManager {
     IPower[] powers;
     IPower activePower;
     HashMap<IPower, Integer> powerIndices = new HashMap<IPower, Integer>();
+    private int timeLastUsedPower = -5000;
+    private int lastUsedPowerInterval = 5000;
 
     public PowerManager(GodSim g) {
         this.g = g;
@@ -36,9 +38,19 @@ public class PowerManager {
     public void usePower(ATile tileSelected) {
 
         activePower.use(tileSelected, g);
-        if (activePower instanceof GrowTree) {
+        godPowerUsed();
+    }
+
+    private void godPowerUsed() {
+        town.resetGodPowerTimer();
+        if (g.millis() - timeLastUsedPower > lastUsedPowerInterval) {
+            timeLastUsedPower = g.millis();
             for (Villager villager : this.town.getVillagers()) {
-                villager.changeBelief(100f);
+                if (activePower instanceof BuildHut) {
+                    villager.changeBelief(g.map((float) Math.random(), 0, 1, 0.5f, 1f));
+                } else {
+                    villager.changeBelief(g.map((float) Math.random(), 0, 1, 0.05f, 0.3f));
+                }
             }
         }
     }

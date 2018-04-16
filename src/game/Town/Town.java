@@ -20,8 +20,8 @@ public class Town {
     private int numWoodToBuildHut = 10;
     private int foodWaterTimer = 0;
     private int foodWaterInterval = 10000;
-    private int foodPerPerson = 5;
-    private int waterPerPerson = 5;
+    private int foodPerPerson = 3;
+    private int waterPerPerson = 3;
     private int godPowerTimer = 0;
     private int godUsedPowerInterval = 5000;
     private boolean powerUsedRecently = false;
@@ -155,6 +155,12 @@ public class Town {
     }
 
     private void manageVillagers() {
+        for (Villager v : villagers) {
+            if (v.getBelief() <= 0.1) {
+                v.die();
+                queueVillagerDeath(v);
+            }
+        }
         // TODO use the Board's function getNumStructures
         int numBuildings = board.getNumHuts();
         if (g.millis() - foodWaterTimer > foodWaterInterval) {
@@ -174,7 +180,6 @@ public class Town {
                         townResources.reduceNeed(RESOURCES.FOOD, foodPerPerson);
                         townResources.reduceNeed(RESOURCES.WATER, waterPerPerson);
                     } else {
-                        currVill.getTargetTile().stopHighlight();
                         currVill.die();
                     }
                     // if there's no food, don't readd the villager
@@ -185,6 +190,7 @@ public class Town {
                     // Explorers spawn first, make sure there's always around 3 explorers for every builder
                     if (villagerCount.get(VILLAGER_ROLES.GATHERER) < roleRatio.get(VILLAGER_ROLES.GATHERER) * villagerCount.get(VILLAGER_ROLES.BUILDER)) {
                         spawn(VILLAGER_ROLES.FOODGATHERER);
+                        spawn(VILLAGER_ROLES.WATERGATHERER);
                     } else {
                         // when there are 3n explorers, we can spawn a new builder
                         spawn(VILLAGER_ROLES.BUILDER);

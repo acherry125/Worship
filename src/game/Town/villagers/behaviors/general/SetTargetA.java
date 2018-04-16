@@ -18,6 +18,7 @@ public class SetTargetA extends ATask {
     public TASKRESULT execute() {
         target = Board.single().getTile(target.getPosition());
         villager.setTargetTile(target);
+        villager.setResourceToTarget(target.peekResource());
         if (!target.isSpawner()) {
             target.highlightTile(229, 22, 94);
         }

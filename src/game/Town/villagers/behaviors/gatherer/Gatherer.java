@@ -38,7 +38,7 @@ public class Gatherer extends ATask {
 
     String thisId = Integer.toString(villager.hashCode());
     ATile targetTile = (ATile) Blackboard.single().get(thisId);
-    if (targetTile == null || !possibleResources.contains(targetTile.peekResource()) || targetTile.getResourceCount() == 0) {
+    if (targetTile == null ||  targetTile.getResourceCount() == 0) { // || !possibleResources.contains(targetTile.peekResource())
 
       targetTile = board.getClosestResourceTile(resource, villager.getPosition());
       if (targetTile == null) {

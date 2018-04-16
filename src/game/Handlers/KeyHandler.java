@@ -26,7 +26,6 @@ public class KeyHandler {
     public void handlePress(KeyEvent event) {
         int keyCode = event.getKeyCode();
         g.setKeyPressed(keyCode, true);
-        g.getCamera().execute();
     }
 
     public void handleRelease(KeyEvent event) {

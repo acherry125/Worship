@@ -21,14 +21,14 @@ public class UI {
         g.translate(-g.getCamera().getX(), -g.getCamera().getY());
         g.rectMode(g.CORNER);
         g.noStroke();
-        g.fill(230, 230, 230, 200);
-        g.rect(0, 0, 500, 100);
+        g.fill(230, 230, 230, 220);
+        g.rect(0, 0, 200, 200);
         g.fill(30);
         g.textAlign(g.LEFT, g.TOP);
-        g.text("Village", 12, 18);
+        g.text("Resource Counts:", 12, 18);
         String needsString = Town.single().getTownResources().toString();
         String needs[] = needsString.split("\n");
-        String needsFormatted = String.join(", ", needs);
+        String needsFormatted = String.join("\n", needs);
         g.textAlign(g.LEFT, g.TOP);
         g.text(needsFormatted, 12, 50);
     }

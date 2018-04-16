@@ -1,8 +1,8 @@
 package game;
 
 public class Camera {
-    private static final float SHIFT_HORIZ = 30;
-    private static final float SHIFT_VERT = 30;
+    private static final float SHIFT_HORIZ = 15;
+    private static final float SHIFT_VERT = 15;
     private float x;
     private float y;
     private float mapWidth;

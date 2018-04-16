@@ -195,6 +195,7 @@ public class GodSim extends PApplet {
     @Override
     public void draw() {
         cursor(cursorImg, 5, 5);
+        camera.execute();
         if (mousePressed && mouseButton == RIGHT) {
             mouse.handleRight();
         }

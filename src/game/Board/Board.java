@@ -242,7 +242,7 @@ public class Board {
             return spawn;
         } else if (x == middleX + 2 && y == middleY) {
             HutTile hut = new HutTile(x, y, g.CELL_W, g.CELL_H);
-            hut.setType(HUTTYPE.DEFAULT);
+            hut.setType(HUTTYPE.WOOD);
             return hut;
         } else if (x == middleX - 2 && y == middleY) {
             HutTile hut = new HutTile(x, y, g.CELL_W, g.CELL_H);

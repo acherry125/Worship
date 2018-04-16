@@ -57,7 +57,7 @@ public class TownResources {
     }
 
     public void raiseNeed(RESOURCES need, double belief) {
-        townNeeds.put(need, townNeeds.get(need) + (int) Town.single().getGodSim().map((float) belief, 0, 1, -5, 5));
+        townNeeds.put(need, townNeeds.get(need) + (int) Town.single().getGodSim().map((float) belief, 0, 1, -1, 4));
     }
 
 
@@ -87,10 +87,10 @@ public class TownResources {
     public RESOURCES getHighestNeed() {
         RESOURCES highestNeed = RESOURCES.FOOD;
 
-        int highestNeedValue = -Integer.MIN_VALUE;
+        int highestNeedValue = Integer.MAX_VALUE;
 
         for (RESOURCES need : townNeeds.keySet()) {
-            if (townNeeds.get(need) > highestNeedValue) {
+            if (townNeeds.get(need) < highestNeedValue) {
                 highestNeed = need;
                 highestNeedValue = townNeeds.get(need);
             }

@@ -2,6 +2,7 @@ package game.Town.villagers.behaviors.gatherer;
 
 import game.Board.ATile;
 import game.Board.Board;
+import game.GodSim;
 import game.Town.RESOURCES;
 import game.Town.Town;
 import game.Town.villagers.Villager;
@@ -28,26 +29,23 @@ public class Gatherer extends ATask {
   @Override
   public TASKRESULT execute() {
 
+    Town t = Town.single();
+    GodSim g = t.getGodSim();
 
     ArrayList<RESOURCES> possibleResources = new ArrayList<RESOURCES>(Arrays.asList(RESOURCES.FOOD, RESOURCES.WATER));
+    if (t.powerUsedRecently()) {
+      possibleResources.add(RESOURCES.STONE);
+      possibleResources.add(RESOURCES.WOOD);
+    }
+
     RESOURCES resource = possibleResources.get(new Random().nextInt(possibleResources.size()));
-
-    // Chance to get a random resource = 0.15
-    // Otherwise, select random resource but increase probability of getting a needed resource by
-    // the belief in god.
-    double chanceForFood;
-    double chanceForWater;
-
-    RESOURCES mostNeedResource = Town.single().getTownResources().getHighestNeed();
-
-    
-
 
 
     String thisId = Integer.toString(villager.hashCode());
     ATile targetTile = (ATile) Blackboard.single().get(thisId);
     if (targetTile == null || !possibleResources.contains(targetTile.peekResource()) || targetTile.getResourceCount() == 0) {
-        targetTile = board.getClosestResourceTile(resource, villager.getPosition());
+
+      targetTile = board.getClosestResourceTile(resource, villager.getPosition());
         if (targetTile == null) {
             // TODO, what to do when resources all run out?
             return TASKRESULT.FAILURE;

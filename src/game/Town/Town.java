@@ -24,6 +24,7 @@ public class Town {
     private int waterPerPerson = 5;
     private int godPowerTimer = 0;
     private int godUsedPowerInterval = 5000;
+    private boolean powerUsedRecently = false;
 
     private static Town ourInstance;
 
@@ -119,6 +120,7 @@ public class Town {
      */
     private void checkGodPowersUsed() {
         if (g.millis() - godPowerTimer > godUsedPowerInterval) {
+            this.powerUsedRecently = false;
             godPowerTimer = g.millis();
             int multiplier = (g.millis() - godPowerTimer) % godUsedPowerInterval;
             multiplier = Math.max(multiplier, 4); // Cap the multiplier by 4
@@ -126,7 +128,7 @@ public class Town {
                 villager.changeBelief(g.map((float) Math.random(), 0, 1, -0.01f,
                         // if 1, -0.15
                         // if 2, -0.30, etc, up to -0.6
-                        g.map(multiplier, 1, 4, -0.15f, -0.6f)));
+                        g.map(multiplier, 1, 4, -0.05f, -0.1f)));
             }
         }
     }
@@ -137,6 +139,14 @@ public class Town {
      */
     public void resetGodPowerTimer() {
         this.godPowerTimer = g.millis();
+    }
+
+    public void powerWasUsedRecently() {
+        this.powerUsedRecently = true;
+    }
+
+    public boolean powerUsedRecently() {
+        return this.powerUsedRecently;
     }
 
     private void manageVillagers() {

@@ -94,7 +94,7 @@ public class LandResourceTile extends ATile {
     }
 
     private void resetResourceCount() {
-        resourceCount = 20;
+        resourceCount = 50;
     }
     /**
      * Draw a tree on this tile

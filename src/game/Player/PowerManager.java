@@ -43,13 +43,14 @@ public class PowerManager {
 
     private void godPowerUsed() {
         town.resetGodPowerTimer();
+        town.powerWasUsedRecently();
         if (g.millis() - timeLastUsedPower > lastUsedPowerInterval) {
             timeLastUsedPower = g.millis();
             for (Villager villager : this.town.getVillagers()) {
                 if (activePower instanceof BuildHut) {
                     villager.changeBelief(g.map((float) Math.random(), 0, 1, 0.5f, 1f));
                 } else {
-                    villager.changeBelief(g.map((float) Math.random(), 0, 1, 0.05f, 0.3f));
+                    villager.changeBelief(g.map((float) Math.random(), 0, 1, 0.15f, 1f));
                 }
             }
         }

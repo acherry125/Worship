@@ -22,7 +22,7 @@ import java.util.List;
 import static processing.core.PApplet.println;
 
 public class Board {
-    private GodSim g;
+    public GodSim g;
     private ATile[][] board;
     private ATile spawn;
     public int huts;

@@ -5,8 +5,18 @@ import game.Board.Board;
 import game.GodSim;
 
 public class HutTile extends AStructureTile {
+    protected HUTTYPE type;
     public HutTile(int indX, int indY, float cell_w, float cell_h) {
         super(indX, indY, cell_w, cell_h);
+        type = HUTTYPE.DEFAULT;
+    }
+
+    /** GETTERS **/
+    /**
+     * Get the structure's type
+     */
+    public HUTTYPE getType() {
+        return type;
     }
 
     @Override
@@ -21,10 +31,18 @@ public class HutTile extends AStructureTile {
     private void drawHut() {
         float padding = 5;
         float pX = (indX * cell_w) + padding;
-        float pY = (indY * cell_h) + 3*padding;
+        float pY = (indY * cell_h) + 5*padding;
         float pWidth = cell_w - 2*padding;
-        float pHeight = cell_h - 6*padding;
+        float pHeight = cell_h - 10*padding;
 
-        g.image(g.defaultHut, pX, pY, pWidth, pHeight);
+        switch(type) {
+            case DEFAULT:
+                g.image(g.defaultHut, pX, pY, pWidth, pHeight);
+                break;
+            case FOOD:
+                g.image(g.berryHut, pX, pY, pWidth, pHeight);
+                break;
+            default: break;
+        }
     }
 }

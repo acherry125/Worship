@@ -54,6 +54,7 @@ public class GodSim extends PApplet {
     public PImage gathererB;
     public PImage builderB;
     public PImage defaultHut;
+    public PImage berryHut;
 
     /*** GETTERS ***/
     /**
@@ -112,6 +113,7 @@ public class GodSim extends PApplet {
         gathererB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "gathererB.png").toString());
         builderB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "builderB.png").toString());
         defaultHut = loadImage(Paths.get(System.getProperty("user.dir"), "images", "default-hut.png").toString());
+        berryHut = loadImage(Paths.get(System.getProperty("user.dir"), "images", "berry-hut.png").toString());
 
         camera = new Camera(MAP_PX_WIDTH, MAP_PX_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT, this);
         if (gameStarted) {

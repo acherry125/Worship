@@ -96,7 +96,13 @@ public class Villager {
         this.beliefInGod = belief;
     }
     public void setVillageRole(VILLAGER_ROLES role) {
-        this.role = role;
+        if (this.role != role) {
+            if (targetTile != null) {
+                this.targetTile.stopHighlight();
+                this.targetTile = Board.single().getSpawnTile();
+            }
+            this.role = role;
+        }
     }
     public void setBtree(ATask btree) {
         this.btree = btree;

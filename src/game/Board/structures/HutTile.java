@@ -3,6 +3,7 @@ package game.Board.structures;
 import game.Board.AStructureTile;
 import game.Board.Board;
 import game.GodSim;
+import game.Town.villagers.VILLAGER_ROLES;
 
 public class HutTile extends AStructureTile {
     protected HUTTYPE type;
@@ -19,10 +20,31 @@ public class HutTile extends AStructureTile {
         return type;
     }
 
+    public void setType(HUTTYPE t) {
+        this.type = t;
+    }
+
     @Override
     public void draw() {
         super.draw();
         drawHut();
+    }
+
+    public VILLAGER_ROLES supportedRole() {
+        switch(type) {
+            case STONE:
+                return VILLAGER_ROLES.STONEGATHERER;
+            case WOOD:
+                return VILLAGER_ROLES.WOODGATHERER;
+            case WATER:
+                return VILLAGER_ROLES.WATERGATHERER;
+            case FOOD:
+                return VILLAGER_ROLES.FOODGATHERER;
+            case BUILD:
+                return VILLAGER_ROLES.BUILDER;
+            default:
+                return VILLAGER_ROLES.GATHERER;
+        }
     }
 
     /**
@@ -51,6 +73,9 @@ public class HutTile extends AStructureTile {
                 break;
             case FOOD:
                 g.image(g.berryHut, pX, pY, pWidth, pHeight);
+                break;
+            case BUILD:
+                g.image(g.buildHut, pX, pY, pWidth, pHeight);
                 break;
             default: break;
         }

@@ -1,5 +1,6 @@
 package game.Board;
 
+import game.Board.structures.HUTTYPE;
 import game.Board.structures.HutTile;
 import game.Board.structures.SpawnTile;
 import game.Board.tileCheckers.ITileChecker;
@@ -113,6 +114,19 @@ public class Board {
         }
     }
 
+    public ArrayList<HutTile> getHuts() {
+        ArrayList<ATile> huts = resourceLists.get(RESOURCES.CRAFTED);
+        if (huts != null) {
+            ArrayList<HutTile> hutList = new ArrayList<HutTile>();
+            for (ATile a: huts) {
+                hutList.add((HutTile) a);
+            }
+            return hutList;
+        } else {
+            return new ArrayList<HutTile>();
+        }
+    }
+
     /**
      * Replaces the given tile with a tile that contains a structure
      * @param tile
@@ -221,10 +235,25 @@ public class Board {
      * @return the created tile
      */
     private ATile initializeTile(int x, int y) {
-        if (x == board.length / 2 && y == board[x].length / 2) {
+        int middleX = board.length / 2;
+        int middleY = board[x].length / 2;
+        if (x == middleX && y == middleY) {
             spawn = new SpawnTile(x, y, g.CELL_W, g.CELL_H);
             return spawn;
-        } else {
+        } else if (x == middleX + 2 && y == middleY) {
+            HutTile hut = new HutTile(x, y, g.CELL_W, g.CELL_H);
+            hut.setType(HUTTYPE.DEFAULT);
+            return hut;
+        } else if (x == middleX - 2 && y == middleY) {
+            HutTile hut = new HutTile(x, y, g.CELL_W, g.CELL_H);
+            hut.setType(HUTTYPE.BUILD);
+            return hut;
+        } else if (x == middleX && y == middleY - 2) {
+            HutTile hut = new HutTile(x, y, g.CELL_W, g.CELL_H);
+            hut.setType(HUTTYPE.DEFAULT);
+            return hut;
+        }
+        else {
             float waterNoise = g.noise(x, y);
             if (waterNoise > 0.66) {
                 return new WaterTile(x, y, g.CELL_W, g.CELL_H);
@@ -309,10 +338,6 @@ public class Board {
         ATile buildable = nextBuildableTile;
         nextBuildableTile = getClosestBuildableTile(spawn.getPosition());
         return buildable;
-    }
-
-    public int getNumStructuresOnMap() {
-        return countTilesThatPass(new TileCheckerHasStructure());
     }
 
     public int countTilesThatPass(ITileChecker checker) {

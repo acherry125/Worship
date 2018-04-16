@@ -4,6 +4,7 @@ import java.util.*;
 
 import game.Board.ATile;
 import game.Board.Board;
+import game.Board.structures.HutTile;
 import game.GodSim;
 import game.Town.villagers.VILLAGER_ROLES;
 import game.Town.villagers.Villager;
@@ -57,7 +58,7 @@ public class Town {
     }
 
     public void draw() {
-        manageVillagers();
+        manageVillagers(false);
         for (Villager villager : villagers) {
             villager.initializeBTree();
             villager.act();
@@ -72,14 +73,11 @@ public class Town {
      *
      * @return the spawned Villager
      */
-    public Villager spawn(VILLAGER_ROLES role) {
-        ATile spawnTile = board.getSpawnTile();
+    public Villager spawn(VILLAGER_ROLES role, ATile spawn) {
         Random r = new Random();
-        float randomMin = -200;
-        float randomMax = 200;
-        float randomX = spawnTile.getXPx() + randomMin + r.nextFloat() * (randomMax - randomMin);
-        float randomY= spawnTile.getXPx() + randomMin + r.nextFloat() * (randomMax - randomMin);
-        Villager villager = new Villager(randomX, randomY, role);
+        float x = spawn.getXPx();
+        float y = spawn.getYPx();
+        Villager villager = new Villager(x, y, role);
         villagers.add(villager);
         if (villagerCount.containsKey(role)) {
             villagerCount.put(role, villagerCount.get(role) + 1);
@@ -87,17 +85,6 @@ public class Town {
             villagerCount.put(role, 1);
         }
         return villager;
-    }
-
-    /**
-     * Spawns a number of villagers on the map at the spawn point
-     *
-     * @return the spawned Villager
-     */
-    public void spawnMany(VILLAGER_ROLES role, int quantity) {
-        for (int i = 0; i < quantity; i++) {
-            spawn(role);
-        }
     }
 
     public void queueVillagerDeath(Villager v) {
@@ -154,47 +141,46 @@ public class Town {
         return this.powerUsedRecently;
     }
 
-    private void manageVillagers() {
+    private void manageVillagers(boolean initial) {
         for (Villager v : villagers) {
             if (v.getBelief() <= 0.1) {
                 v.die();
-                queueVillagerDeath(v);
             }
         }
-        // TODO use the Board's function getNumStructures
-        int numBuildings = board.getNumHuts();
-        if (g.millis() - foodWaterTimer > foodWaterInterval) {
+        ArrayList<HutTile> huts = board.getHuts();
+        int numHuts = huts.size();
+        if (initial || g.millis() - foodWaterTimer > foodWaterInterval) {
             foodWaterTimer = g.millis();
             int count = villagers.size();
-            int openSlots = numBuildings + 4 - count;
             // go through existing people, see which survive, spawn more if sustainable
-            for (int i = 0; i < count + openSlots; i++) {
+            for (int i = 0; i < Math.max(count, numHuts); i++) {
                 int foodCount = townResources.get(RESOURCES.FOOD);
                 int waterCount = townResources.get(RESOURCES.WATER);
                 // still checking the existing villagers
-                if (i < count) {
+                if (i < count && i < numHuts) {
                     // remove the villager from the end
                     Villager currVill = villagers.get(i);
                     if (foodCount >= foodPerPerson && waterCount >= waterPerPerson) {
+                        HutTile currHut = huts.get(i);
                         // add the villager back at the beginning so it's in the same order
                         townResources.reduceNeed(RESOURCES.FOOD, foodPerPerson);
                         townResources.reduceNeed(RESOURCES.WATER, waterPerPerson);
+                        currVill.setVillageRole(currHut.supportedRole());
                     } else {
                         currVill.die();
                     }
-                    // if there's no food, don't readd the villager
-                // check if we can add more villagers
-                } else if (foodCount >= foodPerPerson && waterCount >= waterPerPerson) {
+                } else if (i < count) {
+                    // villagers need a home to survive, these are extra
+                    Villager currVill = villagers.get(i);
+                    // if there's no food, kill them
+                    currVill.getTargetTile().stopHighlight();
+                    currVill.die();
+                } else if (i < numHuts && foodCount >= foodPerPerson && waterCount >= waterPerPerson) {
+                    HutTile currHut = huts.get(i);
+                    // open slots that villagers can fill
                     townResources.reduceNeed(RESOURCES.FOOD, foodPerPerson);
                     townResources.reduceNeed(RESOURCES.WATER, waterPerPerson);
-                    // Explorers spawn first, make sure there's always around 3 explorers for every builder
-                    if (villagerCount.get(VILLAGER_ROLES.GATHERER) < roleRatio.get(VILLAGER_ROLES.GATHERER) * villagerCount.get(VILLAGER_ROLES.BUILDER)) {
-                        spawn(VILLAGER_ROLES.FOODGATHERER);
-                        spawn(VILLAGER_ROLES.WATERGATHERER);
-                    } else {
-                        // when there are 3n explorers, we can spawn a new builder
-                        spawn(VILLAGER_ROLES.BUILDER);
-                    }
+                    spawn(currHut.supportedRole(), currHut);
                 }
             }
         }
@@ -205,15 +191,6 @@ public class Town {
      */
     public void initialize() {
         this.board = Board.single();
-        int ratioGatherer = 8;
-        int startingGatherers = 3;
-        int ratioBuilder = 1;
-        int startingBuilders = 1;
-        roleRatio.put(VILLAGER_ROLES.GATHERER, ratioGatherer);
-        roleRatio.put(VILLAGER_ROLES.BUILDER, ratioBuilder);
-        villagerCount.put(VILLAGER_ROLES.GATHERER, ratioGatherer);
-        villagerCount.put(VILLAGER_ROLES.BUILDER, startingGatherers);
-        spawnMany(VILLAGER_ROLES.BUILDER, startingBuilders);
-        spawnMany(VILLAGER_ROLES.GATHERER, startingGatherers);
+        manageVillagers(true);
     }
 }

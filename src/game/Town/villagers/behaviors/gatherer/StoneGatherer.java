@@ -14,6 +14,6 @@ public class StoneGatherer extends Gatherer {
 
   @Override
   protected void setPossibleResources() {
-    possibleResources = new ArrayList<RESOURCES>(Arrays.asList(RESOURCES.WATER));
+    possibleResources = new ArrayList<RESOURCES>(Arrays.asList(RESOURCES.STONE));
   }
 }

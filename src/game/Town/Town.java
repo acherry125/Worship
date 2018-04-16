@@ -183,6 +183,9 @@ public class Town {
                     // Explorers spawn first, make sure there's always around 3 explorers for every builder
                     if (villagerCount.get(VILLAGER_ROLES.GATHERER) < roleRatio.get(VILLAGER_ROLES.GATHERER) * villagerCount.get(VILLAGER_ROLES.BUILDER)) {
                         spawn(VILLAGER_ROLES.FOODGATHERER);
+                        spawn(VILLAGER_ROLES.WATERGATHERER);
+                        spawn(VILLAGER_ROLES.WOODGATHERER);
+                        spawn(VILLAGER_ROLES.STONEGATHERER);
                     } else {
                         // when there are 3n explorers, we can spawn a new builder
                         spawn(VILLAGER_ROLES.BUILDER);

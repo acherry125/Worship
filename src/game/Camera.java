@@ -21,7 +21,7 @@ public class Camera {
         this.g = g;
     }
 
-    /*** GETTERS ***/
+    /*** GETTERSs ***/
     public float getX() {
         return this.x;
     }

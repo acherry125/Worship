@@ -3,6 +3,7 @@ package game.Player;
 import game.Board.AStructureTile;
 import game.Board.ATile;
 import game.Board.Board;
+import game.Board.structures.HutTile;
 import game.GodSim;
 import game.Player.powers.IPower;
 import game.Town.Town;
@@ -21,9 +22,10 @@ public class Player {
     }
 
     public void actLeft(PVector loc) {
-        AStructureTile clickedTile = (AStructureTile) Board.single().getTile(g.getMouse());
+        ATile clickedTile = Board.single().getTile(g.getMouse());
         if (clickedTile.hasStructure()) {
-            clickedTile.toggleType();
+            AStructureTile clickedStructure = (AStructureTile) clickedTile;
+            clickedStructure.toggleType();
         }
     }
 

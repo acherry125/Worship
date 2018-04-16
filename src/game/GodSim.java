@@ -52,6 +52,10 @@ public class GodSim extends PApplet {
     public PImage rocksImg;
     public PImage vHeadImg;
     public PImage gathererB;
+    public PImage gathererFood;
+    public PImage gathererWater;
+    public PImage gathererStone;
+    public PImage gathererWood;
     public PImage builderB;
 
 
@@ -110,6 +114,10 @@ public class GodSim extends PApplet {
         rocksImg = loadImage(Paths.get(System.getProperty("user.dir"), "images", "rocks.png").toString());
         vHeadImg = loadImage(Paths.get(System.getProperty("user.dir"), "images", "v-head.png").toString());
         gathererB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "gathererB.png").toString());
+        gathererFood = loadImage(Paths.get(System.getProperty("user.dir"), "images", "gathererFood.png").toString());
+        gathererWater = loadImage(Paths.get(System.getProperty("user.dir"), "images", "gathererWater.png").toString());
+        gathererStone = loadImage(Paths.get(System.getProperty("user.dir"), "images", "gathererStone.png").toString());
+        gathererWood = loadImage(Paths.get(System.getProperty("user.dir"), "images", "gathererWood.png").toString());
         builderB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "builderB.png").toString());
 
         camera = new Camera(MAP_PX_WIDTH, MAP_PX_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT, this);

@@ -20,7 +20,9 @@ import java.util.Random;
 
 public class Gatherer extends ATask {
 
-  private float increaseBeliefRateEachFrame = 100f * board.huts;
+  protected ArrayList<RESOURCES> possibleResources;
+  protected Town t = Town.single();
+  protected GodSim g = t.getGodSim();
 
   public Gatherer(Villager villager) {
     super(villager);
@@ -29,14 +31,7 @@ public class Gatherer extends ATask {
   @Override
   public TASKRESULT execute() {
 
-    Town t = Town.single();
-    GodSim g = t.getGodSim();
-
-    ArrayList<RESOURCES> possibleResources = new ArrayList<RESOURCES>(Arrays.asList(RESOURCES.FOOD, RESOURCES.WATER));
-    if (t.powerUsedRecently()) {
-      possibleResources.add(RESOURCES.STONE);
-      possibleResources.add(RESOURCES.WOOD);
-    }
+    setPossibleResources();
 
     RESOURCES resource = possibleResources.get(new Random().nextInt(possibleResources.size()));
 
@@ -68,5 +63,13 @@ public class Gatherer extends ATask {
     ATask topSelector = new Selector(v, new ATask[]{notFullInventorySeq, fullInventorySeq});
 
       return topSelector.execute();
+  }
+
+  protected void setPossibleResources() {
+    possibleResources = new ArrayList<RESOURCES>(Arrays.asList(RESOURCES.FOOD, RESOURCES.WATER));
+    if (t.powerUsedRecently()) {
+      possibleResources.add(RESOURCES.STONE);
+      possibleResources.add(RESOURCES.WOOD);
+    }
   }
 }

@@ -14,7 +14,7 @@ public class CollectTargetA extends ATask {
     public TASKRESULT execute() {
         villager.updateMaxResourcesToCarry();
         String timerName = "collectres";
-        int timer = new Random().nextInt(500) + 500;
+        int timer = new Random().nextInt(500);
 //        int timer = (int) (500 * villager.getBelief());
         Integer timestamp = villager.getTimer(timerName);
         if (villager.getTargetTile().getResourceCount() != 0) {

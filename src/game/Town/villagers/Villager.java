@@ -115,11 +115,29 @@ public class Villager {
         g.imageMode(g.CENTER);
         g.stroke(100,100,100);
         // body
-        if (role == VILLAGER_ROLES.GATHERER) {
-            g.image(g.gathererB, xPos, yPos);
-        } else if (role == VILLAGER_ROLES.BUILDER) {
-            g.image(g.builderB, xPos, yPos);
+        switch (role) {
+            case GATHERER:
+                g.image(g.gathererB, xPos, yPos);
+                break;
+            case WATERGATHERER:
+                g.image(g.gathererWater, xPos, yPos);
+                break;
+            case FOODGATHERER:
+                g.image(g.gathererFood, xPos, yPos);
+                break;
+            case STONEGATHERER:
+                g.image(g.gathererStone, xPos, yPos);
+                break;
+            case WOODGATHERER:
+                g.image(g.gathererWood, xPos, yPos);
+                break;
+            case BUILDER:
+                g.image(g.builderB, xPos, yPos);
+                break;
+            default:
+                break;
         }
+
         g.image(g.vHeadImg, head.x, head.y);
 
         // resource collection text

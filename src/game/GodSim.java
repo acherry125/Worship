@@ -51,6 +51,7 @@ public class GodSim extends PApplet {
     public PImage treeImg;
     public PImage bushImg;
     public PImage rocksImg;
+    public PImage waterImg;
     public PImage vHeadImg;
     public PImage gathererB;
     public PImage foodB;
@@ -121,6 +122,7 @@ public class GodSim extends PApplet {
         treeImg = loadImage(Paths.get(System.getProperty("user.dir"), "images", "tree.png").toString());
         bushImg = loadImage(Paths.get(System.getProperty("user.dir"), "images", "bush.png").toString());
         rocksImg = loadImage(Paths.get(System.getProperty("user.dir"), "images", "rocks.png").toString());
+        waterImg = loadImage(Paths.get(System.getProperty("user.dir"), "images", "water.png").toString());
         vHeadImg = loadImage(Paths.get(System.getProperty("user.dir"), "images", "v-head.png").toString());
         gathererB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "gathererB.png").toString());
         foodB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "foodB.png").toString());

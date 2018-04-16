@@ -55,6 +55,7 @@ public class LandResourceTile extends ATile {
         drawSquareBase(otherColors, (int) getTemp(), otherColors);
         g.textSize(cell_w / 5);
         g.textAlign(g.RIGHT, g.BOTTOM);
+        g.imageMode(g.CORNER);
         if (resourceCount == 0) {
 
         } else if (resource == RESOURCES.WOOD) {
@@ -98,7 +99,6 @@ public class LandResourceTile extends ATile {
         float pY = (indY * cell_h) + padding;
         float pWidth = cell_w - 2*padding;
         float pHeight = cell_h - 2*padding;
-        g.imageMode(g.CORNER);
         g.image(g.treeImg, pX, pY, pWidth, pHeight);
     }
 
@@ -111,8 +111,6 @@ public class LandResourceTile extends ATile {
         float pY = (indY * cell_h) + padding;
         float pWidth = cell_w - 2*padding;
         float pHeight = cell_h - 2*padding;
-
-        g.imageMode(g.CORNER);
         g.image(g.rocksImg, pX, pY, pWidth, pHeight);
     }
 

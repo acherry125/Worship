@@ -215,14 +215,16 @@ public abstract class ATile {
      */
     protected void drawSquareBase(int red, int green, int blue) {
         g.rectMode(g.CORNER);
-        if (highlight) {
-            g.fill(highlightColor.getRed(), highlightColor.getGreen(), highlightColor.getBlue());
-        } else {
-            g.fill(red, green, blue);
-        }
+        g.fill(red, green, blue);
         float xPixel = indX * cell_w;
         float yPixel = indY * cell_h;
         g.rect(xPixel, yPixel, cell_w, cell_h);
+        if (highlight) {
+            g.stroke(highlightColor.getRed(), highlightColor.getGreen(), highlightColor.getBlue());
+            g.strokeWeight(2);
+            g.rect(xPixel + 2, yPixel + 2, cell_w - 4, cell_h - 4);
+            g.noStroke();
+        }
     }
 
     /**

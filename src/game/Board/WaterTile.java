@@ -15,6 +15,8 @@ public class WaterTile extends ATile {
     public void draw() {
         int green = 200;
         drawSquareBase(0, green, (int) (getWater() * 100) + 155);
+        g.imageMode(g.CENTER);
+        g.image(g.waterImg, getXPx(), getYPx());
     }
 
     @Override

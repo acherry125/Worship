@@ -54,6 +54,7 @@ public abstract class AStructureTile extends ATile {
         int otherColors = 80;
         g.ellipseMode(g.CORNER);
         g.rectMode(g.CORNER);
+        g.imageMode(g.CORNER);
         g.noStroke();
         drawSquareBase(otherColors, (int) getTemp(), otherColors);
         g.textSize(cell_w / 5);

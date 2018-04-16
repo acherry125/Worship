@@ -57,7 +57,8 @@ public class GodSim extends PApplet {
     public PImage gathererStone;
     public PImage gathererWood;
     public PImage builderB;
-
+    public PImage defaultHut;
+    public PImage berryHut;
 
     /*** GETTERS ***/
     /**
@@ -119,6 +120,8 @@ public class GodSim extends PApplet {
         gathererStone = loadImage(Paths.get(System.getProperty("user.dir"), "images", "gathererStone.png").toString());
         gathererWood = loadImage(Paths.get(System.getProperty("user.dir"), "images", "gathererWood.png").toString());
         builderB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "builderB.png").toString());
+        defaultHut = loadImage(Paths.get(System.getProperty("user.dir"), "images", "default-hut.png").toString());
+        berryHut = loadImage(Paths.get(System.getProperty("user.dir"), "images", "berry-hut.png").toString());
 
         camera = new Camera(MAP_PX_WIDTH, MAP_PX_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT, this);
         if (gameStarted) {
@@ -168,7 +171,7 @@ public class GodSim extends PApplet {
 
     @Override
     public void draw() {
-        cursor(cursorImg, 0, 0);
+        cursor(cursorImg, 5, 5);
         if (mousePressed && mouseButton == LEFT) {
             click.handleLeft();
         }

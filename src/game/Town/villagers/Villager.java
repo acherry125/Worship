@@ -41,7 +41,7 @@ public class Villager {
         this.idle = true;
         this.beliefInGod = 0.5;
         this.resourcesInHand = new LinkedList<>();
-        this.maxResourcesToCarry = 5;
+        this.maxResourcesToCarry = (int) (this.beliefInGod * 10);
         this.blackboard = Blackboard.single();
         this.setTargetTile(Board.single().getSpawnTile());
         //initializeBTree();
@@ -197,5 +197,9 @@ public class Villager {
         if (this.beliefInGod <= 0) {
             this.beliefInGod = 0.01;
         }
+    }
+
+    public void updateMaxResourcesToCarry() {
+        this.maxResourcesToCarry = (int) (this.beliefInGod * 10);
     }
 }

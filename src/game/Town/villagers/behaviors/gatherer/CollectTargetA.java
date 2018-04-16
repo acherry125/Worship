@@ -12,8 +12,10 @@ public class CollectTargetA extends ATask {
         super(v);
     }
     public TASKRESULT execute() {
+        villager.updateMaxResourcesToCarry();
         String timerName = "collectres";
         int timer = new Random().nextInt(500) + 500;
+//        int timer = (int) (500 * villager.getBelief());
         Integer timestamp = villager.getTimer(timerName);
         if (villager.getTargetTile().getResourceCount() != 0) {
             if (timestamp != 0 && Town.single().getGodSim().millis() - timestamp > timer) {

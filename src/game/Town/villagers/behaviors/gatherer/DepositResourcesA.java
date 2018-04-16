@@ -24,7 +24,7 @@ public class DepositResourcesA extends ATask {
         // have a resource to deposit
         int size = resources.size();
         for (int i = 0; i < size; i++) {
-            Town.single().getTownResources().raiseNeed(resources.poll(), villager.getBelief());
+            Town.single().getTownResources().raiseNeed(resources.poll(), 1);
         }
         return TASKRESULT.SUCCESS;
     }

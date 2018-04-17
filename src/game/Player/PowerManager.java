@@ -15,16 +15,16 @@ import game.Town.villagers.Villager;
 import java.util.HashMap;
 
 /** Responsible for Managing Powers for the Player, remembering which are active **/
-public class PowerManager {
-    GodSim g;
-    Board board;
-    Town town;
+class PowerManager {
+    private final GodSim g;
+    private final Board board;
+    private final Town town;
 
-    IPower[] powers;
-    IPower activePower;
-    HashMap<IPower, Integer> powerIndices = new HashMap<IPower, Integer>();
+    private final IPower[] powers;
+    private IPower activePower;
+    private final HashMap<IPower, Integer> powerIndices = new HashMap<IPower, Integer>();
     private int timeLastUsedPower = -5000;
-    private int lastUsedPowerInterval = 5000;
+    private final int lastUsedPowerInterval = 5000;
 
     public PowerManager(GodSim g) {
         this.g = g;

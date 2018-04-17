@@ -3,7 +3,7 @@ package game;
 import game.Town.Town;
 
 public class UI {
-    GodSim g;
+    private final GodSim g;
     public static boolean gameOver = false;
 
     public UI(GodSim g) {
@@ -88,6 +88,7 @@ public class UI {
         return g.mouseX > g.width / 3 && g.mouseX < 2* g.width /3 && g.mouseY > g.height/2+50 && g.mouseY < g.height/2 + 150;
     }
 
+    /** Draw the main menu, TODO currently causes lag, disabling for now **/
     private void drawMenu() {
         g.translate(-g.getCamera().getX(), -g.getCamera().getY());
         g.rectMode(g.CORNER);

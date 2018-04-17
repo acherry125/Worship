@@ -3,7 +3,6 @@ package game.Town.villagers.behaviors.gatherer;
 import game.Board.ATile;
 import game.Calendar;
 import game.Town.RESOURCES;
-import game.Town.Town;
 import game.Town.villagers.Villager;
 import game.Town.villagers.behaviors.ATask;
 import game.Town.villagers.behaviors.TASKRESULT;

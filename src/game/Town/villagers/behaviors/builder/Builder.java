@@ -3,8 +3,6 @@ package game.Town.villagers.behaviors.builder;
 import game.Board.ATile;
 import game.Board.Board;
 import game.Town.RESOURCES;
-import game.Town.Town;
-import game.Town.TownResources;
 import game.Town.villagers.Villager;
 import game.Town.villagers.behaviors.*;
 import game.Town.villagers.behaviors.composites.Selector;

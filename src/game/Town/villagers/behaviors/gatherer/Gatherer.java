@@ -20,8 +20,8 @@ import java.util.Random;
 
 public class Gatherer extends ATask {
 
-  protected ArrayList<RESOURCES> possibleResources;
-  protected Town t = Town.single();
+  ArrayList<RESOURCES> possibleResources;
+  private final Town t = Town.single();
   protected GodSim g = t.getGodSim();
 
   public Gatherer(Villager villager) {
@@ -62,11 +62,10 @@ public class Gatherer extends ATask {
 
     ATask topSelector = new Selector(v, new ATask[]{notFullInventorySeq, fullInventorySeq});
 
-    TASKRESULT result = topSelector.execute();
-    return result;
+    return topSelector.execute();
   }
 
-  protected void setPossibleResources() {
+  void setPossibleResources() {
     possibleResources = new ArrayList<RESOURCES>(Arrays.asList(RESOURCES.FOOD, RESOURCES.WATER));
     if (t.powerUsedRecently()) {
       possibleResources.add(RESOURCES.STONE);

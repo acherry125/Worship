@@ -1,8 +1,6 @@
 package game.Town.villagers.behaviors.builder;
 
 import game.Calendar;
-import game.GodSim;
-import game.Town.Town;
 import game.Town.villagers.Villager;
 import game.Town.villagers.behaviors.ATask;
 import game.Town.villagers.behaviors.TASKRESULT;

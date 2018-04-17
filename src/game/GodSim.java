@@ -43,11 +43,11 @@ public class GodSim extends PApplet {
     private MouseHandler mouse;
     private KeyHandler keyboard;
 
-    private HashMap<Integer, Boolean> keysPressed = new HashMap<Integer, Boolean>();
+    private final HashMap<Integer, Boolean> keysPressed = new HashMap<Integer, Boolean>();
 
+    /** Images **/
     private PImage cursorImg;
-    private HashMap<IPower, PImage> cursorImages = new HashMap<IPower, PImage>();
-    public boolean gameStarted = true;
+    private final HashMap<IPower, PImage> cursorImages = new HashMap<IPower, PImage>();
     public PImage treeImg;
     public PImage bushImg;
     public PImage rocksImg;
@@ -66,7 +66,11 @@ public class GodSim extends PApplet {
     public PImage woodHut;
     public PImage buildHut;
 
-    /*** GETTERS ***/
+    // mainly for debugging
+    public boolean gameStarted = true;
+
+
+    /* GETTERS */
     /**
      * Get the mouse's position on the board
      *
@@ -76,12 +80,6 @@ public class GodSim extends PApplet {
         return new PVector(mouseX - camera.getX(), mouseY - camera.getY());
     }
 
-    public Board getBoard() {
-        return board;
-    }
-    public Town getTown() {
-        return town;
-    }
     public Camera getCamera() {
         return camera;
     }
@@ -93,7 +91,7 @@ public class GodSim extends PApplet {
     }
     public boolean getKeyPressed(int keyCode) { return keysPressed.get(keyCode); }
 
-    /*** SETTERS ***/
+    /* SETTERS */
     /**
      * Set the cursor to be the state's current cursor image
      **/
@@ -110,27 +108,24 @@ public class GodSim extends PApplet {
         mouse = new MouseHandler(this);
         keyboard = new KeyHandler(this);
         ui = new UI(this);
+        /* Cursor images */
         PImage blueCursor = loadImage(Paths.get(System.getProperty("user.dir"), "images", "cursor-blue.png").toString());
         PImage orangeCursor = loadImage(Paths.get(System.getProperty("user.dir"), "images", "cursor-orange.png").toString());
         PImage greenCursor = loadImage(Paths.get(System.getProperty("user.dir"), "images", "cursor-green.png").toString());
         PImage redCursor = loadImage(Paths.get(System.getProperty("user.dir"), "images", "cursor-red.png").toString());
-
         cursorImages.put(Flood.single(), blueCursor);
         cursorImages.put(BuildHut.single(), orangeCursor);
         cursorImages.put(GrowFood.single(), redCursor);
         cursorImages.put(GrowTree.single(), greenCursor);
         cursorImg = blueCursor;
+
+        /* Resource Tile Images */
         treeImg = loadImage(Paths.get(System.getProperty("user.dir"), "images", "tree.png").toString());
         bushImg = loadImage(Paths.get(System.getProperty("user.dir"), "images", "bush.png").toString());
         rocksImg = loadImage(Paths.get(System.getProperty("user.dir"), "images", "rocks.png").toString());
         waterImg = loadImage(Paths.get(System.getProperty("user.dir"), "images", "water.png").toString());
-        vHeadImg = loadImage(Paths.get(System.getProperty("user.dir"), "images", "v-head.png").toString());
-        gathererB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "gathererB.png").toString());
-        foodB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "foodB.png").toString());
-        waterB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "waterB.png").toString());
-        stoneB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "stoneB.png").toString());
-        woodB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "woodB.png").toString());
-        builderB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "builderB.png").toString());
+
+        /* Hut images */
         defaultHut = loadImage(Paths.get(System.getProperty("user.dir"), "images", "default-hut.png").toString());
         berryHut = loadImage(Paths.get(System.getProperty("user.dir"), "images", "berry-hut.png").toString());
         waterHut = loadImage(Paths.get(System.getProperty("user.dir"), "images", "water-hut.png").toString());
@@ -138,7 +133,18 @@ public class GodSim extends PApplet {
         woodHut = loadImage(Paths.get(System.getProperty("user.dir"), "images", "wood-hut.png").toString());
         buildHut = loadImage(Paths.get(System.getProperty("user.dir"), "images", "build-hut.png").toString());
 
+        /* Villager images */
+        vHeadImg = loadImage(Paths.get(System.getProperty("user.dir"), "images", "v-head.png").toString());
+        gathererB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "gathererB.png").toString());
+        foodB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "foodB.png").toString());
+        waterB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "waterB.png").toString());
+        stoneB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "stoneB.png").toString());
+        woodB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "woodB.png").toString());
+        builderB = loadImage(Paths.get(System.getProperty("user.dir"), "images", "builderB.png").toString());
+
         camera = new Camera(MAP_PX_WIDTH, MAP_PX_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT, this);
+
+        // skip the main menu
         if (gameStarted) {
             initializeAll();
         }

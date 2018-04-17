@@ -5,7 +5,7 @@ import game.GodSim;
 import processing.event.KeyEvent;
 
 public class KeyHandler {
-    GodSim g;
+    private final GodSim g;
     public KeyHandler(GodSim g) {
         this.g = g;
         int LEFT_WASD = 65;

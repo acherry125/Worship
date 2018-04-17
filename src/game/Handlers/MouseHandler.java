@@ -1,14 +1,10 @@
 package game.Handlers;
 
-import game.Board.ATile;
-import game.Board.Board;
 import game.GodSim;
 import game.UI;
 
-import static processing.core.PApplet.println;
-
 public class MouseHandler {
-    GodSim g;
+    private final GodSim g;
     public MouseHandler(GodSim g) {
         this.g = g;
     }

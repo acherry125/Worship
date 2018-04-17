@@ -1,6 +1,5 @@
 package game.Town.villagers.behaviors.general;
 
-import game.Board.Board;
 import game.Town.villagers.Villager;
 import game.Town.villagers.behaviors.ATask;
 import game.Town.villagers.behaviors.TASKRESULT;

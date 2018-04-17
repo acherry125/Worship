@@ -1,8 +1,6 @@
 package game.Board;
 
 import game.Board.structures.HUTTYPE;
-import game.Board.structures.HutTile;
-import game.GodSim;
 import game.Town.RESOURCES;
 
 import java.util.ArrayList;
@@ -10,19 +8,19 @@ import java.util.Arrays;
 
 public abstract class AStructureTile extends ATile {
     RESOURCES building;
-    protected ArrayList<HUTTYPE> huttypes;
-    protected int typeIndex;
+    private final ArrayList<HUTTYPE> huttypes;
+    private int typeIndex;
     protected AStructureTile(int indX, int indY, float cell_w, float cell_h) {
         super(indX, indY, cell_w, cell_h);
         huttypes = new ArrayList<>(Arrays.asList(HUTTYPE.DEFAULT, HUTTYPE.WOOD, HUTTYPE.FOOD, HUTTYPE.WATER, HUTTYPE.STONE, HUTTYPE.BUILD));
         typeIndex = 0;
     }
 
-    /** GETTERS **/
+    /* GETTERS */
     /**
      * Get the structure's type
      */
-    public HUTTYPE getType() {
+    protected HUTTYPE getType() {
         return huttypes.get(typeIndex);
     }
     @Override

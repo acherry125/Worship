@@ -1,8 +1,6 @@
 package game.Board.structures;
 
 import game.Board.AStructureTile;
-import game.Board.Board;
-import game.GodSim;
 import game.Town.villagers.VILLAGER_ROLES;
 
 public class HutTile extends AStructureTile {

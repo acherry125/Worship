@@ -3,10 +3,9 @@ package game.Player.powers;
 import game.Board.ATile;
 import game.Board.Board;
 import game.GodSim;
-import processing.core.PVector;
 
 public class BuildHut implements IPower {
-    private static BuildHut ourInstance = new BuildHut();
+    private static final BuildHut ourInstance = new BuildHut();
 
     public static BuildHut single() {
         return ourInstance;

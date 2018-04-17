@@ -11,27 +11,27 @@ public abstract class ATile {
     /**
      * tile index horizontally
      */
-    protected int indX;
+    protected final int indX;
 
     /**
      * tile index vertically
      */
-    protected int indY;
+    protected final int indY;
 
     /**
      * the width of this tile in px
      */
-    protected float cell_w;
+    protected final float cell_w;
 
     /**
      * the height of this tile in px
      */
-    protected float cell_h;
+    protected final float cell_h;
 
     /**
      * the game.GodSim instance that instantiates this tile
      */
-    protected GodSim g;
+    protected final GodSim g;
     protected RESOURCES resource = RESOURCES.NONE;
 
     private float temp;
@@ -40,7 +40,7 @@ public abstract class ATile {
     private Color highlightColor = new Color(255, 0, 0);
 
     /* Constructor */
-    protected ATile(int indX, int indY, float cell_w, float cell_h) {
+    ATile(int indX, int indY, float cell_w, float cell_h) {
         this.indX = indX;
         this.indY = indY;
         this.cell_w = cell_w;
@@ -80,7 +80,7 @@ public abstract class ATile {
      *
      * @return the temperature of this tile
      */
-    public float getTemp() {
+    float getTemp() {
         return this.temp;
     }
     /**
@@ -90,7 +90,7 @@ public abstract class ATile {
      */
     public RESOURCES getResource() {
         return resource;
-    };
+    }
     public PVector getPosition() {
         return new PVector(getXPx(), getYPx());
     }
@@ -101,7 +101,7 @@ public abstract class ATile {
      */
     public RESOURCES peekResource() {
         return resource;
-    };
+    }
 
     /*** SETTERS ***/
     public void setResource(RESOURCES res) {}
@@ -164,7 +164,7 @@ public abstract class ATile {
      * @param loc the location to calculate the distance from.
      * @return the distance between the villager and the tile
      */
-    public float distanceFrom(PVector loc) {
+    private float distanceFrom(PVector loc) {
         float posX = loc.x;
         float posY = loc.y;
 
@@ -178,7 +178,7 @@ public abstract class ATile {
      * @param locY
      * @return the distance between the location and the tile
      */
-    public float distanceFrom(float locX, float locY) {
+    private float distanceFrom(float locX, float locY) {
         // if the location is within the tile
         if (locX >= getXPx() - (g.CELL_W / 2)
                 && locX <= getXPx() + (g.CELL_W / 2)
@@ -200,7 +200,7 @@ public abstract class ATile {
     /**
      * Initialize this tile based on its location
      */
-    protected void initialize() {
+    private void initialize() {
         calculateTemp();
         calculateResource();
         distanceFrom(500, 500);
@@ -230,7 +230,7 @@ public abstract class ATile {
     /**
      * Determine if this tile has a resource based on its position, and set it
      */
-    protected void calculateResource() {
+    void calculateResource() {
         resource = RESOURCES.NONE;
     }
 
@@ -240,11 +240,10 @@ public abstract class ATile {
      * Set the temperature of the tile
      */
     private void calculateTemp() {
-        float noise1 = (float) g.noise((float) (indX * 2.5), (float) (indY * 2.5));
+        float noise1 = g.noise((float) (indX * 2.5), (float) (indY * 2.5));
         float minTemp = 120;
         float offset = 230 - minTemp;
-        float temp = (noise1 * offset) + minTemp;
-        this.temp = temp;
+        this.temp = (noise1 * offset) + minTemp;
     }
 
     /**

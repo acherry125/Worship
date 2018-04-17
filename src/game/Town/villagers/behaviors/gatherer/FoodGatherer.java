@@ -1,7 +1,7 @@
 package game.Town.villagers.behaviors.gatherer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 
 import game.Town.RESOURCES;
 import game.Town.villagers.Villager;
@@ -13,6 +13,6 @@ public class FoodGatherer extends Gatherer {
 
   @Override
   protected void setPossibleResources() {
-    possibleResources = new ArrayList<RESOURCES>(Arrays.asList(RESOURCES.FOOD));
+    possibleResources = new ArrayList<RESOURCES>(Collections.singletonList(RESOURCES.FOOD));
   }
 }

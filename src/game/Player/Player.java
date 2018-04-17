@@ -3,17 +3,15 @@ package game.Player;
 import game.Board.AStructureTile;
 import game.Board.ATile;
 import game.Board.Board;
-import game.Board.structures.HutTile;
 import game.GodSim;
 import game.Player.powers.IPower;
 import game.Town.Town;
-import game.Town.villagers.Villager;
 import processing.core.PVector;
 
 public class Player {
-    PowerManager pm;
-    GodSim g;
-    Town t;
+    private final PowerManager pm;
+    private final GodSim g;
+    private final Town t;
 
     public Player() {
         this.t = Town.single();

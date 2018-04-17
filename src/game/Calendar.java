@@ -1,19 +1,16 @@
 package game;
 
-import static processing.core.PApplet.println;
-
 public class Calendar {
-    GodSim g;
-    int epoch;
+    private final GodSim g;
+    private final int epoch;
     int second;
-    int MILLIS_PER_MONTH = 9000;
-    int DAYS_PER_MONTH = 30;
-    int MILLIS_PER_DAY = MILLIS_PER_MONTH / DAYS_PER_MONTH;
-    String[] months = new String[]{"January", "February", "March", "April", "May", "June", "July", "September", "October", "November", "December"};
+    private final int MILLIS_PER_MONTH = 9000;
+    private final int DAYS_PER_MONTH = 30;
+    private final int MILLIS_PER_DAY = MILLIS_PER_MONTH / DAYS_PER_MONTH;
+    private final String[] months = new String[]{"January", "February", "March", "April", "May", "June", "July", "September", "October", "November", "December"};
     private static Calendar ourInstance;
-    public static Calendar create(GodSim g) {
+    public static void create(GodSim g) {
         ourInstance = new Calendar(g);
-        return ourInstance;
     }
     public static Calendar single() {
         return ourInstance;

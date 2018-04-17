@@ -5,7 +5,7 @@ import game.Board.tileCheckers.ITileChecker;
 import game.Town.RESOURCES;
 
 public class TileCheckerHasResource implements ITileChecker {
-    RESOURCES resource;
+    private final RESOURCES resource;
     public TileCheckerHasResource(RESOURCES resource) {
         this.resource = resource;
     }

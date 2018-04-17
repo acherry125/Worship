@@ -1,11 +1,11 @@
 package game.Player.powers;
 
 import game.Board.ATile;
+import game.Board.Board;
 import game.GodSim;
-import processing.core.PVector;
 
 public class Flood implements IPower {
-    private static Flood ourInstance = new Flood();
+    private static final Flood ourInstance = new Flood();
 
     public static Flood single() {
         return ourInstance;
@@ -15,6 +15,6 @@ public class Flood implements IPower {
 
     @Override
     public void use(ATile clickedTile, GodSim g) {
-        g.getBoard().floodTile(clickedTile);
+        Board.single().floodTile(clickedTile);
     }
 }

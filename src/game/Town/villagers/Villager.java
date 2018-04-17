@@ -11,7 +11,6 @@ import game.Town.Town;
 import game.Town.villagers.behaviors.*;
 import game.Town.villagers.behaviors.gatherer.*;
 import game.Town.villagers.behaviors.builder.*;
-import game.Town.villagers.behaviors.idle.IdleA;
 import processing.core.PVector;
 
 public class Villager {
@@ -19,19 +18,19 @@ public class Villager {
     private float yPos;
     private VILLAGER_ROLES role;
     private boolean idle;
-    public ATask btree;
+    private ATask btree;
     private double beliefInGod; // 1 is full belief, 0 is no belief.
-    protected GodSim g;
+    private final GodSim g;
     private PVector linear;
-    private Deque<RESOURCES> resourcesInHand;
+    private final Deque<RESOURCES> resourcesInHand;
     private int maxResourcesToCarry;
     private RESOURCES resourceToTarget = RESOURCES.NONE;
     private ATile targetTile;
-    private Town town;
-    private Blackboard blackboard;
-    private HashMap<String, Integer> timers = new HashMap<String, Integer>();
+    private final Town town;
+    private final Blackboard blackboard;
+    private final HashMap<String, Integer> timers = new HashMap<String, Integer>();
 
-    final float moveSpeed = 2;
+    private final float moveSpeed = 2;
 
     public Villager(float xPos, float yPos, VILLAGER_ROLES role) {
         this.town = Town.single();
@@ -107,14 +106,14 @@ public class Villager {
             town.incrementVillagerRoleCount(newRole);
         }
     }
-    public void setBtree(ATask btree) {
+    private void setBtree(ATask btree) {
         this.btree = btree;
     }
     public void setIdle(boolean val) {
         idle = val;
     }
-    public void setTimerNow(String name) { timers.put(name, Calendar.single().millis()); };
-    public void removeTimer(String name) { timers.remove(name); };
+    public void setTimerNow(String name) { timers.put(name, Calendar.single().millis()); }
+    public void removeTimer(String name) { timers.remove(name); }
 
     public void draw() {
         PVector dir = PVector.sub(targetTile.getPosition(), getPosition()).setMag(8);
@@ -216,7 +215,7 @@ public class Villager {
         this.yPos += linear.y;
     }
 
-    public void calculateLinear() {
+    private void calculateLinear() {
         PVector target = targetTile.getPosition();
         PVector initialLinear;
         if (g.abs(target.x - getPosition().x) > 2

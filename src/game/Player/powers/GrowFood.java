@@ -6,7 +6,7 @@ import game.GodSim;
 import game.Town.RESOURCES;
 
 public class GrowFood implements IPower {
-  private static GrowFood ourInstance = new GrowFood();
+  private static final GrowFood ourInstance = new GrowFood();
 
   public static GrowFood single() {
     return ourInstance;

@@ -6,15 +6,15 @@ import java.util.Random;
 import static processing.core.PApplet.println;
 
 public class TownResources {
-    private HashMap<RESOURCES, Integer> townNeeds;
-    private Random rand = new Random();
+    private final HashMap<RESOURCES, Integer> townNeeds;
+    private final Random rand = new Random();
 
     /**
      * Positive numbers means there is a need for that resource.
      * Negative needs means there is excess.
      */
     public TownResources() {
-        townNeeds = new HashMap();
+        townNeeds = new HashMap<RESOURCES, Integer>();
         createNeed(RESOURCES.WOOD, 0);
         createNeed(RESOURCES.WATER, 50);
         createNeed(RESOURCES.STONE, 0);
@@ -31,7 +31,7 @@ public class TownResources {
      *
      * @param need the key of the need.
      */
-    public void createNeed(RESOURCES need, int value) {
+    private void createNeed(RESOURCES need, int value) {
         int currentNeed;
 
         if (townNeeds.containsKey(need)) {
@@ -56,7 +56,7 @@ public class TownResources {
 
     public void raiseNeed(RESOURCES need, int num) {
         if (need == RESOURCES.CRAFTED || need == RESOURCES.NONE) {
-//            println("whoops");
+            println("Tried to deposit an illegal resource: TownResources.raiseNeed()");
         } else {
             townNeeds.put(need, townNeeds.get(need) + num);
         }
@@ -74,7 +74,7 @@ public class TownResources {
      */
     public RESOURCES nextResourceToCollect() {
 
-        RESOURCES[] all = townNeeds.keySet().toArray(new RESOURCES[townNeeds.keySet().size()]);
+        RESOURCES[] all = townNeeds.keySet().toArray(new RESOURCES[0]);
 
         /*RESOURCES highestNeed = RESOURCES.WOOD;
 
@@ -109,7 +109,7 @@ public class TownResources {
     public String toString() {
         StringBuffer result = new StringBuffer();
         for (RESOURCES r : this.townNeeds.keySet()) {
-            result.append(r + ": " + this.townNeeds.get(r) + "\n");
+            result.append(r).append(": ").append(this.townNeeds.get(r)).append("\n");
         }
 
         return result.toString();

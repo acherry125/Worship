@@ -3,7 +3,7 @@ package game.Board;
 import game.Town.RESOURCES;
 
 public class LandResourceTile extends ATile {
-    int resourceCount ;
+    private int resourceCount ;
 
     public LandResourceTile(int indX, int indY, float cell_w, float cell_h) {
         super(indX, indY, cell_w, cell_h);
@@ -75,7 +75,7 @@ public class LandResourceTile extends ATile {
 
     @Override
     protected void calculateResource() {
-        float res = (float) g.noise((float) (indX * 1.25), (float) (indY * 1.25));
+        float res = g.noise((float) (indX * 1.25), (float) (indY * 1.25));
         if (res < 0.3) {
             resource = RESOURCES.WOOD;
         } else if (res < 0.32) {

@@ -5,7 +5,6 @@ import game.Board.structures.HutTile;
 import game.Board.structures.SpawnTile;
 import game.Board.tileCheckers.ITileChecker;
 import game.Board.tileCheckers.TileCheckerBuildable;
-import game.Board.tileCheckers.TileCheckerHasStructure;
 import game.GodSim;
 import game.Town.RESOURCES;
 import game.Town.villagers.behaviors.Blackboard;
@@ -19,10 +18,10 @@ import java.util.HashMap;
 import static processing.core.PApplet.println;
 
 public class Board {
-    public GodSim g;
+    private final GodSim g;
     private ATile[][] board;
     private ATile spawn;
-    private HashMap<RESOURCES, ArrayList<ATile>> resourceLists = new HashMap<RESOURCES, ArrayList<ATile>>();
+    private final HashMap<RESOURCES, ArrayList<ATile>> resourceLists = new HashMap<RESOURCES, ArrayList<ATile>>();
     private ATile nextBuildableTile;
 
     private static Board ourInstance;
@@ -66,7 +65,7 @@ public class Board {
      * @param y the y value of the px location of the tile
      * @return the Tile at the location
      */
-    public ATile getTile(float x, float y) {
+    private ATile getTile(float x, float y) {
         if (x > g.MAP_PX_WIDTH || x < 0 || y > g.MAP_PX_HEIGHT || y < 0) {
             println("ERROR: Outside of board bounds.");
             return spawn;
@@ -84,7 +83,7 @@ public class Board {
      * @param y the y value of the px location of the tile
      * @return the Tile at the location
      */
-    public ATile getTileAtIndex(int x, int y) {
+    private ATile getTileAtIndex(int x, int y) {
         return board[x][y];
     }
 
@@ -132,18 +131,17 @@ public class Board {
      * @param tile
      * @return the new tile
      */
-    public AStructureTile buildHutOnTile(ATile tile) {
-        ArrayList<RESOURCES> depletable = new ArrayList<>(Arrays.asList(new RESOURCES[]{RESOURCES.WOOD, RESOURCES.FOOD, RESOURCES.STONE}));
+    public void buildHutOnTile(ATile tile) {
+        ArrayList<RESOURCES> depletable = new ArrayList<>(Arrays.asList(RESOURCES.WOOD, RESOURCES.FOOD, RESOURCES.STONE));
         // only on empty tiles (including tiles with empty resources)
         if (tile.isSpawner() || tile.peekResource() != RESOURCES.NONE && !depletable.contains(tile.peekResource()) || (tile.getResourceCount() != 0 && depletable.contains(tile.peekResource()))) {
-            return null;
+            return;
         }
         int indX = tile.getIndX();
         int indY = tile.getIndY();
         HutTile structure = new HutTile(indX, indY, g.CELL_W, g.CELL_H);
         updateTileSlot(structure, RESOURCES.CRAFTED);
         nextBuildableTile = getClosestBuildableTile(spawn.getPosition());
-        return structure;
     }
 
     /**
@@ -151,17 +149,16 @@ public class Board {
      * @param tile
      * @return the new tile
      */
-    public WaterTile floodTile(ATile tile) {
+    public void floodTile(ATile tile) {
         if (tile.isSpawner() || tile.peekResource() == RESOURCES.WATER) {
             // we don't want to overwrite water tiles or the spawn
-            return null;
+            return;
         }
         int indX = tile.getIndX();
         int indY = tile.getIndY();
 
         WaterTile water = new WaterTile(indX, indY, g.CELL_W, g.CELL_H);
         updateTileSlot(water, RESOURCES.WATER);
-        return water;
     }
 
     /**
@@ -184,7 +181,7 @@ public class Board {
         if (y < board[0].length - 1) {
                 result.add(getTileAtIndex(x, y + 1));
         }
-        return result.toArray(new ATile[result.size()]);
+        return result.toArray(new ATile[0]);
     }
 
     public void draw() {
@@ -276,7 +273,7 @@ public class Board {
      * @param locationOfVillager
      * @return The closest tile on the board that satisfies the given tile checker
      */
-    public ATile getClosestTileThatPasses(ITileChecker checker, PVector locationOfVillager) {
+    private ATile getClosestTileThatPasses(ITileChecker checker, PVector locationOfVillager) {
         // Setup an explored and found queue
         ArrayDeque<ATile> explored = new ArrayDeque<ATile>();
         ArrayDeque<ATile> found = new ArrayDeque<ATile>();
@@ -286,7 +283,7 @@ public class Board {
         // Breadth first search essentially on the 2d array from the villagers position
         while (found.size() > 0) {
             curr = found.pollLast();
-            if (checker.passes(curr) && !curr.isHighlighted()) {
+            if (curr != null && checker.passes(curr) && !curr.isHighlighted()) {
                 break;
             } else {
                 explored.offerFirst(curr);
@@ -305,7 +302,6 @@ public class Board {
      * Returns the closest desired resource from the location of the current villager.
      *
      * @param locationOfVillager
-     * @return
      */
     public ATile getClosestResourceTile(RESOURCES resource, PVector locationOfVillager) {
         float closestDist = Float.MAX_VALUE;
@@ -328,7 +324,6 @@ public class Board {
      * Returns the closest available plot of land
      *
      * @param loc
-     * @return
      */
     private ATile getClosestBuildableTile(PVector loc) {
         return getClosestTileThatPasses(new TileCheckerBuildable(), loc);

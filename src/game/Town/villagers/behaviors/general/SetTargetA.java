@@ -9,7 +9,7 @@ import game.Town.villagers.behaviors.Blackboard;
 import game.Town.villagers.behaviors.TASKRESULT;
 
 public class SetTargetA extends ATask {
-    ATile target;
+    private ATile target;
     public SetTargetA(Villager v, ATile target) {
         super(v);
         this.target = target;

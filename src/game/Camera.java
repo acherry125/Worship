@@ -5,11 +5,11 @@ public class Camera {
     private static final float SHIFT_VERT = 15;
     private float x;
     private float y;
-    private float mapWidth;
-    private float mapHeight;
-    private float screenWidth;
-    private float screenHeight;
-    private GodSim g;
+    private final float mapWidth;
+    private final float mapHeight;
+    private final float screenWidth;
+    private final float screenHeight;
+    private final GodSim g;
 
     public Camera(float mapWidth, float mapHeight, float screenWidth, float screenHeight, GodSim g) {
         x = (-mapWidth / 2) + (screenWidth / 2);

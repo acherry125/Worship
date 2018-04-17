@@ -8,6 +8,7 @@ import game.Town.villagers.behaviors.general.SetTargetA;
 import game.Town.villagers.behaviors.TASKRESULT;
 import game.Town.villagers.behaviors.composites.Sequence;
 
+/** Unused yet, mainly a test task **/
 public class IdleA extends ATask {
     public IdleA(Villager v) {
         super(v);

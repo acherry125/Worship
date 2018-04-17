@@ -11,19 +11,19 @@ import game.Town.villagers.VILLAGER_ROLES;
 import game.Town.villagers.Villager;
 
 public class Town {
-    private GodSim g;
+    private final GodSim g;
     private Board board;
-    private LinkedList<Villager> villagers = new LinkedList<Villager>();
-    private LinkedList<Villager> toDieQueue = new LinkedList<Villager>();
-    private TownResources townResources;
+    private final LinkedList<Villager> villagers = new LinkedList<Villager>();
+    private final LinkedList<Villager> toDieQueue = new LinkedList<Villager>();
+    private final TownResources townResources;
     // what portion of the population should be each role
-    private HashMap<VILLAGER_ROLES, Integer> roleCounts = new HashMap<VILLAGER_ROLES, Integer>();
-    private int numWoodToBuildHut = 10;
+    private final HashMap<VILLAGER_ROLES, Integer> roleCounts = new HashMap<VILLAGER_ROLES, Integer>();
+    private final int numWoodToBuildHut = 10;
     private String currentMonth;
-    private int foodPerPerson = 3;
-    private int waterPerPerson = 3;
+    private final int foodPerPerson = 3;
+    private final int waterPerPerson = 3;
     private int godPowerTimer = 0;
-    private int godUsedPowerInterval = 5000;
+    private final int godUsedPowerInterval = 5000;
     private boolean powerUsedRecently = false;
 
     private static Town ourInstance;
@@ -90,27 +90,28 @@ public class Town {
      *
      * @return the spawned Villager
      */
-    public Villager spawn(VILLAGER_ROLES role, ATile spawn) {
+    private void spawn(VILLAGER_ROLES role, ATile spawn) {
         Random r = new Random();
         float x = spawn.getXPx();
         float y = spawn.getYPx();
         Villager villager = new Villager(x, y, role);
         villagers.add(villager);
         incrementVillagerRoleCount(role);
-        return villager;
     }
 
     public void queueVillagerDeath(Villager v) {
         toDieQueue.add(v);
     }
-    public void killVillagers() {
+    private void killVillagers() {
         int count = toDieQueue.size();
         for (int i = 0; i < count; i++) {
             Villager v = toDieQueue.poll();
-            VILLAGER_ROLES role = v.getRole();
-            decrementVillagerRoleCount(role);
-            v.getTargetTile().stopHighlight();
-            villagers.remove(v);
+            if (v != null) {
+                VILLAGER_ROLES role = v.getRole();
+                decrementVillagerRoleCount(role);
+                v.getTargetTile().stopHighlight();
+                villagers.remove(v);
+            }
         }
     }
 
@@ -166,7 +167,7 @@ public class Town {
         }
         ArrayList<HutTile> huts = board.getHuts();
         int numHuts = huts.size();
-        if (initial || Calendar.single().getMonth() != currentMonth) {
+        if (initial || !Objects.equals(Calendar.single().getMonth(), currentMonth)) {
             currentMonth = Calendar.single().getMonth();
             int count = villagers.size();
             // go through existing people, see which survive, spawn more if sustainable

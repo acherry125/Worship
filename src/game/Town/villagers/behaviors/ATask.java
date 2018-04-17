@@ -6,10 +6,10 @@ import game.Town.TownResources;
 import game.Town.villagers.Villager;
 
 public abstract class ATask {
-    protected Villager villager;
-    protected TownResources townResources;
-    protected Board board;
-    protected Blackboard blackboard;
+    protected final Villager villager;
+    private final TownResources townResources;
+    protected final Board board;
+    private final Blackboard blackboard;
 
     protected ATask(Villager villager) {
         this.villager = villager;

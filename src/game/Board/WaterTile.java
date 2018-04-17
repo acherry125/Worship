@@ -1,14 +1,13 @@
 package game.Board;
 
-import game.GodSim;
 import game.Town.RESOURCES;
 
 public class WaterTile extends ATile {
-    protected float water;
+    private final float water;
 
     public WaterTile(int indX, int indY, float cell_w, float cell_h) {
         super(indX, indY, cell_w, cell_h);
-        this.water = (float) g.noise((float) (indX * 1.5), (float) (indY * 1.5));
+        this.water = g.noise((float) (indX * 1.5), (float) (indY * 1.5));
     }
 
     @Override
@@ -34,7 +33,7 @@ public class WaterTile extends ATile {
      *
      * @return the value of this tile's water ratio
      */
-    protected float getWater() {
+    private float getWater() {
         return this.water;
     }
 

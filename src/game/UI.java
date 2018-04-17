@@ -32,16 +32,18 @@ public class UI {
         g.rectMode(g.CORNER);
         g.noStroke();
         g.fill(230, 230, 230, 220);
-        g.rect(0, 0, 120, 170);
+        g.rect(0, 0, 200, 190);
         g.fill(30);
+        g.textAlign(g.CENTER, g.TOP);
+        g.text(String.join(". Day ", new String[]{Calendar.single().getMonth(), Calendar.single().getDay()}), 100, 10);
         g.textAlign(g.LEFT, g.TOP);
+        g.text("Resources:", 12, 40);
         g.textSize(16);
-        g.text("Resources:", 12, 18);
         String needsString = Town.single().getTownResources().toString();
         String needs[] = needsString.split("\n");
         String needsFormatted = String.join("\n", needs);
         g.textAlign(g.LEFT, g.TOP);
-        g.text(needsFormatted, 12, 50);
+        g.text(needsFormatted, 12, 72);
     }
 
     private void controlsDraw() {
@@ -54,7 +56,7 @@ public class UI {
         g.textSize(14);
         g.text("Move Screen: Up/Down/Left/Right or W/S/A/D",10, GodSim.SCREEN_HEIGHT - 50);
         g.text("Change Villager Roles: Left click on hut",10, GodSim.SCREEN_HEIGHT - 30);
-        g.text("Change God Power: Mouse Scroll", GodSim.SCREEN_WIDTH/2, GodSim.SCREEN_HEIGHT - 50);
+        g.text("Change God Power: Mouse Scroll, Q/E", GodSim.SCREEN_WIDTH/2, GodSim.SCREEN_HEIGHT - 50);
         g.text("Use God Power: Right Click", GodSim.SCREEN_WIDTH/2, GodSim.SCREEN_HEIGHT - 30);
     }
 

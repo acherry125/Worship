@@ -106,6 +106,7 @@ public class GodSim extends PApplet {
 
     @Override
     public void setup() {
+        frameRate(61);
         mouse = new MouseHandler(this);
         keyboard = new KeyHandler(this);
         ui = new UI(this);
@@ -150,6 +151,7 @@ public class GodSim extends PApplet {
     }
 
     private void initializeAll() {
+        Calendar.create(this);
         initializeTown();
         initializeBoard();
         board.initialize();

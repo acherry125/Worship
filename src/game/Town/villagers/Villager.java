@@ -4,6 +4,7 @@ import java.util.*;
 
 import game.Board.ATile;
 import game.Board.Board;
+import game.Calendar;
 import game.GodSim;
 import game.Town.RESOURCES;
 import game.Town.Town;
@@ -112,7 +113,7 @@ public class Villager {
     public void setIdle(boolean val) {
         idle = val;
     }
-    public void setTimerNow(String name) { timers.put(name, g.millis()); };
+    public void setTimerNow(String name) { timers.put(name, Calendar.single().millis()); };
     public void removeTimer(String name) { timers.remove(name); };
 
     public void draw() {
@@ -191,7 +192,7 @@ public class Villager {
         if (getTimer("die") != 0) {
             // in the act of dying
             int interval =  new Random().nextInt(500) + 500;
-            if (g.millis() - getTimer("die") > interval) {
+            if (Calendar.single().millis() - getTimer("die") > interval) {
                 ATile markedTile = (ATile) Blackboard.single().get(Integer.toString(hashCode()));
                 if (markedTile != null) {
                     markedTile.stopHighlight();

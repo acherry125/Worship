@@ -1,5 +1,6 @@
 package game.Town.villagers.behaviors.builder;
 
+import game.Calendar;
 import game.GodSim;
 import game.Town.Town;
 import game.Town.villagers.Villager;
@@ -16,7 +17,7 @@ public class BuildHutA extends ATask {
         String timerName = "buildhut";
         int timer = 5000;
         Integer timestamp = villager.getTimer(timerName);
-        if (timestamp != 0 && Town.single().getGodSim().millis() - timestamp > timer) {
+        if (timestamp != 0 && Calendar.single().millis() - timestamp > timer) {
             board.buildHutOnTile(villager.getTargetTile());
             villager.getTargetTile().stopHighlight();
             villager.getResourcesInHand().clear();

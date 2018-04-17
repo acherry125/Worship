@@ -25,7 +25,7 @@ public class UI {
         g.rect(0, 0, 200, 200);
         g.fill(30);
         g.textAlign(g.LEFT, g.TOP);
-        g.text("Resource Counts:", 12, 18);
+        g.text("Resources:", 12, 18);
         String needsString = Town.single().getTownResources().toString();
         String needs[] = needsString.split("\n");
         String needsFormatted = String.join("\n", needs);

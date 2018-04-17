@@ -95,13 +95,15 @@ public class Villager {
     public void setBelief(double belief) {
         this.beliefInGod = belief;
     }
-    public void setVillageRole(VILLAGER_ROLES role) {
-        if (this.role != role) {
+    public void setVillageRole(VILLAGER_ROLES newRole) {
+        if (this.role != newRole) {
             if (targetTile != null) {
                 this.targetTile.stopHighlight();
                 this.targetTile = Board.single().getSpawnTile();
             }
-            this.role = role;
+            town.decrementVillagerRoleCount(this.role);
+            this.role = newRole;
+            town.incrementVillagerRoleCount(newRole);
         }
     }
     public void setBtree(ATask btree) {

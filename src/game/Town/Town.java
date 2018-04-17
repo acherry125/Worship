@@ -16,8 +16,7 @@ public class Town {
     private LinkedList<Villager> toDieQueue = new LinkedList<Villager>();
     private TownResources townResources;
     // what portion of the population should be each role
-    private HashMap<VILLAGER_ROLES, Integer> roleRatio = new HashMap<VILLAGER_ROLES, Integer>();
-    private HashMap<VILLAGER_ROLES, Integer> villagerCount = new HashMap<VILLAGER_ROLES, Integer>();
+    private HashMap<VILLAGER_ROLES, Integer> roleCounts = new HashMap<VILLAGER_ROLES, Integer>();
     private int numWoodToBuildHut = 10;
     private int foodWaterTimer = 0;
     private int foodWaterInterval = 10000;
@@ -56,6 +55,23 @@ public class Town {
     public int requiredWoodToBuildHut() {
         return numWoodToBuildHut;
     }
+    public int getNumVillagersInRole(VILLAGER_ROLES role) {
+        return roleCounts.get(role);
+    }
+    public void incrementVillagerRoleCount(VILLAGER_ROLES role) {
+        if (roleCounts.containsKey(role)) {
+            roleCounts.put(role, roleCounts.get(role) + 1);
+        } else {
+            roleCounts.put(role, 1);
+        }
+    }
+    public void decrementVillagerRoleCount(VILLAGER_ROLES role) {
+        if (roleCounts.containsKey(role)) {
+            roleCounts.put(role, roleCounts.get(role) - 1);
+        } else {
+            roleCounts.put(role, 0);
+        }
+    }
 
     public void draw() {
         manageVillagers(false);
@@ -79,10 +95,10 @@ public class Town {
         float y = spawn.getYPx();
         Villager villager = new Villager(x, y, role);
         villagers.add(villager);
-        if (villagerCount.containsKey(role)) {
-            villagerCount.put(role, villagerCount.get(role) + 1);
+        if (roleCounts.containsKey(role)) {
+            roleCounts.put(role, roleCounts.get(role) + 1);
         } else {
-            villagerCount.put(role, 1);
+            roleCounts.put(role, 1);
         }
         return villager;
     }
@@ -95,7 +111,8 @@ public class Town {
         for (int i = 0; i < count; i++) {
             Villager v = toDieQueue.poll();
             VILLAGER_ROLES role = v.getRole();
-            villagerCount.put(role, villagerCount.get(role) - 1);
+            // TODO
+            roleCounts.put(role, roleCounts.get(role) - 1);
             v.getTargetTile().stopHighlight();
             villagers.remove(v);
         }
@@ -170,6 +187,7 @@ public class Town {
                         townResources.reduceNeed(RESOURCES.FOOD, foodPerPerson);
                         townResources.reduceNeed(RESOURCES.WATER, waterPerPerson);
                         currVill.setVillageRole(currHut.supportedRole());
+
                     } else {
                         currVill.die();
                     }

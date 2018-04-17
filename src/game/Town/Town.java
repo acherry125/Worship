@@ -95,7 +95,9 @@ public class Town {
         for (int i = 0; i < count; i++) {
             Villager v = toDieQueue.poll();
             VILLAGER_ROLES role = v.getRole();
-            villagerCount.put(role, villagerCount.get(role) - 1);
+            if (villagerCount.containsKey(role)) {
+                villagerCount.put(role, villagerCount.get(role) - 1);
+            }
             v.getTargetTile().stopHighlight();
             villagers.remove(v);
         }

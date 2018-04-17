@@ -102,7 +102,11 @@ public class Town {
     }
 
     public boolean canSupportHut() {
-        return townResources.get(RESOURCES.WOOD) > 10;
+        if (board.getHuts().size() < 10) {
+            return townResources.get(RESOURCES.WOOD) > 10;
+        } else {
+            return townResources.get(RESOURCES.WOOD) > 15 && townResources.get(RESOURCES.STONE) > 5;
+        }
     }
 
     /**

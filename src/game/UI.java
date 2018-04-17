@@ -61,7 +61,7 @@ public class UI {
     }
 
     private void gameOverDraw() {
-        if (true){//Town.single().getVillagers().size() == 0) {
+        if (Town.single().getVillagers().size() == 0) {
             UI.gameOver = true;
             g.fill(175, 0, 0);
             g.stroke(0);

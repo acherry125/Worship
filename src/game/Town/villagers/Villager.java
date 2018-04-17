@@ -152,7 +152,7 @@ public class Villager {
         g.fill(0);
         g.textAlign(g.CENTER);
         g.text(resourcesInHand.size(), head.x, head.y - 32);
-        g.text((float) beliefInGod, head.x, head.y + 50);
+        g.text((float) beliefInGod * 10, head.x, head.y + 50);
     }
 
     /**

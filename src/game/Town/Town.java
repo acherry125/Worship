@@ -95,11 +95,7 @@ public class Town {
         float y = spawn.getYPx();
         Villager villager = new Villager(x, y, role);
         villagers.add(villager);
-        if (roleCounts.containsKey(role)) {
-            roleCounts.put(role, roleCounts.get(role) + 1);
-        } else {
-            roleCounts.put(role, 1);
-        }
+        incrementVillagerRoleCount(role);
         return villager;
     }
 
@@ -111,8 +107,7 @@ public class Town {
         for (int i = 0; i < count; i++) {
             Villager v = toDieQueue.poll();
             VILLAGER_ROLES role = v.getRole();
-            // TODO
-            roleCounts.put(role, roleCounts.get(role) - 1);
+            decrementVillagerRoleCount(role);
             v.getTargetTile().stopHighlight();
             villagers.remove(v);
         }

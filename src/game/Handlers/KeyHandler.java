@@ -26,6 +26,11 @@ public class KeyHandler {
     public void handlePress(KeyEvent event) {
         int keyCode = event.getKeyCode();
         g.setKeyPressed(keyCode, true);
+        if (keyCode == 69) {
+            g.getPlayer().rotatePower(true);
+        } else if (keyCode == 81) {
+            g.getPlayer().rotatePower(false);
+        }
     }
 
     public void handleRelease(KeyEvent event) {

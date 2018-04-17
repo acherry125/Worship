@@ -110,14 +110,14 @@ public class GodSim extends PApplet {
         ui = new UI(this);
         /* Cursor images */
         PImage blueCursor = loadImage(Paths.get(System.getProperty("user.dir"), "images", "cursor-blue.png").toString());
-        PImage orangeCursor = loadImage(Paths.get(System.getProperty("user.dir"), "images", "cursor-orange.png").toString());
+        PImage grayCursor = loadImage(Paths.get(System.getProperty("user.dir"), "images", "cursor-orange.png").toString());
         PImage greenCursor = loadImage(Paths.get(System.getProperty("user.dir"), "images", "cursor-green.png").toString());
         PImage redCursor = loadImage(Paths.get(System.getProperty("user.dir"), "images", "cursor-red.png").toString());
         cursorImages.put(Flood.single(), blueCursor);
-        cursorImages.put(BuildHut.single(), orangeCursor);
+        cursorImages.put(BuildHut.single(), grayCursor);
         cursorImages.put(GrowFood.single(), redCursor);
         cursorImages.put(GrowTree.single(), greenCursor);
-        cursorImg = blueCursor;
+        cursorImg = grayCursor;
 
         /* Resource Tile Images */
         treeImg = loadImage(Paths.get(System.getProperty("user.dir"), "images", "tree.png").toString());

@@ -29,7 +29,7 @@ class PowerManager {
     public PowerManager(GodSim g) {
         this.g = g;
         this.board = Board.single();
-        powers = new IPower[]{Flood.single(), BuildHut.single(), GrowTree.single(), GrowFood.single()};
+        powers = new IPower[]{BuildHut.single(), Flood.single(), GrowTree.single(), GrowFood.single()};
         for (int i = 0; i < powers.length; i++) {
             powerIndices.put(powers[i], i);
         }

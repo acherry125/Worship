@@ -1,6 +1,7 @@
 package game.Town.villagers.behaviors.gatherer;
 
 import game.Board.ATile;
+import game.Calendar;
 import game.Town.RESOURCES;
 import game.Town.Town;
 import game.Town.villagers.Villager;
@@ -26,7 +27,7 @@ public class CollectTargetA extends ATask {
       ATile targetTile = villager.getTargetTile();
       RESOURCES res = targetTile.peekResource();
       if (villager.getTargetTile().getResourceCount() != 0 && res != RESOURCES.NONE && res != RESOURCES.CRAFTED) {
-        if (timestamp != 0 && Town.single().getGodSim().millis() - timestamp > timer) {
+        if (timestamp != 0 && Calendar.single().millis() - timestamp > timer) {
           villager.addResource(villager.getTargetTile().getResource());
           villager.removeTimer(timerName);
           return TASKRESULT.SUCCESS;

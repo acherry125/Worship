@@ -2,6 +2,7 @@ package game.Player;
 
 import game.Board.ATile;
 import game.Board.Board;
+import game.Calendar;
 import game.GodSim;
 import game.Player.powers.BuildHut;
 import game.Player.powers.Flood;
@@ -44,8 +45,8 @@ public class PowerManager {
     private void godPowerUsed() {
         town.resetGodPowerTimer();
         town.powerWasUsedRecently();
-        if (g.millis() - timeLastUsedPower > lastUsedPowerInterval) {
-            timeLastUsedPower = g.millis();
+        if (Calendar.single().millis() - timeLastUsedPower > lastUsedPowerInterval) {
+            timeLastUsedPower = Calendar.single().millis();
             for (Villager villager : this.town.getVillagers()) {
                 if (activePower instanceof BuildHut) {
                     villager.changeBelief(g.map((float) Math.random(), 0, 1, 0.5f, 1f));

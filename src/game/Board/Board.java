@@ -135,7 +135,7 @@ public class Board {
     public AStructureTile buildHutOnTile(ATile tile) {
         ArrayList<RESOURCES> depletable = new ArrayList<>(Arrays.asList(new RESOURCES[]{RESOURCES.WOOD, RESOURCES.FOOD, RESOURCES.STONE}));
         // only on empty tiles (including tiles with empty resources)
-        if (tile.peekResource() != RESOURCES.NONE && !depletable.contains(tile.peekResource()) || (tile.getResourceCount() != 0 && depletable.contains(tile.peekResource()))) {
+        if (tile.isSpawner() || tile.peekResource() != RESOURCES.NONE && !depletable.contains(tile.peekResource()) || (tile.getResourceCount() != 0 && depletable.contains(tile.peekResource()))) {
             return null;
         }
         int indX = tile.getIndX();

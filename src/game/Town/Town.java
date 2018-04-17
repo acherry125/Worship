@@ -5,6 +5,7 @@ import java.util.*;
 import game.Board.ATile;
 import game.Board.Board;
 import game.Board.structures.HutTile;
+import game.Calendar;
 import game.GodSim;
 import game.Town.villagers.VILLAGER_ROLES;
 import game.Town.villagers.Villager;
@@ -18,8 +19,7 @@ public class Town {
     // what portion of the population should be each role
     private HashMap<VILLAGER_ROLES, Integer> roleCounts = new HashMap<VILLAGER_ROLES, Integer>();
     private int numWoodToBuildHut = 10;
-    private int foodWaterTimer = 0;
-    private int foodWaterInterval = 10000;
+    private String currentMonth;
     private int foodPerPerson = 3;
     private int waterPerPerson = 3;
     private int godPowerTimer = 0;
@@ -40,6 +40,7 @@ public class Town {
     private Town(GodSim g) {
         this.g = g;
         townResources = new TownResources();
+        currentMonth = Calendar.single().getMonth();
     }
 
     /*** GETTERS ***/
@@ -127,10 +128,10 @@ public class Town {
      * in the power's package), which can effect the timer.
      */
     private void checkGodPowersUsed() {
-        if (g.millis() - godPowerTimer > godUsedPowerInterval) {
+        if (Calendar.single().millis() - godPowerTimer > godUsedPowerInterval) {
             this.powerUsedRecently = false;
-            godPowerTimer = g.millis();
-            int multiplier = (g.millis() - godPowerTimer) % godUsedPowerInterval;
+            godPowerTimer = Calendar.single().millis();
+            int multiplier = (Calendar.single().millis() - godPowerTimer) % godUsedPowerInterval;
             multiplier = Math.max(multiplier, 4); // Cap the multiplier by 4
             for (Villager villager : villagers) {
                 villager.changeBelief(g.map((float) Math.random(), 0, 1, -0.01f,
@@ -146,7 +147,7 @@ public class Town {
      * in checkGodPowerUsed.
      */
     public void resetGodPowerTimer() {
-        this.godPowerTimer = g.millis();
+        this.godPowerTimer = Calendar.single().millis();
     }
 
     public void powerWasUsedRecently() {
@@ -165,8 +166,8 @@ public class Town {
         }
         ArrayList<HutTile> huts = board.getHuts();
         int numHuts = huts.size();
-        if (initial || g.millis() - foodWaterTimer > foodWaterInterval) {
-            foodWaterTimer = g.millis();
+        if (initial || Calendar.single().getMonth() != currentMonth) {
+            currentMonth = Calendar.single().getMonth();
             int count = villagers.size();
             // go through existing people, see which survive, spawn more if sustainable
             for (int i = 0; i < Math.max(count, numHuts); i++) {

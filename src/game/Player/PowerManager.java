@@ -48,9 +48,9 @@ public class PowerManager {
             timeLastUsedPower = g.millis();
             for (Villager villager : this.town.getVillagers()) {
                 if (activePower instanceof BuildHut) {
-                    villager.changeBelief(g.map((float) Math.random(), 0, 1, 0.5f, 1f));
+                    villager.changeBelief(g.map((float) Math.random(), 0, 1, 0.25f, .5f));
                 } else {
-                    villager.changeBelief(g.map((float) Math.random(), 0, 1, 0.15f, 1f));
+                    villager.changeBelief(g.map((float) Math.random(), 0, 1, 0.15f, .4f));
                 }
             }
         }

@@ -50,7 +50,7 @@ public class UI {
         //Controls
         g.fill(100, 100, 100, 230);
         g.rect(0, GodSim.SCREEN_HEIGHT - 80, GodSim.SCREEN_WIDTH, GodSim.SCREEN_HEIGHT);
-        g.fill(0);
+        g.fill(255, 255, 255);
         g.text("Controls", 10, GodSim.SCREEN_HEIGHT - 75);
         g.fill(255, 255, 255);
         g.textSize(14);
@@ -61,7 +61,7 @@ public class UI {
     }
 
     private void gameOverDraw() {
-        if (Town.single().getVillagers().size() == 0) {
+        if (true){//Town.single().getVillagers().size() == 0) {
             UI.gameOver = true;
             g.fill(175, 0, 0);
             g.stroke(0);
@@ -72,14 +72,15 @@ public class UI {
             g.textSize(64);
             g.text("Game Over.", GodSim.SCREEN_WIDTH / 2 - 180, GodSim.SCREEN_HEIGHT / 2 - 125);
             g.textSize(14);
-            g.textAlign(2, 2);
+            g.textAlign(g.CENTER, g.CENTER);
             g.text("All your villagers have died.",
-                    GodSim.SCREEN_WIDTH / 2 - 150, GodSim.SCREEN_HEIGHT / 2 - 25);
-            g.text("Next try to keep belief above 1",
-                    GodSim.SCREEN_WIDTH / 2 - 150, GodSim.SCREEN_HEIGHT / 2);
-            g.text("and maintain Food & Water resources.",
-                    GodSim.SCREEN_WIDTH / 2 - 150, GodSim.SCREEN_HEIGHT / 2 + 25);
-            g.fill(0);
+                    GodSim.SCREEN_WIDTH / 2, GodSim.SCREEN_HEIGHT / 2 - 25);
+            g.text("Next time, try to inspire belief in your villagers by acting near them.",
+                    GodSim.SCREEN_WIDTH / 2 , GodSim.SCREEN_HEIGHT / 2);
+            g.text("Villagers need food and water to survive, wood and stone to expand.",
+                    GodSim.SCREEN_WIDTH / 2, GodSim.SCREEN_HEIGHT / 2 + 25);
+            g.textAlign(g.LEFT, g.CENTER);
+            g.fill(33);
             g.text("Left click anywhere to exit", GodSim.SCREEN_WIDTH / 2 - 240, GodSim.SCREEN_HEIGHT / 2 + 60);
         }
     }

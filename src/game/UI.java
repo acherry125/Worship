@@ -14,7 +14,7 @@ public class UI {
         if (g.gameStarted) {
             drawGame();
         } else {
-            drawMenu();
+            //drawMenu();
         }
     }
 
@@ -27,6 +27,7 @@ public class UI {
     }
 
     private void villageResourcesDraw() {
+
         //Village resources
         g.translate(-g.getCamera().getX(), -g.getCamera().getY());
         g.rectMode(g.CORNER);
@@ -38,12 +39,14 @@ public class UI {
         g.text(String.join(". Day ", new String[]{Calendar.single().getMonth(), Calendar.single().getDay()}), 100, 10);
         g.textAlign(g.LEFT, g.TOP);
         g.text("Resources:", 12, 40);
-        g.textSize(16);
+        // lags Alex's laptop
+        //g.textSize(16);
         String needsString = Town.single().getTownResources().toString();
         String needs[] = needsString.split("\n");
         String needsFormatted = String.join("\n", needs);
         g.textAlign(g.LEFT, g.TOP);
         g.text(needsFormatted, 12, 72);
+
     }
 
     private void controlsDraw() {
@@ -53,7 +56,6 @@ public class UI {
         g.fill(255, 255, 255);
         g.text("Controls", 10, GodSim.SCREEN_HEIGHT - 75);
         g.fill(255, 255, 255);
-        g.textSize(14);
         g.text("Move Screen: Up/Down/Left/Right or W/S/A/D",10, GodSim.SCREEN_HEIGHT - 50);
         g.text("Change Villager Roles: Left click on hut",10, GodSim.SCREEN_HEIGHT - 30);
         g.text("Change God Power: Mouse Scroll, Q/E", GodSim.SCREEN_WIDTH/2, GodSim.SCREEN_HEIGHT - 50);
@@ -65,20 +67,18 @@ public class UI {
             UI.gameOver = true;
             g.fill(175, 0, 0);
             g.stroke(0);
-            g.textSize(40);
             g.rect(GodSim.SCREEN_WIDTH / 2 - 250, GodSim.SCREEN_HEIGHT / 2 - 150,
                     GodSim.SCREEN_WIDTH / 2, GodSim.SCREEN_HEIGHT / 2 - 125);
             g.fill(255, 255, 255);
-            g.textSize(64);
             g.text("Game Over.", GodSim.SCREEN_WIDTH / 2 - 180, GodSim.SCREEN_HEIGHT / 2 - 125);
-            g.textSize(14);
             g.textAlign(g.CENTER, g.CENTER);
             g.text("All your villagers have died.",
-                    GodSim.SCREEN_WIDTH / 2, GodSim.SCREEN_HEIGHT / 2 - 25);
-            g.text("Next time, try to inspire belief in your villagers by acting near them.",
-                    GodSim.SCREEN_WIDTH / 2 , GodSim.SCREEN_HEIGHT / 2);
-            g.text("Villagers need food and water to survive, wood and stone to expand.",
-                    GodSim.SCREEN_WIDTH / 2, GodSim.SCREEN_HEIGHT / 2 + 25);
+                    GodSim.SCREEN_WIDTH / 2, GodSim.SCREEN_HEIGHT / 2 - 70);
+            g.textAlign(g.CENTER, g.TOP);
+            g.text("Next time, try to inspire belief in your \nvillagers by using powers. Villagers \nneed food and water, wood and stone to expand.",
+                    GodSim.SCREEN_WIDTH / 2 , GodSim.SCREEN_HEIGHT / 2 - 35);
+            g.text("",
+                    GodSim.SCREEN_WIDTH / 2, GodSim.SCREEN_HEIGHT / 2);
             g.textAlign(g.LEFT, g.CENTER);
             g.fill(33);
             g.text("Left click anywhere to exit", GodSim.SCREEN_WIDTH / 2 - 240, GodSim.SCREEN_HEIGHT / 2 + 60);
@@ -97,7 +97,6 @@ public class UI {
         g.rect(0,0, g.width, g.height);
         g.textAlign(g.CENTER, g.BOTTOM);
         g.fill(255, 255, 255);
-        g.textSize(32);
         g.text("You are a god.\n Prepare to meet your chosen followers.", g.width/2, g.height/2);
         if (mouseOnButton()) {
             g.fill(0, 255, 255);

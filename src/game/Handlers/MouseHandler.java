@@ -3,6 +3,7 @@ package game.Handlers;
 import game.Board.ATile;
 import game.Board.Board;
 import game.GodSim;
+import game.UI;
 
 import static processing.core.PApplet.println;
 
@@ -18,6 +19,10 @@ public class MouseHandler {
             if (g.getUI().mouseOnButton()) {
                 g.startGame();
             }
+        }
+
+        if (UI.gameOver) {
+            System.exit(0);
         }
     }
     public void handleRight() {

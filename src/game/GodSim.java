@@ -21,8 +21,8 @@ import java.util.HashMap;
 
 public class GodSim extends PApplet {
 
-    public final float SCREEN_WIDTH = 1000;
-    public final float SCREEN_HEIGHT = 700;
+    public static final float SCREEN_WIDTH = 1000;
+    public static final float SCREEN_HEIGHT = 700;
 
     public final float CELLS_WIDE = 60;
     public final float CELLS_TALL = 60;

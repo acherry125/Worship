@@ -56,7 +56,7 @@ public class TownResources {
 
     public void raiseNeed(RESOURCES need, int num) {
         if (need == RESOURCES.CRAFTED || need == RESOURCES.NONE) {
-            println("whoops");
+//            println("whoops");
         } else {
             townNeeds.put(need, townNeeds.get(need) + num);
         }
